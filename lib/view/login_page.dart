@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'widgets/my_textfield.dart';
+import 'widgets/nav_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -186,7 +187,7 @@ class LoginPage extends StatelessWidget {
                     SizedBox(height: 16.h),
                     MyButton(
                       label: 'LOGIN',
-                      onPress: () => Get.offAll(() => NavigatorPage()),
+                      onPress: () => Get.offAll(() => NavPage()),
                     ),
                     SizedBox(height: 32.h),
                     Text(

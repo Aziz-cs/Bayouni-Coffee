@@ -7,21 +7,38 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({Key? key}) : super(key: key);
-
+  const ProductPage({
+    Key? key,
+    required this.routedFrom,
+  }) : super(key: key);
+  final String routedFrom;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () => Get.back(),
-                    icon: const Icon(CupertinoIcons.back)),
-              ],
+            InkWell(
+              onTap: () => Navigator.pop(context),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(CupertinoIcons.back),
+                    iconSize: 22,
+                    padding: EdgeInsets.only(
+                      left: 6.w,
+                      right: 3.w,
+                      bottom: 6.h,
+                      top: 6.h,
+                    ),
+                    constraints: BoxConstraints(),
+                  ),
+                  Text('Back to $routedFrom'),
+                ],
+              ),
             ),
+            SizedBox(height: 4.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
@@ -76,7 +93,7 @@ class ProductPage extends StatelessWidget {
                       color: kGrey,
                     ),
                   ),
-                  SizedBox(height: 16.h),
+                  SizedBox(height: 2.h),
                   MyButton(label: 'NEXT TO PROCEED', onPress: () {}),
                 ],
               ),

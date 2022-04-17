@@ -2,6 +2,7 @@ import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../product_page.dart';
 
@@ -15,6 +16,7 @@ class CatalogTab extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Column(
           children: [
+            SizedBox(height: 10.h),
             const MyTextField(
                 iconData: Icons.search, hintText: 'Type something..'),
             Expanded(
@@ -25,7 +27,18 @@ class CatalogTab extends StatelessWidget {
                   children: List.generate(
                     13,
                     (index) => InkWell(
-                      onTap: () => Get.to(() => const ProductPage()),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        pushNewScreen(
+                          context,
+                          screen: const ProductPage(
+                            routedFrom: "Catalog",
+                          ),
+                          withNavBar: true, // OPTIONAL VALUE. True by default.
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                        );
+                      },
                       child: Placeholder(
                         fallbackHeight: 158.h,
                         fallbackWidth: 158.w,
