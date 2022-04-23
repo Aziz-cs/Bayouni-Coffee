@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 344.w,
+      width: double.infinity,
       height: 43.h,
       margin: EdgeInsets.only(bottom: 16.h),
       color: Colors.white,

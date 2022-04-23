@@ -1,4 +1,6 @@
 import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/view/checkout_page.dart';
+import 'package:bayouni_coffee/view/orders_page.dart';
 import 'package:bayouni_coffee/view/settings_page.dart';
 import 'package:bayouni_coffee/view/thanks_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,13 +52,21 @@ class MoreTab extends StatelessWidget {
               _buildRowChoice(
                 label: "My Orders",
                 iconData: Icons.checklist_rtl_sharp,
-                onPress: () => {},
+                onPress: () => pushNewScreen(
+                  context,
+                  screen: const OrdersPage(),
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                ),
               ),
-              _buildRowChoice(
-                label: "My Favorite",
-                iconData: CupertinoIcons.heart,
-                onPress: () => {},
-              ),
+              // _buildRowChoice(
+              //   label: "My Favorite",
+              //   iconData: CupertinoIcons.heart,
+              //   onPress: () => pushNewScreen(
+              //     context,
+              //     screen: const OrdersPage(),
+              //     pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              //   ),
+              // ),
               _buildRowChoice(
                 label: "Delivery",
                 iconData: Icons.delivery_dining_sharp,
@@ -79,9 +89,7 @@ class MoreTab extends StatelessWidget {
                 iconData: Icons.developer_mode,
                 onPress: () => pushNewScreen(
                   context,
-                  screen: SettingsPage(
-                    routedFrom: "Settings",
-                  ),
+                  screen: const CheckOutPage(),
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 ),
               ),

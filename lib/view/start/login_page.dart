@@ -1,14 +1,14 @@
 import 'package:bayouni_coffee/constants.dart';
 import 'package:bayouni_coffee/view/navigator_page.dart';
-import 'package:bayouni_coffee/view/register_page.dart';
+import 'package:bayouni_coffee/view/start/register_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'widgets/my_textfield.dart';
-import 'widgets/nav_page.dart';
+import '../widgets/my_textfield.dart';
+import '../widgets/nav_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

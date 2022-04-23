@@ -1,9 +1,10 @@
+import 'package:bayouni_coffee/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'view/splash_page.dart';
+import 'view/start/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,9 +34,12 @@ class MyApp extends StatelessWidget {
         title: 'Bayouni Coffee',
         theme: ThemeData(
           fontFamily: 'Lato',
-          backgroundColor: const Color(0xFFF7F7F7),
+          backgroundColor: kGrey,
           unselectedWidgetColor: const Color(0xFFE5E5E5),
-          textTheme: TextTheme(button: TextStyle(fontSize: 45.sp)),
+          textTheme: TextTheme().copyWith(
+            button: TextStyle(fontSize: 45.sp),
+            bodyText2: const TextStyle(color: kDarkGrey),
+          ),
           primarySwatch: Colors.brown,
         ),
         home: const SplashPage(),

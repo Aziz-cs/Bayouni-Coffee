@@ -16,10 +16,12 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
               onTap: () => Navigator.pop(context),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
