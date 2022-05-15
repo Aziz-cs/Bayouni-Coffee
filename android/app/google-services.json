@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "209848354844",
+    "project_id": "bayouni-coffee",
+    "storage_bucket": "bayouni-coffee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209848354844:android:7cbbe09eceaf477a07b7d9",
+        "android_client_info": {
+          "package_name": "com.bayounicoffee.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209848354844-42d8bvp3ihbstc1ssfikenepefkgb6jo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bayounicoffee.app",
+            "certificate_hash": "ba18b6eb0a6b1d9fc3dabe1681702acff055a9ec"
+          }
+        },
+        {
+          "client_id": "209848354844-o9lu1foo9f1c1gml3va8p0g8ta7p5vvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnjfB94mbAx2useitaKIbHJ8q8PcNwOYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209848354844-o9lu1foo9f1c1gml3va8p0g8ta7p5vvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

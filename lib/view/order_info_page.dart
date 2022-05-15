@@ -31,7 +31,7 @@ class OrderInfoPage extends StatelessWidget {
                       bottom: 6.h,
                       top: 6.h,
                     ),
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                   ),
                   Text(
                     "My orders",

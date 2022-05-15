@@ -1,5 +1,4 @@
 import 'package:bayouni_coffee/constants.dart';
-import 'package:bayouni_coffee/view/navigator_page.dart';
 import 'package:bayouni_coffee/view/start/register_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';

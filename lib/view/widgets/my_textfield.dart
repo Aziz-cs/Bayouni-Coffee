@@ -8,10 +8,12 @@ class MyTextField extends StatelessWidget {
     Key? key,
     required this.iconData,
     required this.hintText,
+    this.isPrefixIcon = true,
   }) : super(key: key);
 
   final IconData iconData;
   final String hintText;
+  final bool isPrefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,18 @@ class MyTextField extends StatelessWidget {
       color: Colors.white,
       child: TextField(
         decoration: InputDecoration(
-            prefixIcon: Icon(
-              iconData,
-              color: kGrey,
-            ),
+            prefixIcon: isPrefixIcon
+                ? Icon(
+                    iconData,
+                    color: kGrey,
+                  )
+                : const SizedBox(),
+            suffixIcon: isPrefixIcon
+                ? const SizedBox()
+                : Icon(
+                    iconData,
+                    color: kGrey,
+                  ),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                 color: Color(0xFFE5E5E5),

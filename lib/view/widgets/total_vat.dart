@@ -1,0 +1,45 @@
+import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/view/widgets/my_button.dart';
+import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class TotalVAT extends StatelessWidget {
+  const TotalVAT({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey.shade200,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            SizedBox(height: 10.h),
+            const MyTextField(
+              iconData: Icons.comment_outlined,
+              hintText: 'Add comment',
+              isPrefixIcon: false,
+            ),
+            MyButton(
+              label: 'ADD TO CART',
+              onPress: () => showToast('Added to cart'),
+            ),
+            SizedBox(height: 9.h),
+            MyButton(
+              label: 'CONTINUE SHOPPING',
+              onPress: () => showToast('Added to cart'),
+              isFilled: false,
+            ),
+            SizedBox(height: 9.h),
+            MyButton(
+              label: 'CHECK OUT',
+              onPress: () => showToast('Added to cart'),
+              isFilled: false,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
