@@ -8,6 +8,7 @@ const Color kDarkGrey = Color(0xFF3A3C40);
 final kTxtStyleNormal = TextStyle(fontSize: 16.sp);
 
 const precentageList = [
+  '0 %',
   '10 %',
   '20 %',
   '30 %',

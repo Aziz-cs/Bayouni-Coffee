@@ -20,7 +20,7 @@ class MyTextField extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 43.h,
-      margin: EdgeInsets.only(bottom: 16.h),
+      margin: EdgeInsets.only(bottom: 10.h),
       color: Colors.white,
       child: TextField(
         decoration: InputDecoration(

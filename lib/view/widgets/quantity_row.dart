@@ -39,8 +39,8 @@ class _QuantityRowState extends State<QuantityRow> {
                   size: 20,
                 )),
             Container(
-              width: 40.w,
-              height: 30.h,
+              width: 32.w,
+              height: 23.h,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 border: Border.all(

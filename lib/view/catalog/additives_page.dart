@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum AdditivesType { beans, ground }
-enum GroundType { fine, coarse }
+enum CoffeeType { fine, coarse }
 enum SaffronGram { gram3, gram5 }
 
 class AdditivesPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class AdditivesPage extends StatefulWidget {
 
 class _AdditivesPageState extends State<AdditivesPage> {
   AdditivesType _coffeeType = AdditivesType.beans;
-  GroundType _groundType = GroundType.fine;
+  CoffeeType _groundType = CoffeeType.fine;
   SaffronGram _saffronGram = SaffronGram.gram3;
   int _quantity = 1;
 
@@ -140,7 +140,7 @@ class _AdditivesPageState extends State<AdditivesPage> {
                     if (_coffeeType == AdditivesType.ground)
                       Column(
                         children: [
-                          RadioListTile<GroundType>(
+                          RadioListTile<CoffeeType>(
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 35.w),
                             dense: true,
@@ -150,15 +150,15 @@ class _AdditivesPageState extends State<AdditivesPage> {
                                 fontSize: 13.sp,
                               ),
                             ),
-                            value: GroundType.fine,
+                            value: CoffeeType.fine,
                             groupValue: _groundType,
                             onChanged: (value) {
                               setState(() {
-                                _groundType = value ?? GroundType.fine;
+                                _groundType = value ?? CoffeeType.fine;
                               });
                             },
                           ),
-                          RadioListTile<GroundType>(
+                          RadioListTile<CoffeeType>(
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 35.w),
                             dense: true,
@@ -168,11 +168,11 @@ class _AdditivesPageState extends State<AdditivesPage> {
                                 fontSize: 13.sp,
                               ),
                             ),
-                            value: GroundType.coarse,
+                            value: CoffeeType.coarse,
                             groupValue: _groundType,
                             onChanged: (value) {
                               setState(() {
-                                _groundType = value ?? GroundType.fine;
+                                _groundType = value ?? CoffeeType.fine;
                               });
                             },
                           ),

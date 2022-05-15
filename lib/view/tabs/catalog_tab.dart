@@ -1,5 +1,8 @@
 import 'package:bayouni_coffee/view/catalog/additives_page.dart';
+import 'package:bayouni_coffee/view/catalog/arabic_coffee_page.dart';
 import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
+import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
+import 'package:bayouni_coffee/view/catalog/espresso_page.dart';
 import 'package:bayouni_coffee/view/catalog/flavored_coffee_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +58,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_arabic_coffee',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const TurkishCoffeePage(),
+                      screen: const ArabicCoffeePage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
@@ -67,7 +70,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_brewed',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const TurkishCoffeePage(),
+                      screen: const BrewedPage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
@@ -79,7 +82,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_flavored',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const FlavoredCoffeePage(),
+                      screen: const EspressoPage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,

@@ -58,7 +58,7 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
             SizedBox(height: 10.h),
             Stack(
               children: [
-                Image.asset('assets/images/catalog_additives_big.png'),
+                Image.asset('assets/images/catalog_tea_big.png'),
                 Positioned(
                   right: 0,
                   child: IconButton(

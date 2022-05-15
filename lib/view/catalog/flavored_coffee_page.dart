@@ -5,6 +5,7 @@ import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 enum FlavoredStyle {
   hazenut,
@@ -14,8 +15,8 @@ enum FlavoredStyle {
   almonds,
   caramel,
 }
-enum FlavoredType { fine, coarse }
-enum GroundType { gram3, gram5 }
+enum GroundType { beans, ground }
+enum FlavoredType { fine, course }
 
 class FlavoredCoffeePage extends StatefulWidget {
   const FlavoredCoffeePage({Key? key}) : super(key: key);
@@ -26,8 +27,8 @@ class FlavoredCoffeePage extends StatefulWidget {
 
 class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
   FlavoredStyle? _flavoredStyle = FlavoredStyle.hazenut;
-  FlavoredType _flavoredType = FlavoredType.fine;
-  GroundType _groundType = GroundType.gram3;
+  FlavoredType? _flavoredType = FlavoredType.fine;
+  GroundType? _groundType = GroundType.beans;
   int _quantity = 1;
 
   @override
@@ -91,6 +92,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                     SizedBox(height: 6.h),
                     _buildRadioTileFlavored(
                       title: 'Hazenut',
+                      flavoredStyle: FlavoredStyle.hazenut,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
@@ -99,6 +101,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                     ),
                     _buildRadioTileFlavored(
                       title: 'French Vanilla',
+                      flavoredStyle: FlavoredStyle.frenchVanilla,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
@@ -106,7 +109,8 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Hazenut',
+                      title: 'Chocolate',
+                      flavoredStyle: FlavoredStyle.chocolate,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
@@ -114,7 +118,8 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Hazenut',
+                      title: 'Macadomia',
+                      flavoredStyle: FlavoredStyle.macadomia,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
@@ -122,7 +127,8 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Hazenut',
+                      title: 'Almonds',
+                      flavoredStyle: FlavoredStyle.almonds,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
@@ -130,13 +136,91 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Hazenut',
+                      title: 'Caramel',
+                      flavoredStyle: FlavoredStyle.caramel,
                       onPress: (value) {
                         setState(() {
                           _flavoredStyle = value;
                         });
                       },
                     ),
+                    aDivider(),
+                    Text('Type', style: kTxtStyleNormal),
+                    RadioListTile<GroundType>(
+                      dense: true,
+                      title: Text(
+                        'Beans',
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                        ),
+                      ),
+                      value: GroundType.beans,
+                      groupValue: _groundType,
+                      onChanged: (value) {
+                        setState(() {
+                          _groundType = value;
+                        });
+                      },
+                    ),
+                    RadioListTile<GroundType>(
+                      dense: true,
+                      title: Text(
+                        'Ground',
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                        ),
+                      ),
+                      value: GroundType.ground,
+                      groupValue: _groundType,
+                      onChanged: (value) {
+                        setState(() {
+                          _groundType = value;
+                        });
+                      },
+                    ),
+                    if (_groundType == GroundType.ground)
+                      Column(
+                        children: [
+                          RadioListTile<FlavoredType>(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 35.w),
+                            dense: true,
+                            title: Text(
+                              'Fine Grind',
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                            subtitle: const Text('Turkish coffee'),
+                            value: FlavoredType.fine,
+                            groupValue: _flavoredType,
+                            onChanged: (value) {
+                              setState(() {
+                                _flavoredType = value;
+                              });
+                            },
+                          ),
+                          RadioListTile<FlavoredType>(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 35.w),
+                            dense: true,
+                            title: Text(
+                              'Course Grind',
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                            subtitle: const Text('Brewed coffee'),
+                            value: FlavoredType.course,
+                            groupValue: _flavoredType,
+                            onChanged: (value) {
+                              setState(() {
+                                _flavoredType = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -151,6 +235,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
 
   RadioListTile<FlavoredStyle> _buildRadioTileFlavored({
     required String title,
+    required FlavoredStyle flavoredStyle,
     required Function(FlavoredStyle?) onPress,
   }) {
     return RadioListTile<FlavoredStyle>(
@@ -161,7 +246,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
           fontSize: 15.sp,
         ),
       ),
-      value: FlavoredStyle.hazenut,
+      value: flavoredStyle,
       groupValue: _flavoredStyle,
       onChanged: onPress,
     );
