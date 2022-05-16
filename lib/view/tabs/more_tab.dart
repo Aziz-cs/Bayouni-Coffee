@@ -27,7 +27,7 @@ class MoreTab extends StatelessWidget {
                   CircleAvatar(
                     maxRadius: 60.w,
                     backgroundImage:
-                        Image.asset('assets/images/avatar.jpg').image,
+                        Image.asset('assets/images/avatar.png').image,
                   ),
                   Positioned(
                     bottom: 0,
@@ -38,7 +38,7 @@ class MoreTab extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Text(
-                'Muhammad Aziz',
+                'Ahmad Mikael',
                 style: TextStyle(
                   fontSize: 24.sp,
                 ),

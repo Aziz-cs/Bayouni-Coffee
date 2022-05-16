@@ -1,5 +1,5 @@
 import 'package:bayouni_coffee/constants.dart';
-import 'package:bayouni_coffee/view/tabs/additives_tab.dart';
+import 'package:bayouni_coffee/view/tabs/accessories_tab.dart';
 import 'package:bayouni_coffee/view/tabs/cart_tab.dart';
 import 'package:bayouni_coffee/view/tabs/catalog_tab.dart';
 import 'package:bayouni_coffee/view/tabs/favorites_tab.dart';
@@ -16,7 +16,7 @@ class NavigatorPage extends StatelessWidget {
   final _tabs = const [
     HomeTab(),
     CatalogTab(),
-    AdditivesTab(),
+    AccessoriesTab(),
     CartTab(),
     FavoritesTab(),
     MoreTab()

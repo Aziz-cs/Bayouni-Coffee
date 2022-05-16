@@ -1,8 +1,10 @@
+import 'package:bayouni_coffee/view/thanks_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class CheckOutPage extends StatelessWidget {
   const CheckOutPage({Key? key}) : super(key: key);
@@ -88,8 +90,16 @@ class CheckOutPage extends StatelessWidget {
                   onChanged: (_) {},
                 ),
               ),
-              Spacer(),
-              MyButton(label: 'CONTINUE', onPress: () {}),
+              const Spacer(),
+              MyButton(
+                label: 'CONTINUE',
+                onPress: () => pushNewScreen(
+                  context,
+                  screen: const ThanksPage(),
+                  withNavBar: true, // OPTIONAL VALUE. True by default.
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                ),
+              ),
             ],
           ),
         ),

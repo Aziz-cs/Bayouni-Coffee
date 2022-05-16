@@ -6,6 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../controller/helper.dart';
+
 class ProductPage extends StatelessWidget {
   const ProductPage({
     Key? key,
@@ -94,7 +96,10 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 2.h),
-                  MyButton(label: 'NEXT TO PROCEED', onPress: () {}),
+                  MyButton(
+                    label: 'NEXT TO PROCEED',
+                    onPress: () => showToast('Demo purpose'),
+                  ),
                 ],
               ),
             )

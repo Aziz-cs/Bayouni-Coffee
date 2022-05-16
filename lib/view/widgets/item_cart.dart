@@ -95,7 +95,7 @@ class CartItem extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(right: 44.w),
                       child: Text(
-                        "Good quality black Kenyan teaaaaaaa  safsafsa fa fasas ",
+                        "Good quality black Kenyan, continue for a big description",
                         style: TextStyle(
                           fontSize: 14.5.sp,
                           color: kGrey,
@@ -119,14 +119,14 @@ class CartItem extends StatelessWidget {
               Text(
                 'VAT Included',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                 ),
               ),
               Text(
                 '\$76',
                 style: TextStyle(
                   color: kBeige,
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                 ),
               )
             ],

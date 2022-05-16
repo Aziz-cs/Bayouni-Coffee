@@ -2,7 +2,7 @@ import 'package:bayouni_coffee/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:flutter/material.dart';
-import 'package:bayouni_coffee/view/tabs/additives_tab.dart';
+import 'package:bayouni_coffee/view/tabs/accessories_tab.dart';
 import 'package:bayouni_coffee/view/tabs/cart_tab.dart';
 import 'package:bayouni_coffee/view/tabs/catalog_tab.dart';
 import 'package:bayouni_coffee/view/tabs/favorites_tab.dart';
@@ -55,9 +55,8 @@ class NavPage extends StatelessWidget {
 
   List<Widget> _buildScreens() {
     return const [
-      HomeTab(),
       CatalogTab(),
-      AdditivesTab(),
+      AccessoriesTab(),
       CartTab(),
       FavoritesTab(),
       MoreTab()
@@ -66,9 +65,8 @@ class NavPage extends StatelessWidget {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      _buildNavBarItem(label: 'Home', icon: CupertinoIcons.home),
       _buildNavBarItem(label: 'Catalog', icon: CupertinoIcons.square_grid_2x2),
-      _buildNavBarItem(label: 'Additives', icon: CupertinoIcons.bag),
+      _buildNavBarItem(label: 'Accessories', icon: CupertinoIcons.bag),
       _buildNavBarItem(label: 'Cart', icon: CupertinoIcons.cart),
       _buildNavBarItem(label: 'Favorites', icon: CupertinoIcons.heart),
       _buildNavBarItem(label: 'More', icon: CupertinoIcons.profile_circled),

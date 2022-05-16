@@ -2,6 +2,7 @@ import 'package:bayouni_coffee/view/catalog/additives_page.dart';
 import 'package:bayouni_coffee/view/catalog/arabic_coffee_page.dart';
 import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
 import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
+import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
 import 'package:bayouni_coffee/view/catalog/espresso_page.dart';
 import 'package:bayouni_coffee/view/catalog/flavored_coffee_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
@@ -95,6 +96,18 @@ class CatalogTab extends StatelessWidget {
                     onPress: () => pushNewScreen(
                       context,
                       screen: const BlackTeaPage(),
+                      withNavBar: true, // OPTIONAL VALUE. True by default.
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                    ),
+                  ),
+                  ProductItem(
+                    productTitle: 'Creamy French',
+                    isFavorite: false,
+                    imgName: 'catalog_creamy',
+                    onPress: () => pushNewScreen(
+                      context,
+                      screen: const CreamyPage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
