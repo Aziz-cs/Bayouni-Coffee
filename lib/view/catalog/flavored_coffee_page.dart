@@ -1,5 +1,6 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,7 @@ enum FlavoredStyle {
   caramel,
 }
 enum GroundType { beans, ground }
-enum FlavoredType { fine, course }
+enum FlavoredType { fine, course, powder }
 
 class FlavoredCoffeePage extends StatefulWidget {
   const FlavoredCoffeePage({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
   FlavoredStyle? _flavoredStyle = FlavoredStyle.hazenut;
   FlavoredType? _flavoredType = FlavoredType.fine;
   GroundType? _groundType = GroundType.beans;
-  int _quantity = 1;
+  double _quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +187,7 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                                 EdgeInsets.symmetric(horizontal: 35.w),
                             dense: true,
                             title: Text(
-                              'Fine Grind',
+                              'Fine',
                               style: TextStyle(
                                 fontSize: 13.sp,
                               ),
@@ -205,12 +206,31 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                                 EdgeInsets.symmetric(horizontal: 35.w),
                             dense: true,
                             title: Text(
-                              'Course Grind',
+                              'Light Powder',
                               style: TextStyle(
                                 fontSize: 13.sp,
                               ),
                             ),
-                            subtitle: const Text('Brewed coffee'),
+                            subtitle: const Text('Espresso Machine'),
+                            value: FlavoredType.powder,
+                            groupValue: _flavoredType,
+                            onChanged: (value) {
+                              setState(() {
+                                _flavoredType = value;
+                              });
+                            },
+                          ),
+                          RadioListTile<FlavoredType>(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 35.w),
+                            dense: true,
+                            title: Text(
+                              'Course',
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                            subtitle: const Text('Brewed Coffee'),
                             value: FlavoredType.course,
                             groupValue: _flavoredType,
                             onChanged: (value) {
@@ -221,10 +241,13 @@ class _FlavoredCoffeePageState extends State<FlavoredCoffeePage> {
                           ),
                         ],
                       ),
+                    QuantityRow(
+                      quantity: _quantity,
+                    ),
                   ],
                 ),
               ),
-              const TotalVAT(),
+              TotalVAT(),
               SizedBox(height: 50.h),
             ],
           ),

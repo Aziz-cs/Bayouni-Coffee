@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/tabs/accessories_tab.dart';
 import 'package:bayouni_coffee/view/tabs/cart_tab.dart';
 import 'package:bayouni_coffee/view/tabs/catalog_tab.dart';
@@ -13,12 +13,11 @@ class NavigatorPage extends StatelessWidget {
   NavigatorPage({Key? key}) : super(key: key);
 
   final _currentIndex = 0.obs;
-  final _tabs = const [
-    HomeTab(),
+  final _tabs = [
     CatalogTab(),
     AccessoriesTab(),
-    CartTab(),
-    FavoritesTab(),
+    const CartTab(),
+    const FavoritesTab(),
     MoreTab()
   ];
 
@@ -35,33 +34,29 @@ class NavigatorPage extends StatelessWidget {
           onTap: (index) => _currentIndex.value = index,
           items: [
             _buildTabItem(
-                label: 'Home',
-                imgName: 'tab_home',
-                isSelected: _currentIndex.value == 0),
-            _buildTabItem(
               label: 'Catalog',
               imgName: 'tab_catalog',
-              isSelected: _currentIndex.value == 1,
+              isSelected: _currentIndex.value == 0,
             ),
             _buildTabItem(
-              label: 'Additives',
+              label: 'Accessories',
               imgName: 'tab_additives',
-              isSelected: _currentIndex.value == 2,
+              isSelected: _currentIndex.value == 1,
             ),
             _buildTabItem(
               label: 'Cart',
               imgName: 'tab_cart',
-              isSelected: _currentIndex.value == 3,
+              isSelected: _currentIndex.value == 2,
             ),
             _buildTabItem(
               label: 'Favorites',
               imgName: 'tab_favorites',
-              isSelected: _currentIndex.value == 4,
+              isSelected: _currentIndex.value == 3,
             ),
             _buildTabItem(
               label: 'More',
               imgName: 'tab_more',
-              isSelected: _currentIndex.value == 0,
+              isSelected: _currentIndex.value == 4,
             )
           ],
         ),

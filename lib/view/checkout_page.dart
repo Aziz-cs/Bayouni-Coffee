@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class CheckOutPage extends StatelessWidget {
-  const CheckOutPage({Key? key}) : super(key: key);
+import '../utils/constants.dart';
 
+class CheckOutPage extends StatelessWidget {
+  CheckOutPage({Key? key}) : super(key: key);
+  final _fullNameContoller = TextEditingController();
+  final _phoneNoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +47,26 @@ class CheckOutPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 13.h),
-              const MyTextField(
-                  iconData: CupertinoIcons.person, hintText: 'Name'),
-              const MyTextField(iconData: Icons.edit, hintText: 'Last name'),
-              const MyTextField(
-                  iconData: CupertinoIcons.phone, hintText: 'Phone number'),
+              MyTextField(
+                controller: _fullNameContoller,
+                iconData: CupertinoIcons.person,
+                hintText: 'Full name',
+                validator: (input) {
+                  if (input!.isEmpty) {
+                    return kErrorEmpty;
+                  }
+                },
+              ),
+              MyTextField(
+                controller: _phoneNoController,
+                iconData: CupertinoIcons.phone,
+                hintText: 'Phone number',
+                validator: (input) {
+                  if (input!.isEmpty) {
+                    return kErrorEmpty;
+                  }
+                },
+              ),
               Container(
                 width: double.infinity,
                 height: 43.h,

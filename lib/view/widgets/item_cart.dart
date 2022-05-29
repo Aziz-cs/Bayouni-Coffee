@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

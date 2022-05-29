@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
@@ -25,7 +25,7 @@ class _AdditivesPageState extends State<AdditivesPage> {
   AdditivesType _coffeeType = AdditivesType.beans;
   CoffeeType _groundType = CoffeeType.fine;
   SaffronGram _saffronGram = SaffronGram.gram3;
-  int _quantity = 1;
+  double _quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class _AdditivesPageState extends State<AdditivesPage> {
                     RadioListTile<AdditivesType>(
                       dense: true,
                       title: Text(
-                        'Ground',
+                        'Course (Granular)',
                         style: TextStyle(
                           fontSize: 15.sp,
                         ),
@@ -179,7 +179,9 @@ class _AdditivesPageState extends State<AdditivesPage> {
                         ],
                       ),
                     aDivider(),
-                    QuantityRow(quantity: _quantity),
+                    QuantityRow(
+                      quantity: _quantity,
+                    ),
                     aDivider(),
                     Text(
                       'Saffron',
@@ -225,7 +227,7 @@ class _AdditivesPageState extends State<AdditivesPage> {
                   ],
                 ),
               ),
-              const TotalVAT(),
+              TotalVAT(),
               SizedBox(height: 50.h),
             ],
           ),

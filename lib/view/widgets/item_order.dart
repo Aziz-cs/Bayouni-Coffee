@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/order_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

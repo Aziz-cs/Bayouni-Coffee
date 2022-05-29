@@ -1,4 +1,6 @@
+import 'package:bayouni_coffee/view/navigator_page.dart';
 import 'package:bayouni_coffee/view/start/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,8 +10,18 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Get.offAll(() => const LoginPage());
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      FirebaseAuth.instance.authStateChanges().listen((firebaseUser) {
+        if (firebaseUser != null) {
+          print('I am logged in');
+          print(firebaseUser.email);
+          print(firebaseUser.uid);
+          Get.offAll(() => NavigatorPage());
+        } else {
+          print('I am not logged in');
+          Get.offAll(() => LoginPage());
+        }
+      });
     });
     return Scaffold(
         backgroundColor: const Color(0xFFd3c578),

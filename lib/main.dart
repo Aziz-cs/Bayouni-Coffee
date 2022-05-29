@@ -1,12 +1,17 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
+import 'package:bayouni_coffee/utils/shared_prefs.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'view/start/splash_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await sharedPrefs.init();
+
   runApp(const MyApp());
 }
 
@@ -36,7 +41,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
           backgroundColor: kGrey,
           unselectedWidgetColor: const Color(0xFFE5E5E5),
-          textTheme: TextTheme().copyWith(
+          textTheme: const TextTheme().copyWith(
             button: TextStyle(fontSize: 45.sp),
             bodyText2: const TextStyle(color: kDarkGrey),
           ),

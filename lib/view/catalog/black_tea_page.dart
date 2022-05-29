@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
@@ -27,7 +27,12 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
   GreenTeaType _greenTeaType = GreenTeaType.none;
   ShakerTeaType _shakerTeaType = ShakerTeaType.none;
   OtherTeaType _otherTeaType = OtherTeaType.none;
-  final int _quanitity = 1;
+
+  bool _isBlackTea = true;
+  bool _isGreenTea = false;
+  bool _isShakirTea = false;
+  bool _isOtherTea = false;
+  final double _quanitity = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,19 +94,44 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
                     ),
                   ),
                   aDivider(),
-                  Text(
-                    'Bayouni Black Tea',
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                  CheckboxListTile(
+                    tileColor:
+                        _isBlackTea ? Colors.brown.shade50 : Colors.white,
+                    value: _isBlackTea,
+                    onChanged: (value) {
+                      setState(() {
+                        _isBlackTea = !_isBlackTea;
+                        // _isGreenTea = false;
+                        // _isShakirTea = false;
+                        // _isOtherTea = false;
+                      });
+                    },
+                    title: Text(
+                      'Bayouni Black Tea',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Good quality black Kenyan tea',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                      ),
                     ),
                   ),
-                  Text(
-                    'Good quality black Kenyan tea',
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
+                  // Text(
+                  //   'Bayouni Black Tea',
+                  //   style: TextStyle(
+                  //     fontSize: 18.sp,
+                  //   ),
+                  // ),
+                  // Text(
+                  //   'Good quality black Kenyan tea',
+                  //   style: TextStyle(
+                  //     fontSize: 15.sp,
+                  //     color: Colors.grey.shade600,
+                  //   ),
+                  // ),
                   RadioListTile<BlackTeaType>(
                     dense: true,
                     title: Text(
@@ -146,11 +176,25 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
                       });
                     },
                   ),
-                  QuantityRow(quantity: _quanitity),
+                  QuantityRow(
+                    quantity: _quanitity,
+                    isFractioned: false,
+                    mesurementUnit:
+                        _blackTeaType == BlackTeaType.box ? 'Box' : 'Bag',
+                  ),
                   aDivider(),
-                  RadioListTile<GreenTeaType>(
-                    toggleable: true,
-                    dense: true,
+                  CheckboxListTile(
+                    tileColor:
+                        _isGreenTea ? Colors.brown.shade50 : Colors.white,
+                    value: _isGreenTea,
+                    onChanged: (value) {
+                      setState(() {
+                        _isGreenTea = !_isGreenTea;
+                        // _isBlackTea = false;
+                        // _isShakirTea = false;
+                        // _isOtherTea = false;
+                      });
+                    },
                     title: Text(
                       'Green Tea',
                       style: TextStyle(
@@ -163,25 +207,52 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
                         fontSize: 13.sp,
                       ),
                     ),
-                    value: GreenTeaType.none,
-                    groupValue: _greenTeaType,
-                    onChanged: (value) {
-                      if (value == GreenTeaType.green) {
-                        setState(() {
-                          _greenTeaType = GreenTeaType.none;
-                        });
-                      } else {
-                        setState(() {
-                          _greenTeaType = value ?? GreenTeaType.green;
-                        });
-                      }
-                    },
                   ),
-                  QuantityRow(quantity: _quanitity),
+                  // RadioListTile<GreenTeaType>(
+                  //   toggleable: true,
+                  //   dense: true,
+                  //   title: Text(
+                  //     'Green Tea',
+                  //     style: TextStyle(
+                  //       fontSize: 15.sp,
+                  //     ),
+                  //   ),
+                  //   subtitle: Text(
+                  //     'SR. 54.00 / kg',
+                  //     style: TextStyle(
+                  //       fontSize: 13.sp,
+                  //     ),
+                  //   ),
+                  //   value: GreenTeaType.none,
+                  //   groupValue: _greenTeaType,
+                  //   onChanged: (value) {
+                  //     if (value == GreenTeaType.green) {
+                  //       setState(() {
+                  //         _greenTeaType = GreenTeaType.none;
+                  //       });
+                  //     } else {
+                  //       setState(() {
+                  //         _greenTeaType = value ?? GreenTeaType.green;
+                  //       });
+                  //     }
+                  //   },
+                  // ),
+                  QuantityRow(
+                    quantity: _quanitity,
+                  ),
                   aDivider(),
-                  RadioListTile<ShakerTeaType>(
-                    toggleable: true,
-                    dense: true,
+                  CheckboxListTile(
+                    tileColor:
+                        _isShakirTea ? Colors.brown.shade50 : Colors.white,
+                    value: _isShakirTea,
+                    onChanged: (value) {
+                      setState(() {
+                        _isShakirTea = !_isShakirTea;
+                        // _isBlackTea = false;
+                        // _isGreenTea = false;
+                        // _isOtherTea = false;
+                      });
+                    },
                     title: Text(
                       'Shakir Tea 500gms',
                       style: TextStyle(
@@ -194,56 +265,50 @@ class _BlackTeaPageState extends State<BlackTeaPage> {
                         fontSize: 13.sp,
                       ),
                     ),
-                    value: ShakerTeaType.none,
-                    groupValue: _shakerTeaType,
-                    onChanged: (value) {
-                      if (value == ShakerTeaType.shakir) {
-                        setState(() {
-                          _shakerTeaType = ShakerTeaType.none;
-                        });
-                      } else {
-                        setState(() {
-                          _shakerTeaType = value ?? ShakerTeaType.shakir;
-                        });
-                      }
-                    },
                   ),
-                  QuantityRow(quantity: _quanitity),
-                  aDivider(),
-                  RadioListTile<OtherTeaType>(
-                    toggleable: true,
-                    dense: true,
-                    title: Text(
-                      'Other Tea',
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                      ),
-                    ),
-                    subtitle: Text(
-                      'SR. 65.00 / can',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                      ),
-                    ),
-                    value: OtherTeaType.none,
-                    groupValue: _otherTeaType,
-                    onChanged: (value) {
-                      if (value == OtherTeaType.other) {
-                        setState(() {
-                          _otherTeaType = OtherTeaType.none;
-                        });
-                      } else {
-                        setState(() {
-                          _otherTeaType = value ?? OtherTeaType.other;
-                        });
-                      }
-                    },
+
+                  QuantityRow(
+                    quantity: _quanitity,
+                    isFractioned: false,
+                    mesurementUnit: 'PC',
                   ),
-                  QuantityRow(quantity: _quanitity),
                   aDivider(),
+                  // CheckboxListTile(
+                  //   tileColor:
+                  //       _isOtherTea ? Colors.brown.shade50 : Colors.white,
+                  //   value: _isOtherTea,
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       _isOtherTea = !_isOtherTea;
+                  //       _isBlackTea = false;
+                  //       _isShakirTea = false;
+                  //       _isGreenTea = false;
+                  //     });
+                  //   },
+                  //   title: Text(
+                  //     'Other Tea',
+                  //     style: TextStyle(
+                  //       fontSize: 15.sp,
+                  //     ),
+                  //   ),
+                  //   subtitle: Text(
+                  //     'SR. 65.00 / can',
+                  //     style: TextStyle(
+                  //       fontSize: 13.sp,
+                  //     ),
+                  //   ),
+                  // ),
+
+                  // QuantityRow(
+                  //   quantity: _quanitity,
+                  //   mesurementUnit: 'bag/can',
+                  // ),
+                  // aDivider(),
                 ],
               ),
             ),
+            TotalVAT(),
+            SizedBox(height: 50.h),
           ],
         ),
       ),

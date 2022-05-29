@@ -17,7 +17,7 @@ class MyDropDownMenu extends StatelessWidget {
 
   final String value;
   final List<String> items;
-  final Function onChanged;
+  final Function(String?)? onChanged;
   final textColor;
   final arrowColor;
   double fontSize;
@@ -49,9 +49,7 @@ class MyDropDownMenu extends StatelessWidget {
           ),
         );
       }).toList(),
-      onChanged: (changedValue) {
-        print("Value changed to $changedValue");
-      },
+      onChanged: onChanged,
     );
   }
 }

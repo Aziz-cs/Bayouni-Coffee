@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/item_order.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';

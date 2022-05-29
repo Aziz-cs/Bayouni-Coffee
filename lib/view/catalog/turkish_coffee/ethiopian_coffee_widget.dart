@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/my_drop_menu.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
@@ -18,7 +18,7 @@ class EthiopianCoffeeWidget extends StatefulWidget {
 
 class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
   EthiopianCoffeeType? _ethiopianCoffeeType = EthiopianCoffeeType.turkish;
-  final int _quantity = 1;
+  final double _quantity = 1;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -84,7 +84,7 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Dark Precentage',
+                    'Dark Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -98,7 +98,7 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Medium Precentage',
+                    'Medium Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -112,7 +112,7 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Light Precentage',
+                    'Light Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -123,7 +123,9 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
                 ],
               ),
               aDivider(),
-              QuantityRow(quantity: _quantity),
+              QuantityRow(
+                quantity: _quantity,
+              ),
               SizedBox(height: 10.h),
               aDivider(),
               SizedBox(height: 10.h),
@@ -135,7 +137,7 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
                     style: kTxtStyleNormal,
                   ),
                   Text(
-                    "\$75",
+                    "\$100",
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: kBeige,
@@ -147,7 +149,7 @@ class _EthiopianCoffeeWidgetState extends State<EthiopianCoffeeWidget> {
             ],
           ),
         ),
-        const TotalVAT(),
+        TotalVAT(),
         SizedBox(height: 50.h),
       ],
     );

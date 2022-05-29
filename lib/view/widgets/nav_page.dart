@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +54,11 @@ class NavPage extends StatelessWidget {
   }
 
   List<Widget> _buildScreens() {
-    return const [
+    return [
       CatalogTab(),
       AccessoriesTab(),
-      CartTab(),
-      FavoritesTab(),
+      const CartTab(),
+      const FavoritesTab(),
       MoreTab()
     ];
   }

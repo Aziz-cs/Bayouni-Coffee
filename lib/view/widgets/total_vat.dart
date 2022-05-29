@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class TotalVAT extends StatelessWidget {
-  const TotalVAT({Key? key}) : super(key: key);
-
+  TotalVAT({Key? key}) : super(key: key);
+  final _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,12 +24,48 @@ class TotalVAT extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'All Total (VAT)',
+                    'Purchase Amount:',
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '\$110',
+                    'SR.',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'VAT (15%):',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'SR.',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total Amount',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'SR.',
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
@@ -37,10 +73,16 @@ class TotalVAT extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            const MyTextField(
+            MyTextField(
+              controller: _commentController,
               iconData: Icons.comment_outlined,
               hintText: 'Add comment',
               isPrefixIcon: false,
+              validator: (input) {
+                if (input!.length > 4000) {
+                  return 'Max characters is 4000 ';
+                }
+              },
             ),
             MyButton(
               label: 'ADD TO CART',
@@ -65,8 +107,8 @@ class TotalVAT extends StatelessWidget {
 }
 
 class TotalVATCart extends StatelessWidget {
-  const TotalVATCart({Key? key}) : super(key: key);
-
+  TotalVATCart({Key? key}) : super(key: key);
+  final _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,6 +118,42 @@ class TotalVATCart extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 10.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Purchase Amount',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  // Text(
+                  //   '\$160',
+                  //   style:
+                  //       TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  // ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'VAT (15%): SR',
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  // Text(
+                  //   'SR',
+                  //   style:
+                  //       TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  // ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -95,16 +173,22 @@ class TotalVATCart extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            const MyTextField(
+            MyTextField(
+              controller: _commentController,
               iconData: Icons.comment_outlined,
               hintText: 'Add comment',
               isPrefixIcon: false,
+              validator: (input) {
+                if (input!.length > 4000) {
+                  return 'Max characters is 4000 ';
+                }
+              },
             ),
             MyButton(
               label: 'BUY NOW',
               onPress: () => pushNewScreen(
                 context,
-                screen: const CheckOutPage(),
+                screen: CheckOutPage(),
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               ),

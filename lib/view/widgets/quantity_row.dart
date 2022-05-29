@@ -2,16 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 
 class QuantityRow extends StatefulWidget {
   QuantityRow({
     Key? key,
     required this.quantity,
+    this.mesurementUnit = 'KG',
+    this.isFractioned = true,
   }) : super(key: key);
 
-  int quantity;
-
+  double quantity;
+  String mesurementUnit;
+  bool isFractioned;
   @override
   State<QuantityRow> createState() => _QuantityRowState();
 }
@@ -30,8 +33,15 @@ class _QuantityRowState extends State<QuantityRow> {
           children: [
             IconButton(
                 onPressed: () {
+                  if (widget.quantity >= 1000) {
+                    return;
+                  }
                   setState(() {
-                    widget.quantity++;
+                    if (widget.isFractioned) {
+                      widget.quantity = widget.quantity + 0.5;
+                    } else {
+                      widget.quantity++;
+                    }
                   });
                 },
                 icon: const Icon(
@@ -39,7 +49,7 @@ class _QuantityRowState extends State<QuantityRow> {
                   size: 20,
                 )),
             Container(
-              width: 32.w,
+              width: 55.w,
               height: 23.h,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
@@ -50,7 +60,11 @@ class _QuantityRowState extends State<QuantityRow> {
               ),
               alignment: Alignment.center,
               child: Text(
-                '${widget.quantity}',
+                widget.isFractioned
+                    ? widget.quantity.toString()
+                    : widget.quantity.toInt().toString(),
+                // '${widget.quantity.toString().characters.last == '0' ? widget.quantity.toString().characters.first : widget.quantity}',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.brown,
                   fontSize: 15.sp,
@@ -61,7 +75,11 @@ class _QuantityRowState extends State<QuantityRow> {
                 onPressed: () {
                   if (widget.quantity > 0) {
                     setState(() {
-                      widget.quantity--;
+                      if (widget.isFractioned) {
+                        widget.quantity = widget.quantity - 0.5;
+                      } else {
+                        widget.quantity--;
+                      }
                     });
                   }
                 },
@@ -70,7 +88,10 @@ class _QuantityRowState extends State<QuantityRow> {
                   size: 20,
                 )),
             SizedBox(width: 5.w),
-            Text('KG', style: kTxtStyleNormal),
+            Text(
+              widget.mesurementUnit,
+              style: kTxtStyleNormal,
+            ),
             SizedBox(width: 5.w),
             const Icon(
               Icons.radio_button_checked,

@@ -1,5 +1,5 @@
 import 'package:bayouni_coffee/view/catalog/additives_page.dart';
-import 'package:bayouni_coffee/view/catalog/arabic_coffee_page.dart';
+import 'package:bayouni_coffee/view/catalog/arabic_coffee_pagex.dart';
 import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
 import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
 import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
@@ -9,12 +9,13 @@ import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import '../catalog/brewed_page.dart';
 import '../catalog/turkish_coffee/turkish_coffee_page.dart';
 import '../widgets/item_product.dart';
 
 class CatalogTab extends StatelessWidget {
-  const CatalogTab({Key? key}) : super(key: key);
-
+  CatalogTab({Key? key}) : super(key: key);
+  final _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,8 +24,12 @@ class CatalogTab extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 10.h),
-            const MyTextField(
-                iconData: Icons.search, hintText: 'Type something..'),
+            MyTextField(
+              controller: _searchController,
+              iconData: Icons.search,
+              hintText: 'Type something..',
+              validator: (input) {},
+            ),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -59,7 +64,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_arabic_coffee',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const ArabicCoffeePage(),
+                      screen: ArabicCoffeePage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
@@ -71,7 +76,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_brewed',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const BrewedPage(),
+                      screen: BrewedPage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
@@ -83,7 +88,7 @@ class CatalogTab extends StatelessWidget {
                     imgName: 'catalog_flavored',
                     onPress: () => pushNewScreen(
                       context,
-                      screen: const EspressoPage(),
+                      screen: EspressoPage(),
                       withNavBar: true, // OPTIONAL VALUE. True by default.
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,

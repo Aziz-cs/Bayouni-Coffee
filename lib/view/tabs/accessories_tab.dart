@@ -7,8 +7,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../widgets/item_product.dart';
 
 class AccessoriesTab extends StatelessWidget {
-  const AccessoriesTab({Key? key}) : super(key: key);
-
+  AccessoriesTab({Key? key}) : super(key: key);
+  final _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,8 +17,12 @@ class AccessoriesTab extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 10.h),
-            const MyTextField(
-                iconData: Icons.search, hintText: 'Type something..'),
+            MyTextField(
+              controller: _searchController,
+              iconData: Icons.search,
+              hintText: 'Type something..',
+              validator: (input) {},
+            ),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,

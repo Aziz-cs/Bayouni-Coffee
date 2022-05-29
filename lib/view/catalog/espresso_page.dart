@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/espresso_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
@@ -5,27 +6,14 @@ import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 import '../widgets/my_drop_menu.dart';
 
-enum EspressoType { special, customized }
-enum CoffeeType { beans, ground }
-enum GroundType { fine, course }
-
-class EspressoPage extends StatefulWidget {
-  const EspressoPage({Key? key}) : super(key: key);
-
-  @override
-  State<EspressoPage> createState() => _EspressoPageState();
-}
-
-class _EspressoPageState extends State<EspressoPage> {
-  EspressoType? _espressoType = EspressoType.special;
-  CoffeeType? _coffeeType = CoffeeType.beans;
-  GroundType? _groundType = GroundType.fine;
-  bool isItalianRoast = false;
-  int _quantity = 1;
+class EspressoPage extends StatelessWidget {
+  EspressoPage({Key? key}) : super(key: key);
+  final espressoController = Get.put(EspressoController());
 
   @override
   Widget build(BuildContext context) {
@@ -86,51 +74,145 @@ class _EspressoPageState extends State<EspressoPage> {
                       ),
                     ),
                     aDivider(),
-                    RadioListTile<EspressoType>(
-                      dense: true,
-                      title: Text(
-                        'Special italian roasting blend',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<EspressoType>(
+                        dense: true,
+                        title: Text(
+                          'Special italian roasting blend',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
-                      ),
-                      subtitle: Text(
-                        'Recommended',
-                        style: TextStyle(
-                          fontSize: 13.sp,
+                        subtitle: Text(
+                          'Recommended',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                          ),
                         ),
+                        value: EspressoType.special,
+                        groupValue: espressoController.espressoType.value,
+                        onChanged: (value) {
+                          espressoController.espressoType.value = value!;
+                        },
                       ),
-                      value: EspressoType.special,
-                      groupValue: _espressoType,
-                      onChanged: (value) {
-                        setState(() {
-                          _espressoType = value;
-                        });
-                      },
                     ),
-                    RadioListTile<EspressoType>(
-                      dense: true,
-                      title: Text(
-                        'Customize your own blend',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<EspressoType>(
+                        dense: true,
+                        title: Text(
+                          'Customize your own blend',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: EspressoType.customized,
+                        groupValue: espressoController.espressoType.value,
+                        onChanged: (value) {
+                          espressoController.espressoType.value = value!;
+                        },
                       ),
-                      value: EspressoType.customized,
-                      groupValue: _espressoType,
-                      onChanged: (value) {
-                        setState(() {
-                          _espressoType = value;
-                        });
-                      },
                     ),
-                    _espressoType == EspressoType.special
-                        ? _buildSpecialEspressoOrder()
-                        : _buildCustomizedEspressoOrder(),
+                    Text('Type', style: kTxtStyleNormal),
+                    Obx(
+                      () => RadioListTile<CoffeeType>(
+                        dense: true,
+                        title: Text(
+                          'Beans',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        value: CoffeeType.beans,
+                        groupValue: espressoController.coffeeType.value,
+                        onChanged: (value) {
+                          espressoController.coffeeType.value = value!;
+                        },
+                      ),
+                    ),
+                    Obx(
+                      () => RadioListTile<CoffeeType>(
+                        dense: true,
+                        title: Text(
+                          'Ground',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        value: CoffeeType.ground,
+                        groupValue: espressoController.coffeeType.value,
+                        onChanged: (value) {
+                          espressoController.coffeeType.value = value!;
+                        },
+                      ),
+                    ),
+                    Obx(
+                      () => espressoController.coffeeType.value ==
+                              CoffeeType.ground
+                          ? Column(
+                              children: [
+                                RadioListTile<GroundType>(
+                                  dense: true,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 35.w),
+                                  title: Text(
+                                    'Fine Grind',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    'Electrical coffee maker',
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                    ),
+                                  ),
+                                  value: GroundType.fine,
+                                  groupValue:
+                                      espressoController.groundType.value,
+                                  onChanged: (value) {
+                                    espressoController.groundType.value =
+                                        value!;
+                                  },
+                                ),
+                                Obx(
+                                  () => RadioListTile<GroundType>(
+                                    dense: true,
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 35.w),
+                                    title: Text(
+                                      'Course Grind',
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      'Stovetop coffee maker',
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    value: GroundType.course,
+                                    groupValue:
+                                        espressoController.groundType.value,
+                                    onChanged: (value) {
+                                      espressoController.groundType.value =
+                                          value!;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )
+                          : _buildCustomizedEspressoOrder(),
+                    ),
+                    aDivider(),
+                    QuantityRow(
+                      quantity: espressoController.quantity.value,
+                    ),
+                    // ? _buildSpecialEspressoOrder()
                   ],
                 ),
               ),
-              const TotalVAT(),
+              TotalVAT(),
               SizedBox(height: 50.h),
             ],
           ),
@@ -145,13 +227,14 @@ class _EspressoPageState extends State<EspressoPage> {
       children: [
         Row(
           children: [
-            Checkbox(
-                value: isItalianRoast,
-                onChanged: (_) {
-                  setState(() {
-                    isItalianRoast = !isItalianRoast;
-                  });
-                }),
+            Obx(
+              () => Checkbox(
+                  value: espressoController.isItalianRoast.value,
+                  onChanged: (_) {
+                    espressoController.isItalianRoast.value =
+                        !espressoController.isItalianRoast.value;
+                  }),
+            ),
             Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,13 +252,17 @@ class _EspressoPageState extends State<EspressoPage> {
               ],
             ),
             const Spacer(),
-            isItalianRoast
-                ? MyDropDownMenu(
-                    value: '10 %',
-                    items: precentageList,
-                    onChanged: (val) {},
-                  )
-                : const SizedBox(),
+            Obx(
+              () => espressoController.isItalianRoast.value
+                  ? MyDropDownMenu(
+                      value: espressoController.italianRoastPrecentage.value,
+                      items: precentageList,
+                      onChanged: (val) {
+                        espressoController.italianRoastPrecentage.value = val!;
+                      },
+                    )
+                  : const SizedBox(),
+            ),
           ],
         ),
         SizedBox(height: 10.h),
@@ -205,10 +292,14 @@ class _EspressoPageState extends State<EspressoPage> {
               'Dark Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.eDarkRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.eDarkRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -219,10 +310,14 @@ class _EspressoPageState extends State<EspressoPage> {
               'Medium Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.eMediumRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.eMediumRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -233,10 +328,14 @@ class _EspressoPageState extends State<EspressoPage> {
               'Light Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.eLightRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.eLightRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -266,10 +365,14 @@ class _EspressoPageState extends State<EspressoPage> {
               'Dark Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.cDarkRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.cDarkRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -280,10 +383,14 @@ class _EspressoPageState extends State<EspressoPage> {
               'Medium Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.cMediumRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.cMediumRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -294,100 +401,106 @@ class _EspressoPageState extends State<EspressoPage> {
               'Light Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: espressoController.cLightRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  espressoController.cLightRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
-        aDivider(),
-        Text('Type', style: kTxtStyleNormal),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Beans',
-            style: TextStyle(
-              fontSize: 15.sp,
-            ),
-          ),
-          value: CoffeeType.beans,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
-        ),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Ground',
-            style: TextStyle(
-              fontSize: 15.sp,
-            ),
-          ),
-          value: CoffeeType.ground,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
-        ),
-        if (_coffeeType == CoffeeType.ground)
-          Column(
-            children: [
-              RadioListTile<GroundType>(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-                title: Text(
-                  'Fine Grind',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                  ),
-                ),
-                subtitle: Text(
-                  'Electrical coffee maker',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                  ),
-                ),
-                value: GroundType.fine,
-                groupValue: _groundType,
-                onChanged: (value) {
-                  setState(() {
-                    _groundType = value;
-                  });
-                },
-              ),
-              RadioListTile<GroundType>(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-                title: Text(
-                  'Course Grind',
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                  ),
-                ),
-                subtitle: Text(
-                  'Stovetop coffee maker',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                  ),
-                ),
-                value: GroundType.course,
-                groupValue: _groundType,
-                onChanged: (value) {
-                  setState(() {
-                    _groundType = value;
-                  });
-                },
-              ),
-            ],
-          ),
-        aDivider(),
-        QuantityRow(quantity: _quantity),
+        // aDivider(),
+        // Text('Type', style: kTxtStyleNormal),
+        // RadioListTile<CoffeeType>(
+        //   dense: true,
+        //   title: Text(
+        //     'Beans',
+        //     style: TextStyle(
+        //       fontSize: 15.sp,
+        //     ),
+        //   ),
+        //   value: CoffeeType.beans,
+        //   groupValue: _coffeeType,
+        //   onChanged: (value) {
+        //     setState(() {
+        //       _coffeeType = value;
+        //     });
+        //   },
+        // ),
+        // RadioListTile<CoffeeType>(
+        //   dense: true,
+        //   title: Text(
+        //     'Ground',
+        //     style: TextStyle(
+        //       fontSize: 15.sp,
+        //     ),
+        //   ),
+        //   value: CoffeeType.ground,
+        //   groupValue: _coffeeType,
+        //   onChanged: (value) {
+        //     setState(() {
+        //       _coffeeType = value;
+        //     });
+        //   },
+        // ),
+        // if (_coffeeType == CoffeeType.ground)
+        //   Column(
+        //     children: [
+        //       RadioListTile<GroundType>(
+        //         dense: true,
+        //         contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+        //         title: Text(
+        //           'Fine Grind',
+        //           style: TextStyle(
+        //             fontSize: 14.sp,
+        //           ),
+        //         ),
+        //         subtitle: Text(
+        //           'Electrical coffee maker',
+        //           style: TextStyle(
+        //             fontSize: 13.sp,
+        //           ),
+        //         ),
+        //         value: GroundType.fine,
+        //         groupValue: _groundType,
+        //         onChanged: (value) {
+        //           setState(() {
+        //             _groundType = value;
+        //           });
+        //         },
+        //       ),
+        //       RadioListTile<GroundType>(
+        //         dense: true,
+        //         contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+        //         title: Text(
+        //           'Course Grind',
+        //           style: TextStyle(
+        //             fontSize: 15.sp,
+        //           ),
+        //         ),
+        //         subtitle: Text(
+        //           'Stovetop coffee maker',
+        //           style: TextStyle(
+        //             fontSize: 13.sp,
+        //           ),
+        //         ),
+        //         value: GroundType.course,
+        //         groupValue: _groundType,
+        //         onChanged: (value) {
+        //           setState(() {
+        //             _groundType = value;
+        //           });
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // aDivider(),
+        // QuantityRow(
+        //   quantity: espressoController.quantity.value,
+        // ),
       ],
     );
   }
@@ -395,94 +508,7 @@ class _EspressoPageState extends State<EspressoPage> {
   Column _buildSpecialEspressoOrder() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Type', style: kTxtStyleNormal),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Beans',
-            style: TextStyle(
-              fontSize: 15.sp,
-            ),
-          ),
-          value: CoffeeType.beans,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
-        ),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Ground',
-            style: TextStyle(
-              fontSize: 15.sp,
-            ),
-          ),
-          value: CoffeeType.ground,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
-        ),
-        if (_coffeeType == CoffeeType.ground)
-          Column(
-            children: [
-              RadioListTile<GroundType>(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-                title: Text(
-                  'Fine Grind',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                  ),
-                ),
-                subtitle: Text(
-                  'Electrical coffee maker',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                  ),
-                ),
-                value: GroundType.fine,
-                groupValue: _groundType,
-                onChanged: (value) {
-                  setState(() {
-                    _groundType = value;
-                  });
-                },
-              ),
-              RadioListTile<GroundType>(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-                title: Text(
-                  'Course Grind',
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                  ),
-                ),
-                subtitle: Text(
-                  'Stovetop coffee maker',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                  ),
-                ),
-                value: GroundType.course,
-                groupValue: _groundType,
-                onChanged: (value) {
-                  setState(() {
-                    _groundType = value;
-                  });
-                },
-              ),
-            ],
-          ),
-        aDivider(),
-        QuantityRow(quantity: _quantity),
-      ],
+      children: [],
     );
   }
 }

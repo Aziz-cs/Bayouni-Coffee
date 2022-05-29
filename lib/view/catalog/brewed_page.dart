@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
@@ -5,24 +6,15 @@ import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 import '../widgets/my_drop_menu.dart';
 
-enum BrewedType { special, customized }
-enum CoffeeType { beans, ground }
+class BrewedPage extends StatelessWidget {
+  BrewedPage({Key? key}) : super(key: key);
 
-class BrewedPage extends StatefulWidget {
-  const BrewedPage({Key? key}) : super(key: key);
-
-  @override
-  State<BrewedPage> createState() => _BrewedPageState();
-}
-
-class _BrewedPageState extends State<BrewedPage> {
-  BrewedType? _brewedType = BrewedType.special;
-  CoffeeType? _coffeeType = CoffeeType.beans;
-  int _quantity = 1;
+  final brewedController = Get.put(BrewedController());
 
   @override
   Widget build(BuildContext context) {
@@ -83,51 +75,54 @@ class _BrewedPageState extends State<BrewedPage> {
                       ),
                     ),
                     aDivider(),
-                    RadioListTile<BrewedType>(
-                      dense: true,
-                      title: Text(
-                        'Special blend medium roast (recommended)',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<BrewedType>(
+                        dense: true,
+                        title: Text(
+                          'Special blend medium roast (recommended)',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
-                      ),
-                      subtitle: Text(
-                        'Ethiopian + Colombian',
-                        style: TextStyle(
-                          fontSize: 13.sp,
+                        subtitle: Text(
+                          'Ethiopian + Colombian',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                          ),
                         ),
+                        value: BrewedType.special,
+                        groupValue: brewedController.brewedType.value,
+                        onChanged: (value) {
+                          brewedController.brewedType.value = value!;
+                        },
                       ),
-                      value: BrewedType.special,
-                      groupValue: _brewedType,
-                      onChanged: (value) {
-                        setState(() {
-                          _brewedType = value;
-                        });
-                      },
                     ),
-                    RadioListTile<BrewedType>(
-                      dense: true,
-                      title: Text(
-                        'Customize your own blend',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<BrewedType>(
+                        dense: true,
+                        title: Text(
+                          'Customize your own blend',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: BrewedType.customized,
+                        groupValue: brewedController.brewedType.value,
+                        onChanged: (value) {
+                          brewedController.brewedType.value = value!;
+                        },
                       ),
-                      value: BrewedType.customized,
-                      groupValue: _brewedType,
-                      onChanged: (value) {
-                        setState(() {
-                          _brewedType = value;
-                        });
-                      },
                     ),
-                    _brewedType == BrewedType.special
-                        ? _buildSpecialBrewedOrder()
-                        : _buildCustomizedBrewedOrder(),
+                    Obx(
+                      () => brewedController.brewedType.value ==
+                              BrewedType.special
+                          ? _buildSpecialBrewedOrder()
+                          : _buildCustomizedBrewedOrder(),
+                    ),
                   ],
                 ),
               ),
-              const TotalVAT(),
+              TotalVAT(),
               SizedBox(height: 50.h),
             ],
           ),
@@ -166,10 +161,14 @@ class _BrewedPageState extends State<BrewedPage> {
               'Dark Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eDarkRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eDarkRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -180,10 +179,14 @@ class _BrewedPageState extends State<BrewedPage> {
               'Medium Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eMediumRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eMediumRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -194,10 +197,14 @@ class _BrewedPageState extends State<BrewedPage> {
               'Light Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eLightRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eLightRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -227,10 +234,14 @@ class _BrewedPageState extends State<BrewedPage> {
               'Dark Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eDarkRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eDarkRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -241,10 +252,14 @@ class _BrewedPageState extends State<BrewedPage> {
               'Medium Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eMediumRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eMediumRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
@@ -255,49 +270,53 @@ class _BrewedPageState extends State<BrewedPage> {
               'Light Roast',
               style: kTxtStyleNormal,
             ),
-            MyDropDownMenu(
-              value: '10 %',
-              items: precentageList,
-              onChanged: (val) {},
+            Obx(
+              () => MyDropDownMenu(
+                value: brewedController.eLightRoastPrecentage.value,
+                items: precentageList,
+                onChanged: (val) {
+                  brewedController.eLightRoastPrecentage.value = val!;
+                },
+              ),
             ),
           ],
         ),
         aDivider(),
         Text('Type', style: kTxtStyleNormal),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Beans',
-            style: TextStyle(
-              fontSize: 15.sp,
+        Obx(
+          () => RadioListTile<CoffeeType>(
+            dense: true,
+            title: Text(
+              'Beans',
+              style: TextStyle(
+                fontSize: 15.sp,
+              ),
             ),
+            value: CoffeeType.beans,
+            groupValue: brewedController.coffeeType.value,
+            onChanged: (value) {
+              brewedController.coffeeType.value = value!;
+            },
           ),
-          value: CoffeeType.beans,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
         ),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Ground',
-            style: TextStyle(
-              fontSize: 15.sp,
+        Obx(
+          () => RadioListTile<CoffeeType>(
+            dense: true,
+            title: Text(
+              'Ground',
+              style: TextStyle(
+                fontSize: 15.sp,
+              ),
             ),
+            value: CoffeeType.ground,
+            groupValue: brewedController.coffeeType.value,
+            onChanged: (value) {
+              brewedController.coffeeType.value = value!;
+            },
           ),
-          value: CoffeeType.ground,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
         ),
         aDivider(),
-        QuantityRow(quantity: _quantity),
+        QuantityRow(quantity: brewedController.quantity.value),
       ],
     );
   }
@@ -307,40 +326,40 @@ class _BrewedPageState extends State<BrewedPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Type', style: kTxtStyleNormal),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Beans',
-            style: TextStyle(
-              fontSize: 15.sp,
+        Obx(
+          () => RadioListTile<CoffeeType>(
+            dense: true,
+            title: Text(
+              'Beans',
+              style: TextStyle(
+                fontSize: 15.sp,
+              ),
             ),
+            value: CoffeeType.beans,
+            groupValue: brewedController.coffeeType.value,
+            onChanged: (value) {
+              brewedController.coffeeType.value = value!;
+            },
           ),
-          value: CoffeeType.beans,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
         ),
-        RadioListTile<CoffeeType>(
-          dense: true,
-          title: Text(
-            'Ground',
-            style: TextStyle(
-              fontSize: 15.sp,
+        Obx(
+          () => RadioListTile<CoffeeType>(
+            dense: true,
+            title: Text(
+              'Ground',
+              style: TextStyle(
+                fontSize: 15.sp,
+              ),
             ),
+            value: CoffeeType.ground,
+            groupValue: brewedController.coffeeType.value,
+            onChanged: (value) {
+              brewedController.coffeeType.value = value!;
+            },
           ),
-          value: CoffeeType.ground,
-          groupValue: _coffeeType,
-          onChanged: (value) {
-            setState(() {
-              _coffeeType = value;
-            });
-          },
         ),
         aDivider(),
-        QuantityRow(quantity: _quantity),
+        QuantityRow(quantity: brewedController.quantity.value),
       ],
     );
   }

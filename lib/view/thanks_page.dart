@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/start/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

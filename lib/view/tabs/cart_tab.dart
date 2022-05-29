@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 
 class CartTab extends StatelessWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class CartTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            const TotalVATCart(),
+            TotalVATCart(),
             SizedBox(height: 40.h),
           ],
         ),

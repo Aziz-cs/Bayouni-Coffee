@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>209848354844-n0khdb24mbbovc8ma5k7dn77ic3t8do3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.209848354844-n0khdb24mbbovc8ma5k7dn77ic3t8do3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>209848354844-42d8bvp3ihbstc1ssfikenepefkgb6jo.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBo6uYlE4Hez8TwClpYJrjUQwNuOYrnSHY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>209848354844</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.bayounicoffee.app</string>
+	<key>PROJECT_ID</key>
+	<string>bayouni-coffee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bayouni-coffee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:209848354844:ios:fd77ac203f4e674e07b7d9</string>
+	<key>DATABASE_URL</key>
+	<string>https://bayouni-coffee-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

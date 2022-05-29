@@ -1,4 +1,4 @@
-import 'package:bayouni_coffee/constants.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
@@ -15,7 +15,7 @@ class CreamyPage extends StatefulWidget {
 }
 
 class _CreamyPageState extends State<CreamyPage> {
-  int _quantity = 1;
+  double _quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -92,38 +92,40 @@ class _CreamyPageState extends State<CreamyPage> {
                       ),
                     ),
                     aDivider(),
-                    QuantityRow(quantity: _quantity),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        Container(
-                          width: 32.w,
-                          height: 23.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            border: Border.all(
-                              color: Colors.black45,
-                              width: 1.0,
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                          child: TextField(),
-                        ),
-                        SizedBox(width: 57.w),
-                        Text('G', style: kTxtStyleNormal),
-                        SizedBox(width: 5.w),
-                        const Icon(
-                          Icons.radio_button_unchecked,
-                          size: 18,
-                          color: Colors.brown,
-                        )
-                      ],
+                    QuantityRow(
+                      quantity: _quantity,
                     ),
+                    // Row(
+                    //   children: [
+                    //     const Spacer(),
+                    //     Container(
+                    //       width: 32.w,
+                    //       height: 23.h,
+                    //       decoration: BoxDecoration(
+                    //         shape: BoxShape.rectangle,
+                    //         border: Border.all(
+                    //           color: Colors.black45,
+                    //           width: 1.0,
+                    //         ),
+                    //       ),
+                    //       alignment: Alignment.center,
+                    //       child: TextField(),
+                    //     ),
+                    //     SizedBox(width: 57.w),
+                    //     Text('G', style: kTxtStyleNormal),
+                    //     SizedBox(width: 5.w),
+                    //     const Icon(
+                    //       Icons.radio_button_unchecked,
+                    //       size: 18,
+                    //       color: Colors.brown,
+                    //     )
+                    //   ],
+                    // ),
                     SizedBox(height: 10.h),
                   ],
                 ),
               ),
-              const TotalVAT(),
+              TotalVAT(),
               SizedBox(height: 50.h),
             ],
           ),

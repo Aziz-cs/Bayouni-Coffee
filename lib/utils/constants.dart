@@ -20,3 +20,9 @@ const precentageList = [
   '90 %',
   '100 %',
 ];
+
+const kErrorSomethingWentWrong =
+    'Something went wrong, Please try again later..';
+const kErrorEmpty = 'This field can not be empty';
+const kErrorEmail = 'Please enter a valid Email';
+const kErrorPhone = 'Please enter a valid Phone No';

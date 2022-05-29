@@ -2,7 +2,7 @@ import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constants.dart';
+import '../../../utils/constants.dart';
 import '../../widgets/my_drop_menu.dart';
 import '../../widgets/quantity_row.dart';
 import '../../widgets/widgets_helper.dart';
@@ -18,7 +18,7 @@ class BrazillianCoffeeWidget extends StatefulWidget {
 
 class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
   BrazillianCoffeeType? _brazillianCoffeeType = BrazillianCoffeeType.brazillian;
-  final int _quantity = 1;
+  final double _quantity = 0.5;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -84,7 +84,7 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Dark Precentage',
+                    'Dark Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -98,7 +98,7 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Medium Precentage',
+                    'Medium Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -112,7 +112,7 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Light Precentage',
+                    'Light Roast',
                     style: kTxtStyleNormal,
                   ),
                   MyDropDownMenu(
@@ -123,7 +123,9 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                 ],
               ),
               aDivider(),
-              QuantityRow(quantity: _quantity),
+              QuantityRow(
+                quantity: _quantity,
+              ),
               SizedBox(height: 10.h),
               aDivider(),
               SizedBox(height: 10.h),
@@ -135,7 +137,7 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                     style: kTxtStyleNormal,
                   ),
                   Text(
-                    "\$75",
+                    "\$100",
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: kBeige,
@@ -147,7 +149,7 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
             ],
           ),
         ),
-        const TotalVAT(),
+        TotalVAT(),
         SizedBox(height: 50.h),
       ],
     );
