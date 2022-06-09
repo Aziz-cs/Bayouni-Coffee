@@ -27,37 +27,29 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print(sharedPrefs.imageURL);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              child: Image.asset('assets/images/login_top_left.png'),
-            ),
-            Positioned(
-              top: 66.h,
-              right: 0,
-              child: Image.asset('assets/images/login_top_right.png'),
-            ),
-            // Positioned(
-            //   top: 182.h,
-            //   left: 152.w,
-            //   child: Image.asset(
-            //     'assets/images/bayouni_logo.png',
-            //     width: 70.w,
-            //   ),
-            // ),
-            Padding(
+      resizeToAvoidBottomInset: true,
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset('assets/images/login_top_left.png'),
+          ),
+          Positioned(
+            top: 66.h,
+            right: 0,
+            child: Image.asset('assets/images/login_top_right.png'),
+          ),
+          SafeArea(
+            child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 60.h),
+                      SizedBox(height: 100.h),
                       Image.asset(
                         'assets/images/bayouni_logo.png',
                         width: 70.w,
@@ -195,8 +187,22 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+            // Stack(
+            //   children: [
+
+            // Positioned(
+            //   top: 182.h,
+            //   left: 152.w,
+            //   child: Image.asset(
+            //     'assets/images/bayouni_logo.png',
+            //     width: 70.w,
+            //   ),
+            // ),
+
+            //   ],
+            // ),
+          ),
+        ],
       ),
     );
   }

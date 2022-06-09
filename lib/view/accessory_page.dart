@@ -1,19 +1,24 @@
+import 'package:bayouni_coffee/model/accessory.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import '../controller/accessories_controller.dart';
 import '../controller/helper.dart';
 
-class ProductPage extends StatelessWidget {
-  const ProductPage({
+class AccessoryProductPage extends StatelessWidget {
+  AccessoryProductPage({
     Key? key,
     required this.routedFrom,
+    required this.accessoryProduct,
   }) : super(key: key);
   final String routedFrom;
+  final AccessoryProduct accessoryProduct;
+
+  final accessoriesController = Get.find<AccessoriesController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,53 +50,73 @@ class ProductPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children: [
-                  Placeholder(
-                    fallbackWidth: double.infinity,
-                    fallbackHeight: 200.h,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: () {
+                          accessoriesController
+                              .addToFavorites(accessoryProduct.id);
+                          showToast('Added to favorites');
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.heart_circle_fill,
+                          color: kBeige,
+                          size: 33,
+                        ),
+                      )
+                    ],
+                  ),
+                  CachedNetworkImage(
+                    imageUrl: accessoryProduct.imgURL,
+                    fit: BoxFit.fill,
+                    height: 160.h,
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'Product Name',
+                    accessoryProduct.name,
                     style: TextStyle(
                       color: kDarkGrey,
-                      fontSize: 24.sp,
+                      fontSize: 20.sp,
                     ),
                   ),
-                  SizedBox(height: 8.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '\$120',
+                        '${accessoryProduct.price} SR',
                         style: TextStyle(
-                          fontSize: 24.sp,
+                          fontSize: 16.sp,
                           color: kBeige,
                         ),
                       ),
-                      RatingBar.builder(
-                        itemSize: 20.w,
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      ),
+                      // RatingBar.builder(
+                      //   itemSize: 20.w,
+                      //   initialRating: 3,
+                      //   minRating: 1,
+                      //   direction: Axis.horizontal,
+                      //   allowHalfRating: true,
+                      //   itemCount: 5,
+                      //   itemPadding:
+                      //       const EdgeInsets.symmetric(horizontal: 4.0),
+                      //   itemBuilder: (context, _) => const Icon(
+                      //     Icons.star,
+                      //     color: Colors.amber,
+                      //   ),
+                      //   onRatingUpdate: (rating) {
+                      //     print(rating);
+                      //   },
+                      // ),
                     ],
                   ),
                   SizedBox(height: 16.h),
                   Text(
                     productDesc,
+                    textDirection: TextDirection.ltr,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 15.sp,
                       color: kGrey,
                     ),
                   ),

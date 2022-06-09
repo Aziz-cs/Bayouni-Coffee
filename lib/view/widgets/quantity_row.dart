@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
 
-class QuantityRow extends StatefulWidget {
+class QuantityRow extends StatelessWidget {
   QuantityRow({
     Key? key,
     required this.quantity,
@@ -12,14 +13,10 @@ class QuantityRow extends StatefulWidget {
     this.isFractioned = true,
   }) : super(key: key);
 
-  double quantity;
+  RxDouble quantity;
   String mesurementUnit;
   bool isFractioned;
-  @override
-  State<QuantityRow> createState() => _QuantityRowState();
-}
 
-class _QuantityRowState extends State<QuantityRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,16 +30,14 @@ class _QuantityRowState extends State<QuantityRow> {
           children: [
             IconButton(
                 onPressed: () {
-                  if (widget.quantity >= 1000) {
+                  if (quantity.value >= 1000) {
                     return;
                   }
-                  setState(() {
-                    if (widget.isFractioned) {
-                      widget.quantity = widget.quantity + 0.5;
-                    } else {
-                      widget.quantity++;
-                    }
-                  });
+                  if (isFractioned) {
+                    quantity.value = quantity.value + 0.5;
+                  } else {
+                    quantity.value++;
+                  }
                 },
                 icon: const Icon(
                   CupertinoIcons.add,
@@ -59,28 +54,28 @@ class _QuantityRowState extends State<QuantityRow> {
                 ),
               ),
               alignment: Alignment.center,
-              child: Text(
-                widget.isFractioned
-                    ? widget.quantity.toString()
-                    : widget.quantity.toInt().toString(),
-                // '${widget.quantity.toString().characters.last == '0' ? widget.quantity.toString().characters.first : widget.quantity}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.brown,
-                  fontSize: 15.sp,
+              child: Obx(
+                () => Text(
+                  isFractioned
+                      ? quantity.toString()
+                      : quantity.toInt().toString(),
+                  // '${widget.quantity.toString().characters.last == '0' ? widget.quantity.toString().characters.first : widget.quantity}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 15.sp,
+                  ),
                 ),
               ),
             ),
             IconButton(
                 onPressed: () {
-                  if (widget.quantity > 0) {
-                    setState(() {
-                      if (widget.isFractioned) {
-                        widget.quantity = widget.quantity - 0.5;
-                      } else {
-                        widget.quantity--;
-                      }
-                    });
+                  if (quantity.value > 0) {
+                    if (isFractioned) {
+                      quantity.value = quantity.value - 0.5;
+                    } else {
+                      quantity.value--;
+                    }
                   }
                 },
                 icon: const Icon(
@@ -89,7 +84,7 @@ class _QuantityRowState extends State<QuantityRow> {
                 )),
             SizedBox(width: 5.w),
             Text(
-              widget.mesurementUnit,
+              mesurementUnit,
               style: kTxtStyleNormal,
             ),
             SizedBox(width: 5.w),

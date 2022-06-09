@@ -1,24 +1,17 @@
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../controller/catalog_controllers/turkish_controller.dart';
 import '../../../utils/constants.dart';
 import '../../widgets/my_drop_menu.dart';
 import '../../widgets/quantity_row.dart';
 import '../../widgets/widgets_helper.dart';
 
-enum BrazillianCoffeeType { brazillian, brazillianCardamom }
-
-class BrazillianCoffeeWidget extends StatefulWidget {
-  const BrazillianCoffeeWidget({Key? key}) : super(key: key);
-
-  @override
-  State<BrazillianCoffeeWidget> createState() => _BrazillianCoffeeWidgetState();
-}
-
-class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
-  BrazillianCoffeeType? _brazillianCoffeeType = BrazillianCoffeeType.brazillian;
-  final double _quantity = 0.5;
+class BrazillianCoffeeWidget extends StatelessWidget {
+  BrazillianCoffeeWidget({Key? key}) : super(key: key);
+  final turkishController = Get.find<TurkishController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,49 +21,49 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RadioListTile<BrazillianCoffeeType>(
-                dense: true,
-                title: Text(
-                  'Brazillian',
-                  style: TextStyle(
-                    fontSize: 15.sp,
+              Obx(
+                () => RadioListTile<BrazillianCoffeeType>(
+                  dense: true,
+                  title: Text(
+                    'Brazillian',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  'SAR 57.00 / KG',
-                  style: TextStyle(
-                    fontSize: 13.5.sp,
+                  subtitle: Text(
+                    'SAR 57.00 / KG',
+                    style: TextStyle(
+                      fontSize: 13.5.sp,
+                    ),
                   ),
+                  value: BrazillianCoffeeType.brazillian,
+                  groupValue: turkishController.brazillianCoffeeType.value,
+                  onChanged: (BrazillianCoffeeType? value) {
+                    turkishController.brazillianCoffeeType.value = value!;
+                  },
                 ),
-                value: BrazillianCoffeeType.brazillian,
-                groupValue: _brazillianCoffeeType,
-                onChanged: (BrazillianCoffeeType? value) {
-                  setState(() {
-                    _brazillianCoffeeType = value;
-                  });
-                },
               ),
-              RadioListTile<BrazillianCoffeeType>(
-                dense: true,
-                title: Text(
-                  'Brazillian with cardamom',
-                  style: TextStyle(
-                    fontSize: 15.sp,
+              Obx(
+                () => RadioListTile<BrazillianCoffeeType>(
+                  dense: true,
+                  title: Text(
+                    'Brazillian with cardamom',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  'SAR 61.00 / KG',
-                  style: TextStyle(
-                    fontSize: 13.5.sp,
+                  subtitle: Text(
+                    'SAR 61.00 / KG',
+                    style: TextStyle(
+                      fontSize: 13.5.sp,
+                    ),
                   ),
+                  value: BrazillianCoffeeType.brazillianCardamom,
+                  groupValue: turkishController.brazillianCoffeeType.value,
+                  onChanged: (BrazillianCoffeeType? value) {
+                    turkishController.brazillianCoffeeType.value = value!;
+                  },
                 ),
-                value: BrazillianCoffeeType.brazillianCardamom,
-                groupValue: _brazillianCoffeeType,
-                onChanged: (BrazillianCoffeeType? value) {
-                  setState(() {
-                    _brazillianCoffeeType = value;
-                  });
-                },
               ),
               aDivider(isVerticalPadding: false),
               SizedBox(height: 8.h),
@@ -87,10 +80,14 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                     'Dark Roast',
                     style: kTxtStyleNormal,
                   ),
-                  MyDropDownMenu(
-                    value: '10 %',
-                    items: precentageList,
-                    onChanged: (val) {},
+                  Obx(
+                    () => MyDropDownMenu(
+                      value: turkishController.bDarkRoastPrecentage.value,
+                      items: precentageList,
+                      onChanged: (val) {
+                        turkishController.bDarkRoastPrecentage.value = val!;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -101,10 +98,14 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                     'Medium Roast',
                     style: kTxtStyleNormal,
                   ),
-                  MyDropDownMenu(
-                    value: '10 %',
-                    items: precentageList,
-                    onChanged: (val) {},
+                  Obx(
+                    () => MyDropDownMenu(
+                      value: turkishController.bMediumRoastPrecentage.value,
+                      items: precentageList,
+                      onChanged: (val) {
+                        turkishController.bMediumRoastPrecentage.value = val!;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -115,37 +116,40 @@ class _BrazillianCoffeeWidgetState extends State<BrazillianCoffeeWidget> {
                     'Light Roast',
                     style: kTxtStyleNormal,
                   ),
-                  MyDropDownMenu(
-                    value: '10 %',
-                    items: precentageList,
-                    onChanged: (val) {},
+                  Obx(
+                    () => MyDropDownMenu(
+                      value: turkishController.bLightRoastPrecentage.value,
+                      items: precentageList,
+                      onChanged: (val) {
+                        turkishController.bLightRoastPrecentage.value = val!;
+                      },
+                    ),
                   ),
                 ],
               ),
               aDivider(),
               QuantityRow(
-                quantity: _quantity,
+                quantity: turkishController.bQuantity,
               ),
               SizedBox(height: 10.h),
               aDivider(),
               SizedBox(height: 10.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'VAT included',
-                    style: kTxtStyleNormal,
-                  ),
-                  Text(
-                    "\$100",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: kBeige,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 20.h),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'VAT included',
+              //       style: kTxtStyleNormal,
+              //     ),
+              //     Text(
+              //       "\$100",
+              //       style: TextStyle(
+              //         fontSize: 16.sp,
+              //         color: kBeige,
+              //       ),
+              //     )
+              //   ],
+              // ),
             ],
           ),
         ),

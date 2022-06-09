@@ -1,3 +1,5 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
@@ -11,9 +13,12 @@ import '../../controller/catalog_controllers/arabic_coffee_controller.dart';
 import '../widgets/my_drop_menu.dart';
 
 class ArabicCoffeePage extends StatelessWidget {
-  ArabicCoffeePage({Key? key}) : super(key: key);
+  ArabicCoffeePage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
   final arabicCoffeeController = Get.put(ArabicCoffeController());
-
+  CatalogProduct catalogProduct;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,15 +52,41 @@ class ArabicCoffeePage extends StatelessWidget {
                   Image.asset('assets/images/catalog_arabic_coffee_big.png'),
                   Positioned(
                     right: 0,
-                    child: IconButton(
+                    child:
+                        //  Obx(() =>
+                        IconButton(
                       icon: const Icon(
+                        // arabicCoffeeController.isFavorited.isTrue
+                        //     ? CupertinoIcons.heart_circle
+                        //     :
                         CupertinoIcons.heart_circle_fill,
                         color: Colors.white,
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // bool isAlreadyFavorited = catalogProducts[
+                        //         catalogProducts.indexWhere((element) =>
+                        //             element.catalogEnum ==
+                        //             CatalogEnum.arabicCoffee)]
+                        //     .isFavorited;
+
+                        // catalogProducts[catalogProducts.indexWhere(
+                        //         (element) =>
+                        //             element.catalogEnum ==
+                        //             CatalogEnum.arabicCoffee)]
+                        //     .isFavorited = !catalogProducts[
+                        //         catalogProducts.indexWhere((element) =>
+                        //             element.catalogEnum ==
+                        //             CatalogEnum.arabicCoffee)]
+                        //     .isFavorited;
+                        // if (isAlreadyFavorited) {
+                        //   showToast('Removed from favorites');
+                        // } else {
+                        //   showToast('Added to favorites');
+                        // }
                       },
+                      // ),
                     ),
                   ),
                 ],
@@ -67,9 +98,17 @@ class ArabicCoffeePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Saudi Coffee',
+                      catalogProduct.name,
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    Text(
+                      '${catalogProduct.price} SR',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
                     ),
                     Obx(
@@ -200,7 +239,7 @@ class ArabicCoffeePage extends StatelessWidget {
           ],
         ),
         aDivider(),
-        QuantityRow(quantity: arabicCoffeeController.quantity.value),
+        QuantityRow(quantity: arabicCoffeeController.quantity),
         aDivider(),
         Text('Type', style: kTxtStyleNormal),
         Obx(
@@ -354,7 +393,7 @@ class ArabicCoffeePage extends StatelessWidget {
           ),
         ),
         aDivider(),
-        QuantityRow(quantity: arabicCoffeeController.quantity.value),
+        QuantityRow(quantity: arabicCoffeeController.quantity),
       ],
     );
   }

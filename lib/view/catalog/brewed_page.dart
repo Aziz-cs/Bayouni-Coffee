@@ -1,5 +1,6 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -12,8 +13,11 @@ import '../../utils/constants.dart';
 import '../widgets/my_drop_menu.dart';
 
 class BrewedPage extends StatelessWidget {
-  BrewedPage({Key? key}) : super(key: key);
-
+  BrewedPage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
+  CatalogProduct catalogProduct;
   final brewedController = Get.put(BrewedController());
 
   @override
@@ -56,7 +60,8 @@ class BrewedPage extends StatelessWidget {
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // showToast('Added to favorites');
                       },
                     ),
                   ),
@@ -69,9 +74,17 @@ class BrewedPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Brewed Coffee',
+                      catalogProduct.name,
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    Text(
+                      '${catalogProduct.price} SR',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
                     ),
                     aDivider(),
@@ -316,7 +329,7 @@ class BrewedPage extends StatelessWidget {
           ),
         ),
         aDivider(),
-        QuantityRow(quantity: brewedController.quantity.value),
+        QuantityRow(quantity: brewedController.quantity),
       ],
     );
   }
@@ -359,7 +372,7 @@ class BrewedPage extends StatelessWidget {
           ),
         ),
         aDivider(),
-        QuantityRow(quantity: brewedController.quantity.value),
+        QuantityRow(quantity: brewedController.quantity),
       ],
     );
   }

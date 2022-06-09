@@ -3,8 +3,8 @@ import 'package:bayouni_coffee/view/tabs/accessories_tab.dart';
 import 'package:bayouni_coffee/view/tabs/cart_tab.dart';
 import 'package:bayouni_coffee/view/tabs/catalog_tab.dart';
 import 'package:bayouni_coffee/view/tabs/favorites_tab.dart';
-import 'package:bayouni_coffee/view/tabs/home_tab.dart';
 import 'package:bayouni_coffee/view/tabs/more_tab.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -59,6 +59,14 @@ class NavigatorPage extends StatelessWidget {
               isSelected: _currentIndex.value == 4,
             )
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: kBeige,
+        child: const Icon(
+          CupertinoIcons.cart,
+          size: 25,
         ),
       ),
     );

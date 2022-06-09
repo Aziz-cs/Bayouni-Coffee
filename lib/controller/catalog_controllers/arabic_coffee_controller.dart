@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
 import 'package:get/get.dart';
 
 enum CoffeeType { specialBlend, customize }

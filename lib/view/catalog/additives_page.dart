@@ -1,31 +1,24 @@
-import 'package:bayouni_coffee/utils/constants.dart';
+import 'package:bayouni_coffee/controller/catalog_controllers/additives_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
-import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
+import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-enum AdditivesType { beans, ground }
-enum CoffeeType { fine, coarse }
-enum SaffronGram { gram3, gram5 }
+import '../../model/catalog_product.dart';
 
-class AdditivesPage extends StatefulWidget {
-  const AdditivesPage({Key? key}) : super(key: key);
+class AdditivesPage extends StatelessWidget {
+  AdditivesPage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
+  CatalogProduct catalogProduct;
 
-  @override
-  State<AdditivesPage> createState() => _AdditivesPageState();
-}
-
-class _AdditivesPageState extends State<AdditivesPage> {
-  AdditivesType _coffeeType = AdditivesType.beans;
-  CoffeeType _groundType = CoffeeType.fine;
-  SaffronGram _saffronGram = SaffronGram.gram3;
-  double _quantity = 1;
+  final additivesController = Get.put(AdditivesController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +60,8 @@ class _AdditivesPageState extends State<AdditivesPage> {
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // showToast('Added to favorites');
                       },
                     ),
                   ),
@@ -80,9 +74,17 @@ class _AdditivesPageState extends State<AdditivesPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Additives',
+                      catalogProduct.name,
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    Text(
+                      '${catalogProduct.price} SR',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
                     ),
                     SizedBox(height: 6.h),
@@ -105,82 +107,84 @@ class _AdditivesPageState extends State<AdditivesPage> {
                     ),
                     aDivider(),
                     Text('Type', style: kTxtStyleNormal),
-                    RadioListTile<AdditivesType>(
-                      dense: true,
-                      title: Text(
-                        'Beans',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<AdditivesType>(
+                        dense: true,
+                        title: Text(
+                          'Beans',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: AdditivesType.beans,
+                        groupValue: additivesController.additivesType.value,
+                        onChanged: (value) {
+                          additivesController.additivesType.value =
+                              value ?? AdditivesType.beans;
+                        },
                       ),
-                      value: AdditivesType.beans,
-                      groupValue: _coffeeType,
-                      onChanged: (value) {
-                        setState(() {
-                          _coffeeType = value ?? AdditivesType.beans;
-                        });
-                      },
                     ),
-                    RadioListTile<AdditivesType>(
-                      dense: true,
-                      title: Text(
-                        'Course (Granular)',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<AdditivesType>(
+                        dense: true,
+                        title: Text(
+                          'Course (Granular)',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: AdditivesType.ground,
+                        groupValue: additivesController.additivesType.value,
+                        onChanged: (value) {
+                          additivesController.additivesType.value =
+                              value ?? AdditivesType.beans;
+                        },
                       ),
-                      value: AdditivesType.ground,
-                      groupValue: _coffeeType,
-                      onChanged: (value) {
-                        setState(() {
-                          _coffeeType = value ?? AdditivesType.beans;
-                        });
-                      },
                     ),
-                    if (_coffeeType == AdditivesType.ground)
+                    if (additivesController.additivesType.value ==
+                        AdditivesType.ground)
                       Column(
                         children: [
-                          RadioListTile<CoffeeType>(
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 35.w),
-                            dense: true,
-                            title: Text(
-                              'Fine (Powder)',
-                              style: TextStyle(
-                                fontSize: 13.sp,
+                          Obx(
+                            () => RadioListTile<CoffeeType>(
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 35.w),
+                              dense: true,
+                              title: Text(
+                                'Fine (Powder)',
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                ),
                               ),
+                              value: CoffeeType.fine,
+                              groupValue: additivesController.coffeeType.value,
+                              onChanged: (value) {},
                             ),
-                            value: CoffeeType.fine,
-                            groupValue: _groundType,
-                            onChanged: (value) {
-                              setState(() {
-                                _groundType = value ?? CoffeeType.fine;
-                              });
-                            },
                           ),
-                          RadioListTile<CoffeeType>(
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 35.w),
-                            dense: true,
-                            title: Text(
-                              'Ground',
-                              style: TextStyle(
-                                fontSize: 13.sp,
+                          Obx(
+                            () => RadioListTile<CoffeeType>(
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 35.w),
+                              dense: true,
+                              title: Text(
+                                'Ground',
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                ),
                               ),
+                              value: CoffeeType.coarse,
+                              groupValue: additivesController.coffeeType.value,
+                              onChanged: (value) {
+                                additivesController.coffeeType.value =
+                                    value ?? CoffeeType.fine;
+                              },
                             ),
-                            value: CoffeeType.coarse,
-                            groupValue: _groundType,
-                            onChanged: (value) {
-                              setState(() {
-                                _groundType = value ?? CoffeeType.fine;
-                              });
-                            },
                           ),
                         ],
                       ),
                     aDivider(),
                     QuantityRow(
-                      quantity: _quantity,
+                      quantity: additivesController.quantity,
                     ),
                     aDivider(),
                     Text(
@@ -189,37 +193,36 @@ class _AdditivesPageState extends State<AdditivesPage> {
                         fontSize: 18.sp,
                       ),
                     ),
-                    RadioListTile<SaffronGram>(
-                      dense: true,
-                      title: Text(
-                        '3 grams',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<SaffronGram>(
+                        dense: true,
+                        title: Text(
+                          '3 grams',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: SaffronGram.gram3,
+                        groupValue: additivesController.saffronGram.value,
+                        onChanged: (value) {
+                          additivesController.saffronGram.value =
+                              value ?? SaffronGram.gram3;
+                        },
                       ),
-                      value: SaffronGram.gram3,
-                      groupValue: _saffronGram,
-                      onChanged: (value) {
-                        setState(() {
-                          _saffronGram = value ?? SaffronGram.gram3;
-                        });
-                      },
                     ),
-                    RadioListTile<SaffronGram>(
-                      dense: true,
-                      title: Text(
-                        '5 grams',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<SaffronGram>(
+                        dense: true,
+                        title: Text(
+                          '5 grams',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: SaffronGram.gram5,
+                        groupValue: additivesController.saffronGram.value,
+                        onChanged: (value) {},
                       ),
-                      value: SaffronGram.gram5,
-                      groupValue: _saffronGram,
-                      onChanged: (value) {
-                        setState(() {
-                          _saffronGram = value ?? SaffronGram.gram5;
-                        });
-                      },
                     ),
                     SizedBox(height: 13.h),
                     aDivider(),

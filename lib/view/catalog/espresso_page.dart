@@ -1,5 +1,6 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/espresso_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -12,7 +13,12 @@ import '../../utils/constants.dart';
 import '../widgets/my_drop_menu.dart';
 
 class EspressoPage extends StatelessWidget {
-  EspressoPage({Key? key}) : super(key: key);
+  EspressoPage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
+
+  CatalogProduct catalogProduct;
   final espressoController = Get.put(EspressoController());
 
   @override
@@ -55,7 +61,8 @@ class EspressoPage extends StatelessWidget {
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // showToast('Added to favorites');
                       },
                     ),
                   ),
@@ -93,6 +100,8 @@ class EspressoPage extends StatelessWidget {
                         groupValue: espressoController.espressoType.value,
                         onChanged: (value) {
                           espressoController.espressoType.value = value!;
+                          espressoController.coffeeType.value =
+                              CoffeeType.beans;
                         },
                       ),
                     ),
@@ -109,6 +118,8 @@ class EspressoPage extends StatelessWidget {
                         groupValue: espressoController.espressoType.value,
                         onChanged: (value) {
                           espressoController.espressoType.value = value!;
+                          espressoController.coffeeType.value =
+                              CoffeeType.beans;
                         },
                       ),
                     ),
@@ -142,6 +153,7 @@ class EspressoPage extends StatelessWidget {
                         groupValue: espressoController.coffeeType.value,
                         onChanged: (value) {
                           espressoController.coffeeType.value = value!;
+                          espressoController.groundType.value = GroundType.fine;
                         },
                       ),
                     ),
@@ -206,7 +218,7 @@ class EspressoPage extends StatelessWidget {
                     ),
                     aDivider(),
                     QuantityRow(
-                      quantity: espressoController.quantity.value,
+                      quantity: espressoController.quantity,
                     ),
                     // ? _buildSpecialEspressoOrder()
                   ],

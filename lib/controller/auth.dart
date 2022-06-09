@@ -38,6 +38,7 @@ class AuthController extends GetxController {
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
       print("after signing in with google");
+      showToast('Welcome back!');
       isLoadingGoogle.value = false;
       DBHelper.saveUserToDB(isSocialAuth: true);
       DBHelper.setUserInfo();

@@ -1,4 +1,8 @@
+import 'package:bayouni_coffee/view/widgets/item_accessory.dart';
 import 'package:bayouni_coffee/view/widgets/item_fav.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,48 +30,85 @@ class FavoritesTab extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16.h),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       "My Wishlist",
-            //       style: TextStyle(
-            //         color: kDarkGrey,
-            //         fontSize: 16.sp,
-            //       ),
-            //     ),
-            //     Text(
-            //       "CHANGE",
-            //       style: TextStyle(
-            //         color: kBeige,
-            //         fontSize: 14.sp,
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            _buildDivider(title: 'Catalog'),
             Expanded(
-              child: Column(children: [
-                FavItem(
-                  productImg: 'assets/images/catalog_creamy.png',
-                  productPrice: "76",
-                  productTitle: "Manual Espresso / Cappuccino",
-                ),
-                FavItem(
-                  productImg: 'assets/images/catalog_tea.png',
-                  productPrice: "76",
-                  productTitle: "Black Tea",
-                ),
-                FavItem(
-                  productImg: 'assets/images/catalog_turkish.png',
-                  productPrice: "76",
-                  productTitle: "Turkish Coffee",
-                ),
-              ]),
+              child: FirebaseAnimatedList(
+                  query: FirebaseDatabase.instance
+                      .ref()
+                      .child('Favorites')
+                      .child(FirebaseAuth.instance.currentUser!.uid)
+                      .child('catalog'),
+                  itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                      Animation<double> animation, int index) {
+                    String accessoryItemID = snapshot.key ?? '';
+                    print(accessoryItemID);
+                    // AccessoryItem favoritedAccessoryItem =
+                    return FavItem(accessoryProductID: accessoryItemID);
+                  }),
             ),
+            _buildDivider(title: 'Accessories'),
+            Expanded(
+              child: FirebaseAnimatedList(
+                  query: FirebaseDatabase.instance
+                      .ref()
+                      .child('Favorites')
+                      .child(FirebaseAuth.instance.currentUser!.uid)
+                      .child('accessories'),
+                  itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                      Animation<double> animation, int index) {
+                    String accessoryItemID = snapshot.key ?? '';
+                    print(accessoryItemID);
+                    // AccessoryItem favoritedAccessoryItem =
+                    return FavItem(accessoryProductID: accessoryItemID);
+                  }),
+            ),
+            // Expanded(
+            //   child: Column(children: [
+            //     FavItem(
+            //       productImg: 'assets/images/catalog_creamy.png',
+            //       productPrice: "76",
+            //       productTitle: "Manual Espresso / Cappuccino",
+            //     ),
+            //     FavItem(
+            //       productImg: 'assets/images/catalog_tea.png',
+            //       productPrice: "76",
+            //       productTitle: "Black Tea",
+            //     ),
+            //     FavItem(
+            //       productImg: 'assets/images/catalog_turkish.png',
+            //       productPrice: "76",
+            //       productTitle: "Turkish Coffee",
+            //     ),
+            //   ]),
+            // ),
           ],
         ),
       )),
+    );
+  }
+
+  Padding _buildDivider({required String title}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          const Expanded(
+              child: Divider(
+            color: kBeige,
+          )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 13.sp),
+            ),
+          ),
+          const Expanded(
+              child: Divider(
+            color: kBeige,
+          )),
+        ],
+      ),
     );
   }
 }

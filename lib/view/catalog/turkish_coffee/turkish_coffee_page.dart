@@ -1,22 +1,25 @@
 import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-enum TurkishCoffeeType { ethiopian, brazillian }
+import '../../../controller/catalog_controllers/turkish_controller.dart';
+import '../../../utils/constants.dart';
 
-class TurkishCoffeePage extends StatefulWidget {
-  const TurkishCoffeePage({Key? key}) : super(key: key);
+class TurkishCoffeePage extends StatelessWidget {
+  TurkishCoffeePage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
 
-  @override
-  State<TurkishCoffeePage> createState() => _TurkishCoffeePageState();
-}
-
-class _TurkishCoffeePageState extends State<TurkishCoffeePage> {
-  TurkishCoffeeType? _coffeeType = TurkishCoffeeType.ethiopian;
+  CatalogProduct catalogProduct;
+  final turkishController = Get.put(TurkishController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +44,18 @@ class _TurkishCoffeePageState extends State<TurkishCoffeePage> {
                       ),
                       constraints: BoxConstraints(),
                     ),
-                    Text('Back to Catalog'),
+                    const Text('Back to Catalog'),
                   ],
                 ),
               ),
               SizedBox(height: 10.h),
               Stack(
                 children: [
-                  Image.asset('assets/images/catalog_turkish_big.png'),
+                  CachedNetworkImage(
+                    imageUrl: catalogProduct.imgBig,
+                    fit: BoxFit.fill,
+                  ),
+                  // Image.asset('assets/images/catalog_turkish_big.png'),
                   Positioned(
                     right: 0,
                     child: IconButton(
@@ -58,7 +65,8 @@ class _TurkishCoffeePageState extends State<TurkishCoffeePage> {
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // showToast('Added to favorites');
                       },
                     ),
                   ),
@@ -71,52 +79,63 @@ class _TurkishCoffeePageState extends State<TurkishCoffeePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Turkish Coffee',
+                      catalogProduct.name,
                       style: TextStyle(
-                        fontSize: 17.sp,
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
                       ),
                     ),
-                    RadioListTile<TurkishCoffeeType>(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        'Ethiopian',
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                        ),
+                    Text(
+                      '${catalogProduct.price} SR',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
-                      value: TurkishCoffeeType.ethiopian,
-                      groupValue: _coffeeType,
-                      onChanged: (TurkishCoffeeType? value) {
-                        setState(() {
-                          _coffeeType = value;
-                        });
-                      },
                     ),
-                    RadioListTile<TurkishCoffeeType>(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        'Brazillian',
-                        style: TextStyle(
-                          fontSize: 15.sp,
+                    Obx(
+                      () => RadioListTile<TurkishCoffeeType>(
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          'Ethiopian',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
                         ),
+                        value: TurkishCoffeeType.ethiopian,
+                        groupValue: turkishController.turkishCoffeeType.value,
+                        onChanged: (TurkishCoffeeType? value) {
+                          turkishController.turkishCoffeeType.value = value!;
+                        },
                       ),
-                      value: TurkishCoffeeType.brazillian,
-                      groupValue: _coffeeType,
-                      onChanged: (TurkishCoffeeType? value) {
-                        setState(() {
-                          _coffeeType = value;
-                        });
-                      },
+                    ),
+                    Obx(
+                      () => RadioListTile<TurkishCoffeeType>(
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          'Brazillian',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        value: TurkishCoffeeType.brazillian,
+                        groupValue: turkishController.turkishCoffeeType.value,
+                        onChanged: (TurkishCoffeeType? value) {
+                          turkishController.turkishCoffeeType.value = value!;
+                        },
+                      ),
                     ),
                     aDivider(isVerticalPadding: false),
                   ],
                 ),
               ),
-              _coffeeType == TurkishCoffeeType.ethiopian
-                  ? const EthiopianCoffeeWidget()
-                  : const BrazillianCoffeeWidget(),
+              Obx(
+                () => turkishController.turkishCoffeeType.value ==
+                        TurkishCoffeeType.ethiopian
+                    ? EthiopianCoffeeWidget()
+                    : BrazillianCoffeeWidget(),
+              ),
             ],
           ),
         ),

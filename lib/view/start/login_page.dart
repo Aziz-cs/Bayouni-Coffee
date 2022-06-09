@@ -93,36 +93,37 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () =>
-                                  _isRememberMe.value = !_isRememberMe.value,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 20.w,
-                                    height: 20.h,
-                                    color: Colors.white,
-                                    child: Obx(
-                                      () => Checkbox(
-                                        value: _isRememberMe.value,
-                                        onChanged: (value) {},
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 8.w),
-                                  Text(
-                                    'Remember me',
-                                    style: TextStyle(
-                                      color: const Color(0xFF565853),
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // Expanded(
+                          //   child: GestureDetector(
+                          //     onTap: () =>
+                          //         _isRememberMe.value = !_isRememberMe.value,
+                          //     child: Row(
+                          //       children: [
+                          //         Container(
+                          //           width: 20.w,
+                          //           height: 20.h,
+                          //           color: Colors.white,
+                          //           child: Obx(
+                          //             () => Checkbox(
+                          //               value: _isRememberMe.value,
+                          //               onChanged: (value) {},
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         SizedBox(width: 8.w),
+                          //         Text(
+                          //           'Remember me',
+                          //           style: TextStyle(
+                          //             color: const Color(0xFF565853),
+                          //             fontSize: 16.sp,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                           GestureDetector(
                             onTap: () => Get.bottomSheet(
                               Container(
@@ -270,19 +271,19 @@ class LoginPage extends StatelessWidget {
                           color: const Color(0xFF3A3C40),
                         ),
                       ),
-                      SizedBox(height: 16.h),
-                      Obx(
-                        () => authController.isLoadingFacebook.isTrue
-                            ? const CircularProgressIndicator()
-                            : _buildIconBtn(
-                                label: 'Login with Facebook',
-                                icon: Image.asset(
-                                    'assets/images/ic_facebook.png'),
-                                onPress: () {
-                                  authController.signInWithFacebook();
-                                },
-                              ),
-                      ),
+                      // SizedBox(height: 16.h),
+                      // Obx(
+                      //   () => authController.isLoadingFacebook.isTrue
+                      //       ? const CircularProgressIndicator()
+                      //       : _buildIconBtn(
+                      //           label: 'Login with Facebook',
+                      //           icon: Image.asset(
+                      //               'assets/images/ic_facebook.png'),
+                      //           onPress: () {
+                      //             authController.signInWithFacebook();
+                      //           },
+                      //         ),
+                      // ),
                       SizedBox(height: 16.h),
                       Obx(
                         () => authController.isLoadingGoogle.value

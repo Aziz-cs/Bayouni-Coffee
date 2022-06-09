@@ -14,65 +14,65 @@ class TotalVAT extends StatelessWidget {
     return Container(
       color: Colors.grey.shade200,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Column(
           children: [
-            SizedBox(height: 10.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Purchase Amount:',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'SR.',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'VAT (15%):',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'SR.',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total Amount',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'SR.',
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h),
+            // SizedBox(height: 10.h),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         'Purchase Amount:',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //       Text(
+            //         'SR.',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         'VAT (15%):',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //       Text(
+            //         'SR.',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         'Total Amount',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //       Text(
+            //         'SR.',
+            //         style:
+            //             TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(height: 10.h),
             MyTextField(
               controller: _commentController,
               iconData: Icons.comment_outlined,
@@ -173,17 +173,17 @@ class TotalVATCart extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            MyTextField(
-              controller: _commentController,
-              iconData: Icons.comment_outlined,
-              hintText: 'Add comment',
-              isPrefixIcon: false,
-              validator: (input) {
-                if (input!.length > 4000) {
-                  return 'Max characters is 4000 ';
-                }
-              },
-            ),
+            // MyTextField(
+            //   controller: _commentController,
+            //   iconData: Icons.comment_outlined,
+            //   hintText: 'Add comment',
+            //   isPrefixIcon: false,
+            //   validator: (input) {
+            //     if (input!.length > 4000) {
+            //       return 'Max characters is 4000 ';
+            //     }
+            //   },
+            // ),
             MyButton(
               label: 'BUY NOW',
               onPress: () => pushNewScreen(

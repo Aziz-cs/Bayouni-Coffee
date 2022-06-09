@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
@@ -6,17 +7,15 @@ import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class CreamyPage extends StatefulWidget {
-  const CreamyPage({Key? key}) : super(key: key);
-
-  @override
-  State<CreamyPage> createState() => _CreamyPageState();
-}
-
-class _CreamyPageState extends State<CreamyPage> {
-  double _quantity = 1;
-
+class CreamyPage extends StatelessWidget {
+  CreamyPage({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
+  CatalogProduct catalogProduct;
+  final _quantity = 1.0.obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +56,8 @@ class _CreamyPageState extends State<CreamyPage> {
                         size: 29,
                       ),
                       onPressed: () {
-                        showToast('Added to favorites');
+                        showToast('Under construction');
+                        // showToast('Added to favorites');
                       },
                     ),
                   ),
@@ -70,9 +70,17 @@ class _CreamyPageState extends State<CreamyPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Creamy French coffee',
+                      catalogProduct.name,
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    Text(
+                      '${catalogProduct.price} SR',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
                     ),
                     SizedBox(height: 3.h),
