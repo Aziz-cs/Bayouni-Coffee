@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/catalog_controllers/arabic_coffee_controller.dart';
+import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 import '../widgets/my_drop_menu.dart';
 
@@ -44,7 +45,7 @@ class ArabicCoffeePage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back to Catalog'),
+                    const Text('Back'),
                   ],
                 ),
               ),
@@ -57,42 +58,7 @@ class ArabicCoffeePage extends StatelessWidget {
                   ),
                   Positioned(
                     right: 0,
-                    child:
-                        //  Obx(() =>
-                        IconButton(
-                      icon: const Icon(
-                        // arabicCoffeeController.isFavorited.isTrue
-                        //     ? CupertinoIcons.heart_circle
-                        //     :
-                        CupertinoIcons.heart_circle_fill,
-                        color: Colors.white,
-                        size: 29,
-                      ),
-                      onPressed: () {
-                        showToast('Under construction');
-                        // bool isAlreadyFavorited = catalogProducts[
-                        //         catalogProducts.indexWhere((element) =>
-                        //             element.catalogEnum ==
-                        //             CatalogEnum.arabicCoffee)]
-                        //     .isFavorited;
-
-                        // catalogProducts[catalogProducts.indexWhere(
-                        //         (element) =>
-                        //             element.catalogEnum ==
-                        //             CatalogEnum.arabicCoffee)]
-                        //     .isFavorited = !catalogProducts[
-                        //         catalogProducts.indexWhere((element) =>
-                        //             element.catalogEnum ==
-                        //             CatalogEnum.arabicCoffee)]
-                        //     .isFavorited;
-                        // if (isAlreadyFavorited) {
-                        //   showToast('Removed from favorites');
-                        // } else {
-                        //   showToast('Added to favorites');
-                        // }
-                      },
-                      // ),
-                    ),
+                    child: FavCatalogBtn(catalogID: catalogProduct.id),
                   ),
                 ],
               ),

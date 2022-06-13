@@ -1,5 +1,6 @@
 import 'package:bayouni_coffee/view/widgets/item_accessory.dart';
-import 'package:bayouni_coffee/view/widgets/item_fav.dart';
+import 'package:bayouni_coffee/view/widgets/item_fav_accessory.dart';
+import 'package:bayouni_coffee/view/widgets/item_fav_catalog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -40,10 +41,10 @@ class FavoritesTab extends StatelessWidget {
                       .child('catalog'),
                   itemBuilder: (BuildContext context, DataSnapshot snapshot,
                       Animation<double> animation, int index) {
-                    String accessoryItemID = snapshot.key ?? '';
-                    print(accessoryItemID);
+                    String catalogID = snapshot.key ?? '';
+                    print(catalogID);
                     // AccessoryItem favoritedAccessoryItem =
-                    return FavItem(accessoryProductID: accessoryItemID);
+                    return FavCatalogItem(catalogID: catalogID);
                   }),
             ),
             _buildDivider(title: 'Accessories'),
@@ -59,7 +60,8 @@ class FavoritesTab extends StatelessWidget {
                     String accessoryItemID = snapshot.key ?? '';
                     print(accessoryItemID);
                     // AccessoryItem favoritedAccessoryItem =
-                    return FavItem(accessoryProductID: accessoryItemID);
+                    return FavAccessoryItem(
+                        accessoryProductID: accessoryItemID);
                   }),
             ),
             // Expanded(

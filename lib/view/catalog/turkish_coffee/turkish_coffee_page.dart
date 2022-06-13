@@ -1,7 +1,9 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/catalog_fav_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
+import 'package:bayouni_coffee/view/widgets/fav_catalog_btn.dart';
 import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -43,9 +45,9 @@ class TurkishCoffeePage extends StatelessWidget {
                         bottom: 6.h,
                         top: 6.h,
                       ),
-                      constraints: BoxConstraints(),
+                      constraints: const BoxConstraints(),
                     ),
-                    const Text('Back to Catalog'),
+                    const Text('Back'),
                   ],
                 ),
               ),
@@ -54,22 +56,12 @@ class TurkishCoffeePage extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl: catalogProduct.imgBig,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.fitWidth,
                   ),
                   // Image.asset('assets/images/catalog_turkish_big.png'),
                   Positioned(
                     right: 0,
-                    child: IconButton(
-                      icon: const Icon(
-                        CupertinoIcons.heart_circle_fill,
-                        color: Colors.white,
-                        size: 29,
-                      ),
-                      onPressed: () {
-                        showToast('Under construction');
-                        // showToast('Added to favorites');
-                      },
-                    ),
+                    child: FavCatalogBtn(catalogID: catalogProduct.id),
                   ),
                 ],
               ),

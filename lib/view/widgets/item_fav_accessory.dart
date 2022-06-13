@@ -2,21 +2,17 @@ import 'package:bayouni_coffee/model/accessory.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../controller/helper.dart';
 import '../accessory_page.dart';
-import 'my_button.dart';
 
-class FavItem extends StatelessWidget {
-  FavItem({
+class FavAccessoryItem extends StatelessWidget {
+  FavAccessoryItem({
     Key? key,
     required this.accessoryProductID,
   }) : super(key: key);
@@ -108,7 +104,7 @@ class FavItem extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.only(right: 44.w),
                                 child: Text(
-                                  "\$${accessoryProduct.price}",
+                                  accessoryProduct.price.toString() + ' SR',
                                   style: TextStyle(
                                     fontSize: 14.5.sp,
                                     color: kBeige,
@@ -121,10 +117,6 @@ class FavItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // const Divider(
-                    //   color: kGrey,
-                    //   height: 1,
-                    // ),
                   ],
                 ),
               );

@@ -58,53 +58,7 @@ class AccessoryProductPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        StreamBuilder(
-                          stream: FirebaseDatabase.instance
-                              .ref()
-                              .child('Favorites')
-                              .child(FirebaseAuth.instance.currentUser!.uid)
-                              .child('accessories')
-                              .child(accessoryProduct.id)
-                              .onValue,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<DatabaseEvent> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.active) {
-                              if (snapshot.data!.snapshot.value == null) {
-                                print('is not favorited');
-                                return IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    onPressed: () {
-                                      accessoriesController
-                                          .addToFavorites(accessoryProduct.id);
-                                      showToast('Added to favorites');
-                                    },
-                                    icon: const Icon(
-                                      CupertinoIcons.heart_circle_fill,
-                                      color: kBeige,
-                                      size: 33,
-                                    ));
-                              } else {
-                                print('is favorited');
-                                return IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    onPressed: () {
-                                      accessoriesController.removeFromFavorites(
-                                          accessoryProduct.id);
-                                      showToast('Removed from favorites');
-                                    },
-                                    icon: const Icon(
-                                      CupertinoIcons.heart_circle,
-                                      color: kBeige,
-                                      size: 33,
-                                    ));
-                              }
-                            }
-                            return const SizedBox();
-                          },
-                        ),
+                        _buildFavIconButton(),
                       ],
                     ),
                     CachedNetworkImage(
@@ -176,6 +130,49 @@ class AccessoryProductPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingCart(),
+    );
+  }
+
+  StreamBuilder<DatabaseEvent> _buildFavIconButton() {
+    return StreamBuilder(
+      stream: FirebaseDatabase.instance
+          .ref()
+          .child('Favorites')
+          .child(FirebaseAuth.instance.currentUser!.uid)
+          .child('accessories')
+          .child(accessoryProduct.id)
+          .onValue,
+      builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.data!.snapshot.value == null) {
+            print('is not favorited');
+            return IconButton(
+                onPressed: () {
+                  accessoriesController.addToFavorites(accessoryProduct.id);
+                  showToast('Added to favorites');
+                },
+                icon: const Icon(
+                  CupertinoIcons.heart_circle_fill,
+                  color: kBeige,
+                  size: 33,
+                ));
+          } else {
+            print('is favorited');
+            return IconButton(
+                onPressed: () {
+                  accessoriesController
+                      .removeFromFavorites(accessoryProduct.id);
+                  showToast('Removed from favorites');
+                },
+                icon: const Icon(
+                  CupertinoIcons.heart_circle,
+                  color: kBeige,
+                  size: 33,
+                ));
+          }
+        }
+        return const SizedBox();
+      },
     );
   }
 }

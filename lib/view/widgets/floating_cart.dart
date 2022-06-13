@@ -18,6 +18,7 @@ class FloatingCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Badge(
+        position: BadgePosition.topEnd(end: -3),
         badgeContent: Text(
           cartController.allCartQuantities.value.toString(),
           // cartController.cartOrders.length.toString(),

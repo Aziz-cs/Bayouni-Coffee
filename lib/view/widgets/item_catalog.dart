@@ -33,7 +33,7 @@ class CatalogItem extends StatelessWidget {
         InkWell(
           onTap: () => pushNewScreen(
             context,
-            screen: getRouteTo(catalogProduct),
+            screen: CatalogController.getCatalogRoutingOf(catalogProduct),
             withNavBar: true, // OPTIONAL VALUE. True by default.
             pageTransitionAnimation: PageTransitionAnimation.cupertino,
           ),
@@ -54,28 +54,5 @@ class CatalogItem extends StatelessWidget {
         )
       ],
     );
-  }
-}
-
-Widget getRouteTo(CatalogProduct catalogProduct) {
-  switch (catalogProduct.id) {
-    case kTurkishCoffeeID:
-      return TurkishCoffeePage(catalogProduct: catalogProduct);
-    case kAdditivesID:
-      return AdditivesPage(catalogProduct: catalogProduct);
-    case kArabicCoffee:
-      return ArabicCoffeePage(catalogProduct: catalogProduct);
-    case kBrewedID:
-      return BrewedPage(catalogProduct: catalogProduct);
-    case kEspressoID:
-      return EspressoPage(catalogProduct: catalogProduct);
-    case kBlackTea:
-      return BlackTeaPage(catalogProduct: catalogProduct);
-    case kCreamyFrenchID:
-      return CreamyPage(catalogProduct: catalogProduct);
-    case kFlavoredCoffeeID:
-      return FlavoredCoffeePage(catalogProduct: catalogProduct);
-    default:
-      return Container();
   }
 }

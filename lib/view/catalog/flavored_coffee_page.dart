@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
+import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 
 class FlavoredCoffeePage extends StatelessWidget {
@@ -45,7 +46,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back to Catalog'),
+                    const Text('Back'),
                   ],
                 ),
               ),
@@ -58,17 +59,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                   ),
                   Positioned(
                     right: 0,
-                    child: IconButton(
-                      icon: const Icon(
-                        CupertinoIcons.heart_circle_fill,
-                        color: Colors.white,
-                        size: 29,
-                      ),
-                      onPressed: () {
-                        showToast('Under construction');
-                        // showToast('Added to favorites');
-                      },
-                    ),
+                    child: FavCatalogBtn(catalogID: catalogProduct.id),
                   ),
                 ],
               ),

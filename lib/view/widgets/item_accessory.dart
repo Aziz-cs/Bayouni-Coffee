@@ -37,21 +37,6 @@ class AccessoryItem extends StatelessWidget {
             width: 100.w,
           ),
         ),
-        //   Positioned(
-        //     right: 0,
-        //     child: IconButton(
-        //       icon: const Icon(
-        //         CupertinoIcons.heart_circle_fill,
-        //         color: Colors.white,
-        //         size: 29,
-        //       ),
-        //       onPressed: () {
-        //         showToast('Added to favorites');
-        //       },
-        //     ),
-        //   ),
-        // ],
-        // ),
         Text(
           accessory.name,
           textAlign: TextAlign.center,
