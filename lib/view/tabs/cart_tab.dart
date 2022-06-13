@@ -60,12 +60,14 @@ class CartTab extends StatelessWidget {
                               )
                             ],
                           )
-                        : Column(
-                            children: List.generate(
-                              cartController.cartOrders.length,
-                              (index) => CartItem(
-                                  cartProduct:
-                                      cartController.cartOrders[index]),
+                        : Obx(
+                            () => Column(
+                              children: List.generate(
+                                cartController.cartOrders.length,
+                                (index) => CartItem(
+                                    cartProduct:
+                                        cartController.cartOrders[index]),
+                              ),
                             ),
                           ),
                   ],

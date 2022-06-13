@@ -66,7 +66,7 @@ class NavigatorPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingCart(),
+      floatingActionButton: FloatingCart(isFromHomePage: true),
     );
   }
 

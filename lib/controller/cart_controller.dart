@@ -51,28 +51,19 @@ class CartController extends GetxController {
     }
   }
 
-  void removeProducFromCart(CartProduct cartProduct) {
-    bool isAddedBefore = true;
-    CartProduct addedItemBefore = cartOrders.firstWhere(
-      (element) => element.name == cartProduct.name,
-      orElse: () {
-        print('or else');
-        isAddedBefore = false;
-        return cartProduct;
-      },
-    );
-    if (isAddedBefore) {
-      showToast('Is added before');
-      addedItemBefore.quantity++;
-      allCartQuantities.value++;
-      cartOrders.refresh();
-      updateTotalPurchasePrice();
-    } else {
-      showToast('New Entry!');
-      cartOrders.add(cartProduct);
-      allCartQuantities.value++;
-      updateTotalPurchasePrice();
-    }
+  void dismissProductFromCart(CartProduct cartProduct) {
+    int quantityOfProduct = cartProduct.quantity;
+    cartOrders.removeWhere((element) => element.name == cartProduct.name);
+    allCartQuantities.value = allCartQuantities.value - quantityOfProduct;
+    updateTotalPurchasePrice();
+  }
+
+  void decrementProductFromCart(CartProduct cartProduct) {
+    cartOrders
+        .firstWhere((element) => element.name == cartProduct.name)
+        .quantity--;
+    allCartQuantities.value--;
+    updateTotalPurchasePrice();
   }
 
   double getAllTotalWithVAT() {

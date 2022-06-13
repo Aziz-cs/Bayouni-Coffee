@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class FloatingCart extends StatelessWidget {
   FloatingCart({
     Key? key,
-    this.isFromHomePage = true,
+    this.isFromHomePage = false,
   }) : super(key: key);
 
   bool isFromHomePage;

@@ -4,6 +4,8 @@ import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,20 +58,53 @@ class AccessoryProductPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          onPressed: () {
-                            accessoriesController
-                                .addToFavorites(accessoryProduct.id);
-                            showToast('Added to favorites');
+                        StreamBuilder(
+                          stream: FirebaseDatabase.instance
+                              .ref()
+                              .child('Favorites')
+                              .child(FirebaseAuth.instance.currentUser!.uid)
+                              .child('accessories')
+                              .child(accessoryProduct.id)
+                              .onValue,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DatabaseEvent> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.active) {
+                              if (snapshot.data!.snapshot.value == null) {
+                                print('is not favorited');
+                                return IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    onPressed: () {
+                                      accessoriesController
+                                          .addToFavorites(accessoryProduct.id);
+                                      showToast('Added to favorites');
+                                    },
+                                    icon: const Icon(
+                                      CupertinoIcons.heart_circle_fill,
+                                      color: kBeige,
+                                      size: 33,
+                                    ));
+                              } else {
+                                print('is favorited');
+                                return IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    onPressed: () {
+                                      accessoriesController.removeFromFavorites(
+                                          accessoryProduct.id);
+                                      showToast('Removed from favorites');
+                                    },
+                                    icon: const Icon(
+                                      CupertinoIcons.heart_circle,
+                                      color: kBeige,
+                                      size: 33,
+                                    ));
+                              }
+                            }
+                            return const SizedBox();
                           },
-                          icon: const Icon(
-                            CupertinoIcons.heart_circle_fill,
-                            color: kBeige,
-                            size: 33,
-                          ),
-                        )
+                        ),
                       ],
                     ),
                     CachedNetworkImage(
@@ -140,7 +175,7 @@ class AccessoryProductPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingCart(isFromHomePage: false),
+      floatingActionButton: FloatingCart(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bayouni_coffee/controller/cart_controller.dart';
+import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/cart_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -64,7 +65,9 @@ class CartItem extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                             onPressed: () {
-                              print('x pressed');
+                              cartController
+                                  .dismissProductFromCart(cartProduct);
+                              showToast('Removed from cart');
                             },
                             icon: const Icon(
                               CupertinoIcons.xmark,
@@ -114,8 +117,8 @@ class CartItem extends StatelessWidget {
                             constraints: const BoxConstraints(),
                             onPressed: () {
                               if (cartProduct.quantity > 1) {
-                                cartProduct.quantity--;
-                                cartController.allCartQuantities.value--;
+                                cartController
+                                    .decrementProductFromCart(cartProduct);
                               }
                             },
                             icon: const Icon(
