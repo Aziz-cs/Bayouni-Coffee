@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
+import '../widgets/floating_cart.dart';
 import '../widgets/my_drop_menu.dart';
 
 class BrewedPage extends StatelessWidget {
@@ -149,6 +150,7 @@ class BrewedPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 

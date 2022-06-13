@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
+import '../widgets/floating_cart.dart';
+
 class FlavoredCoffeePage extends StatelessWidget {
   FlavoredCoffeePage({
     Key? key,
@@ -234,6 +236,7 @@ class FlavoredCoffeePage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 

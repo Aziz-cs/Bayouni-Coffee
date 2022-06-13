@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/catalog_controllers/arabic_coffee_controller.dart';
+import '../widgets/floating_cart.dart';
 import '../widgets/my_drop_menu.dart';
 
 class ArabicCoffeePage extends StatelessWidget {
@@ -173,6 +174,7 @@ class ArabicCoffeePage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../controller/cart_controller.dart';
+import '../navigator_page.dart';
 
 class TotalVAT extends StatelessWidget {
   TotalVAT({
@@ -53,6 +54,7 @@ class TotalVAT extends StatelessWidget {
             MyButton(
               label: 'ADD TO CART',
               onPress: () {
+                showToast('Added to cart');
                 CartProduct cartProduct = CartProduct(
                   name: productTitle,
                   price: productPrice,
@@ -75,9 +77,11 @@ class TotalVAT extends StatelessWidget {
             ),
             SizedBox(height: 9.h),
             MyButton(
-              label: 'CHECK OUT',
-              onPress: () => showToast('Demo purpose'),
-            ),
+                label: 'CHECK OUT',
+                onPress: () {
+                  currentTabIndex.value = 2;
+                  Get.back();
+                }),
           ],
         ),
       ),
@@ -174,6 +178,7 @@ class TotalVATCart extends StatelessWidget {
             //   },
             // ),
             MyButton(
+              isDimmed: cartController.cartOrders.isEmpty ? true : false,
               label: 'BUY NOW',
               onPress: () => pushNewScreen(
                 context,
@@ -181,12 +186,6 @@ class TotalVATCart extends StatelessWidget {
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               ),
-            ),
-            SizedBox(height: 9.h),
-            MyButton(
-              label: 'CONTINUE SHOPPING',
-              onPress: () => showToast('Demo purpose'),
-              isFilled: false,
             ),
           ],
         ),

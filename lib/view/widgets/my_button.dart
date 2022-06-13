@@ -8,10 +8,12 @@ class MyButton extends StatelessWidget {
     required this.label,
     required this.onPress,
     this.isFilled = true,
+    this.isDimmed = false,
   }) : super(key: key);
   final String label;
   final VoidCallback onPress;
   final bool isFilled;
+  final bool isDimmed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +21,17 @@ class MyButton extends StatelessWidget {
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(Size.fromHeight(48.h)),
         backgroundColor: MaterialStateProperty.all(
-          isFilled ? const Color(0xFFC59D5F) : Colors.white,
+          isDimmed
+              ? Colors.grey
+              : isFilled
+                  ? const Color(0xFFC59D5F)
+                  : Colors.white,
         ),
-        side: MaterialStateProperty.all(const BorderSide(color: kBeige)),
+        side: MaterialStateProperty.all(
+            BorderSide(color: isDimmed ? Colors.grey : kBeige)),
         elevation: MaterialStateProperty.all(isFilled ? 2 : 0),
       ),
-      onPressed: onPress,
+      onPressed: isDimmed ? null : onPress,
       child: Text(
         label,
         style: TextStyle(

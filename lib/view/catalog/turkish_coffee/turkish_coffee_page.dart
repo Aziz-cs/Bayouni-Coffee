@@ -2,6 +2,7 @@ import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
+import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -140,6 +141,7 @@ class TurkishCoffeePage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 }

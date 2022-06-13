@@ -1,14 +1,14 @@
+import 'package:bayouni_coffee/utils/constants.dart';
+import 'package:bayouni_coffee/view/navigator_page.dart';
 import 'package:bayouni_coffee/view/widgets/item_cart.dart';
-import 'package:bayouni_coffee/view/widgets/item_fav.dart';
+import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
-import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../utils/constants.dart';
 
 class CartTab extends StatelessWidget {
   CartTab({Key? key}) : super(key: key);
@@ -18,25 +18,63 @@ class CartTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40.h,
-            ),
-            Column(
-              children: List.generate(
-                cartController.cartOrders.length,
-                (index) =>
-                    CartItem(cartProduct: cartController.cartOrders[index]),
+          child: Column(
+        children: [
+          Expanded(
+            child: Scrollbar(
+              isAlwaysShown: true,
+              thickness: 4,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    cartController.cartOrders.isEmpty
+                        ? Column(
+                            children: [
+                              SizedBox(height: 40.h),
+                              const Icon(
+                                CupertinoIcons.cart,
+                                size: 110,
+                                color: Colors.brown,
+                              ),
+                              SizedBox(height: 5.h),
+                              Text(
+                                'Empty Cart',
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  color: Colors.brown,
+                                ),
+                              ),
+                              SizedBox(height: 15.h),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: MyButton(
+                                    label: 'START SHOPPING',
+                                    onPress: () {
+                                      currentTabIndex.value = 0;
+                                    }),
+                              )
+                            ],
+                          )
+                        : Column(
+                            children: List.generate(
+                              cartController.cartOrders.length,
+                              (index) => CartItem(
+                                  cartProduct:
+                                      cartController.cartOrders[index]),
+                            ),
+                          ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 10.h),
-            TotalVATCart(),
-            SizedBox(height: 40.h),
-          ],
-        ),
+          ),
+          TotalVATCart(),
+        ],
       )),
     );
   }

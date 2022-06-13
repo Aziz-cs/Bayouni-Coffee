@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../model/catalog_product.dart';
+import '../widgets/floating_cart.dart';
 
 class AdditivesPage extends StatelessWidget {
   AdditivesPage({
@@ -244,6 +245,7 @@ class AdditivesPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 }

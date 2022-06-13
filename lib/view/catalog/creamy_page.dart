@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../widgets/floating_cart.dart';
+
 class CreamyPage extends StatelessWidget {
   CreamyPage({
     Key? key,
@@ -147,6 +149,7 @@ class CreamyPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingCart(),
     );
   }
 }
