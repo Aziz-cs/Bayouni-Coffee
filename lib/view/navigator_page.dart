@@ -4,19 +4,24 @@ import 'package:bayouni_coffee/view/tabs/cart_tab.dart';
 import 'package:bayouni_coffee/view/tabs/catalog_tab.dart';
 import 'package:bayouni_coffee/view/tabs/favorites_tab.dart';
 import 'package:bayouni_coffee/view/tabs/more_tab.dart';
+import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../controller/cart_controller.dart';
+
+final currentTabIndex = 0.obs;
+
 class NavigatorPage extends StatelessWidget {
   NavigatorPage({Key? key}) : super(key: key);
+  final cartController = Get.put(CartController());
 
-  final _currentIndex = 0.obs;
   final _tabs = [
     CatalogTab(),
     AccessoriesTab(),
-    const CartTab(),
+    CartTab(),
     const FavoritesTab(),
     MoreTab()
   ];
@@ -24,51 +29,44 @@ class NavigatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => _tabs[_currentIndex.value]),
+      body: Obx(() => _tabs[currentTabIndex.value]),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           type: BottomNavigationBarType.fixed, // Fixed
           selectedItemColor: kBeige,
           unselectedItemColor: kGrey,
-          currentIndex: _currentIndex.value,
-          onTap: (index) => _currentIndex.value = index,
+          currentIndex: currentTabIndex.value,
+          onTap: (index) => currentTabIndex.value = index,
           items: [
             _buildTabItem(
               label: 'Catalog',
               imgName: 'tab_catalog',
-              isSelected: _currentIndex.value == 0,
+              isSelected: currentTabIndex.value == 0,
             ),
             _buildTabItem(
               label: 'Accessories',
               imgName: 'tab_additives',
-              isSelected: _currentIndex.value == 1,
+              isSelected: currentTabIndex.value == 1,
             ),
             _buildTabItem(
               label: 'Cart',
               imgName: 'tab_cart',
-              isSelected: _currentIndex.value == 2,
+              isSelected: currentTabIndex.value == 2,
             ),
             _buildTabItem(
               label: 'Favorites',
               imgName: 'tab_favorites',
-              isSelected: _currentIndex.value == 3,
+              isSelected: currentTabIndex.value == 3,
             ),
             _buildTabItem(
               label: 'More',
               imgName: 'tab_more',
-              isSelected: _currentIndex.value == 4,
+              isSelected: currentTabIndex.value == 4,
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: kBeige,
-        child: const Icon(
-          CupertinoIcons.cart,
-          size: 25,
-        ),
-      ),
+      floatingActionButton: FloatingCart(),
     );
   }
 

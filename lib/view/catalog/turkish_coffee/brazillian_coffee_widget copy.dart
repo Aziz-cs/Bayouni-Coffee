@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +11,12 @@ import '../../widgets/quantity_row.dart';
 import '../../widgets/widgets_helper.dart';
 
 class BrazillianCoffeeWidget extends StatelessWidget {
-  BrazillianCoffeeWidget({Key? key}) : super(key: key);
+  BrazillianCoffeeWidget({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
   final turkishController = Get.find<TurkishController>();
+  final CatalogProduct catalogProduct;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -153,7 +158,11 @@ class BrazillianCoffeeWidget extends StatelessWidget {
             ],
           ),
         ),
-        TotalVAT(),
+        TotalVAT(
+          productTitle: catalogProduct.name,
+          productPrice: catalogProduct.price,
+          productIMG: catalogProduct.imgThumb,
+        ),
         SizedBox(height: 50.h),
       ],
     );

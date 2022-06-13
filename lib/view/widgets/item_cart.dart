@@ -1,19 +1,26 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
+import 'package:bayouni_coffee/model/cart_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CartItem extends StatelessWidget {
-  CartItem({Key? key}) : super(key: key);
+  CartItem({
+    Key? key,
+    // required this.cartProduct,
+    required this.cartProduct,
+  }) : super(key: key);
+  final CartProduct cartProduct;
 
-  RxInt quanitiy = 1.obs;
+  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      padding: EdgeInsets.symmetric(horizontal: 6.w),
       margin: EdgeInsets.only(bottom: 15.h),
       child: Column(
         children: [
@@ -21,54 +28,24 @@ class CartItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 120.w,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/product_item1.png',
-                        height: 120.h,
+              SizedBox(
+                width: 90.w,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CachedNetworkImage(
+                        imageUrl: cartProduct.imgURL,
+                        fit: BoxFit.fill,
+                        height: 70.h,
+                        width: 70.w,
                       ),
-                      SizedBox(height: 3.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              onPressed: () => quanitiy.value++,
-                              icon: const Icon(
-                                CupertinoIcons.add,
-                                size: 19,
-                              )),
-                          Obx(
-                            () => Text(
-                              quanitiy.value.toString(),
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              onPressed: () {
-                                if (quanitiy.value > 1) {
-                                  quanitiy.value--;
-                                }
-                              },
-                              icon: const Icon(
-                                CupertinoIcons.minus,
-                                size: 19,
-                              ))
-                        ],
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 3.h),
+                  ],
                 ),
               ),
+              SizedBox(width: 5.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,29 +55,74 @@ class CartItem extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Text(
-                          "Manual Espresso / Cappuccino",
+                          cartProduct.name,
                           style: TextStyle(
                             fontSize: 16.sp,
                           ),
                         )),
                         IconButton(
-                            onPressed: () {},
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              print('x pressed');
+                            },
                             icon: const Icon(
                               CupertinoIcons.xmark,
                               size: 17,
                             ))
                       ],
                     ),
-                    SizedBox(height: 8.h),
-                    Padding(
-                      padding: EdgeInsets.only(right: 44.w),
-                      child: Text(
-                        "Good quality black Kenyan, continue for a big description",
-                        style: TextStyle(
-                          fontSize: 14.5.sp,
-                          color: kGrey,
-                        ),
+                    Text(
+                      cartProduct.price.toString() + " SR",
+                      style: TextStyle(
+                        fontSize: 14.5.sp,
+                        color: kBeige,
                       ),
+                    ),
+                    SizedBox(height: 5.h),
+                    Row(
+                      children: [
+                        IconButton(
+                            splashColor: kBeige,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              cartController.addProductToCart(cartProduct);
+                              // cartProduct.quantity++;
+                              // cartController.allCartQuantities.value++;
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.add,
+                              size: 19,
+                            )),
+                        SizedBox(width: 17.w),
+                        Obx(
+                          () => Text(
+                            cartController.cartOrders
+                                .firstWhere((element) =>
+                                    cartProduct.name == element.name)
+                                .quantity
+                                .toString(),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 17.w),
+                        IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              if (cartProduct.quantity > 1) {
+                                cartProduct.quantity--;
+                                cartController.allCartQuantities.value--;
+                              }
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.minus,
+                              size: 19,
+                            ))
+                      ],
                     ),
                     SizedBox(height: 12.h),
                   ],
@@ -112,25 +134,25 @@ class CartItem extends StatelessWidget {
             color: kGrey,
             height: 1,
           ),
-          SizedBox(height: 13.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'VAT Included',
-                style: TextStyle(
-                  fontSize: 15.sp,
-                ),
-              ),
-              Text(
-                '\$76',
-                style: TextStyle(
-                  color: kBeige,
-                  fontSize: 15.sp,
-                ),
-              )
-            ],
-          ),
+          // SizedBox(height: 13.h),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       'VAT Included',
+          //       style: TextStyle(
+          //         fontSize: 15.sp,
+          //       ),
+          //     ),
+          //     Text(
+          //       '\$76',
+          //       style: TextStyle(
+          //         color: kBeige,
+          //         fontSize: 15.sp,
+          //       ),
+          //     )
+          //   ],
+          // ),
           SizedBox(height: 13.h),
         ],
       ),

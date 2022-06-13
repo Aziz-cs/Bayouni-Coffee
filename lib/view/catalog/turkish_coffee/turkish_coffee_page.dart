@@ -133,8 +133,8 @@ class TurkishCoffeePage extends StatelessWidget {
               Obx(
                 () => turkishController.turkishCoffeeType.value ==
                         TurkishCoffeeType.ethiopian
-                    ? EthiopianCoffeeWidget()
-                    : BrazillianCoffeeWidget(),
+                    ? EthiopianCoffeeWidget(catalogProduct: catalogProduct)
+                    : BrazillianCoffeeWidget(catalogProduct: catalogProduct),
               ),
             ],
           ),

@@ -7,11 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../model/catalog_product.dart';
 import '../../widgets/widgets_helper.dart';
 
 class EthiopianCoffeeWidget extends StatelessWidget {
-  EthiopianCoffeeWidget({Key? key}) : super(key: key);
+  EthiopianCoffeeWidget({
+    Key? key,
+    required this.catalogProduct,
+  }) : super(key: key);
   final ethiopianController = Get.find<TurkishController>();
+  final CatalogProduct catalogProduct;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -153,7 +158,11 @@ class EthiopianCoffeeWidget extends StatelessWidget {
             ],
           ),
         ),
-        TotalVAT(),
+        TotalVAT(
+          productTitle: catalogProduct.name,
+          productPrice: catalogProduct.price,
+          productIMG: catalogProduct.imgThumb,
+        ),
         SizedBox(height: 50.h),
       ],
     );

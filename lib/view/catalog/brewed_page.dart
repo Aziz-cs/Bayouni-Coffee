@@ -4,6 +4,7 @@ import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,10 @@ class BrewedPage extends StatelessWidget {
               SizedBox(height: 10.h),
               Stack(
                 children: [
-                  Image.asset('assets/images/catalog_brewed_big.png'),
+                  CachedNetworkImage(
+                    imageUrl: catalogProduct.imgBig,
+                    fit: BoxFit.fill,
+                  ),
                   Positioned(
                     right: 0,
                     child: IconButton(
@@ -135,7 +139,11 @@ class BrewedPage extends StatelessWidget {
                   ],
                 ),
               ),
-              TotalVAT(),
+              TotalVAT(
+                productTitle: catalogProduct.name,
+                productPrice: catalogProduct.price,
+                productIMG: catalogProduct.imgThumb,
+              ),
               SizedBox(height: 50.h),
             ],
           ),

@@ -57,7 +57,7 @@ class NavPage extends StatelessWidget {
     return [
       CatalogTab(),
       AccessoriesTab(),
-      const CartTab(),
+      CartTab(),
       const FavoritesTab(),
       MoreTab()
     ];

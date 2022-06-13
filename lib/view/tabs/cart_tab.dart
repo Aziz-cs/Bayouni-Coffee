@@ -5,11 +5,14 @@ import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
 import '../../utils/constants.dart';
 
 class CartTab extends StatelessWidget {
-  const CartTab({Key? key}) : super(key: key);
+  CartTab({Key? key}) : super(key: key);
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,9 @@ class CartTab extends StatelessWidget {
             ),
             Column(
               children: List.generate(
-                2,
-                (index) => CartItem(),
+                cartController.cartOrders.length,
+                (index) =>
+                    CartItem(cartProduct: cartController.cartOrders[index]),
               ),
             ),
             SizedBox(height: 10.h),
