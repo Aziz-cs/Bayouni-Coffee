@@ -12,20 +12,24 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../../controller/cart_controller.dart';
 import '../navigator_page.dart';
 
-class TotalVAT extends StatelessWidget {
-  TotalVAT({
+class ShoppingButtons extends StatelessWidget {
+  ShoppingButtons({
     Key? key,
     required this.productTitle,
     required this.productPrice,
     required this.productIMG,
     this.orderComment = '',
     this.showAddComment = false,
+    this.isAccessoryProduct = false,
+    this.kgQuantity = 0.0,
   }) : super(key: key);
 
   final double productPrice;
   final String productTitle;
   final String productIMG;
   final String orderComment;
+  final bool isAccessoryProduct;
+  final double kgQuantity;
   bool showAddComment;
   final _commentController = TextEditingController();
 
@@ -61,6 +65,8 @@ class TotalVAT extends StatelessWidget {
                   comments: orderComment,
                   imgURL: productIMG,
                   quantity: 1,
+                  isAccessoryProduct: isAccessoryProduct,
+                  kgQuantity: kgQuantity,
                 );
                 cartController.addProductToCart(cartProduct);
                 // if (cartController.cartOrders.c)
@@ -151,7 +157,7 @@ class TotalVATCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'All Total (VAT)',
+                    'Total amount',
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),

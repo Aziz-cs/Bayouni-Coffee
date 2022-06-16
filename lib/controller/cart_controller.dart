@@ -29,6 +29,7 @@ class CartController extends GetxController {
 
   void addProductToCart(CartProduct cartProduct) {
     bool isAddedBefore = true;
+
     CartProduct addedItemBefore = cartOrders.firstWhere(
       (element) => element.name == cartProduct.name,
       orElse: () {
@@ -37,7 +38,7 @@ class CartController extends GetxController {
         return cartProduct;
       },
     );
-    if (isAddedBefore) {
+    if (isAddedBefore && cartProduct.isAccessoryProduct) {
       print('Added before: ${cartProduct.name}');
 
       addedItemBefore.quantity++;

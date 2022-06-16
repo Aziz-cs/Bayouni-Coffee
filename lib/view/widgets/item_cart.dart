@@ -76,57 +76,66 @@ class CartItem extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      cartProduct.price.toString() + " SR",
+                      (cartProduct.price * cartProduct.quantity).toString() +
+                          " SR",
                       style: TextStyle(
                         fontSize: 14.5.sp,
                         color: kBeige,
                       ),
                     ),
-                    SizedBox(height: 5.h),
-                    Row(
-                      children: [
-                        IconButton(
-                            splashColor: kBeige,
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            onPressed: () {
-                              cartController.addProductToCart(cartProduct);
-                              // cartProduct.quantity++;
-                              // cartController.allCartQuantities.value++;
-                            },
-                            icon: const Icon(
-                              CupertinoIcons.add,
-                              size: 19,
-                            )),
-                        SizedBox(width: 17.w),
-                        Obx(
-                          () => Text(
-                            cartController.cartOrders
-                                .firstWhere((element) =>
-                                    cartProduct.name == element.name)
-                                .quantity
-                                .toString(),
+                    SizedBox(height: 2.h),
+                    cartProduct.isAccessoryProduct
+                        ? Row(
+                            children: [
+                              IconButton(
+                                  splashColor: kBeige,
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  onPressed: () {
+                                    cartController
+                                        .addProductToCart(cartProduct);
+                                    // cartProduct.quantity++;
+                                    // cartController.allCartQuantities.value++;
+                                  },
+                                  icon: const Icon(
+                                    CupertinoIcons.add,
+                                    size: 19,
+                                  )),
+                              SizedBox(width: 17.w),
+                              Obx(
+                                () => Text(
+                                  cartController.cartOrders
+                                      .firstWhere((element) =>
+                                          cartProduct.name == element.name)
+                                      .quantity
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 17.w),
+                              IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  onPressed: () {
+                                    if (cartProduct.quantity > 1) {
+                                      cartController.decrementProductFromCart(
+                                          cartProduct);
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    CupertinoIcons.minus,
+                                    size: 19,
+                                  ))
+                            ],
+                          )
+                        : Text(
+                            '${cartProduct.kgQuantity} KG',
                             style: TextStyle(
                               fontSize: 14.sp,
                             ),
                           ),
-                        ),
-                        SizedBox(width: 17.w),
-                        IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            onPressed: () {
-                              if (cartProduct.quantity > 1) {
-                                cartController
-                                    .decrementProductFromCart(cartProduct);
-                              }
-                            },
-                            icon: const Icon(
-                              CupertinoIcons.minus,
-                              size: 19,
-                            ))
-                      ],
-                    ),
                     SizedBox(height: 12.h),
                   ],
                 ),

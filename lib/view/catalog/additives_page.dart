@@ -25,6 +25,7 @@ class AdditivesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    additivesController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,7 +78,7 @@ class AdditivesPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${catalogProduct.price} SR',
+                      '${AdditivesController.kgPrice} SR / KG',
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
@@ -193,7 +194,7 @@ class AdditivesPage extends StatelessWidget {
                       () => RadioListTile<SaffronGram>(
                         dense: true,
                         title: Text(
-                          '3 grams',
+                          '3 grams (${AdditivesController.saffron3GramPrice} SR)',
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -201,8 +202,7 @@ class AdditivesPage extends StatelessWidget {
                         value: SaffronGram.gram3,
                         groupValue: additivesController.saffronGram.value,
                         onChanged: (value) {
-                          additivesController.saffronGram.value =
-                              value ?? SaffronGram.gram3;
+                          additivesController.saffronGram.value = value!;
                         },
                       ),
                     ),
@@ -210,14 +210,16 @@ class AdditivesPage extends StatelessWidget {
                       () => RadioListTile<SaffronGram>(
                         dense: true,
                         title: Text(
-                          '5 grams',
+                          '5 grams (${AdditivesController.saffron5GramPrice} SR)',
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         value: SaffronGram.gram5,
                         groupValue: additivesController.saffronGram.value,
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          additivesController.saffronGram.value = value!;
+                        },
                       ),
                     ),
                     SizedBox(height: 13.h),
@@ -226,10 +228,17 @@ class AdditivesPage extends StatelessWidget {
                   ],
                 ),
               ),
-              TotalVAT(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: additivesController.calculateOrderPrice(
+                    quantity: additivesController.quantity.value,
+                    saffron: additivesController.saffronGram.value,
+                  ),
+                  // productPrice: catalogProduct.price,
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: additivesController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],

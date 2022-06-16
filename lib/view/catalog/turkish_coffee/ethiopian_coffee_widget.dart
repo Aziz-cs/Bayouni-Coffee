@@ -158,7 +158,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
             ],
           ),
         ),
-        TotalVAT(
+        ShoppingButtons(
           productTitle: catalogProduct.name,
           productPrice: catalogProduct.price,
           productIMG: catalogProduct.imgThumb,

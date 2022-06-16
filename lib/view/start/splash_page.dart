@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
 import 'package:bayouni_coffee/view/navigator_page.dart';
 import 'package:bayouni_coffee/view/start/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      FirebaseAuth.instance.authStateChanges().listen((firebaseUser) {
+      FirebaseAuth.instance.authStateChanges().listen((firebaseUser) async {
+        await CatalogController.initCatalogPriceList();
         if (firebaseUser != null) {
           print('I am logged in');
           print(firebaseUser.email);

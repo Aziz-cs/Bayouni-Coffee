@@ -105,7 +105,7 @@ class AccessoryProductPage extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      productDesc,
+                      accessoryProduct.discription,
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontSize: 15.sp,
@@ -120,10 +120,11 @@ class AccessoryProductPage extends StatelessWidget {
                   ],
                 ),
               ),
-              TotalVAT(
+              ShoppingButtons(
                 productTitle: accessoryProduct.name,
                 productPrice: accessoryProduct.price,
                 productIMG: accessoryProduct.imgURL,
+                isAccessoryProduct: true,
               ),
             ],
           ),
@@ -176,13 +177,3 @@ class AccessoryProductPage extends StatelessWidget {
     );
   }
 }
-
-String productDesc = '''
-BAYOUNI’S 50 & 100 cups Percolator Coffee Makers
-.Preparation:
- Fill up the coffee pot with unboiled mineral water to the desired level. Add coffee to basket 
-.Plug coffee pot into a standard electrical outlet.
- It takes approximately 30 minutes to brew 50 cups of coffee & 55 minutes for 100 cups.
-When the coffee has finished brewing, remove the basket.
-The pot will keep coffee heated as long as it’s connected to power.
-''';

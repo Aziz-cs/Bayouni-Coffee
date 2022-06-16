@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/additives_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -25,6 +26,8 @@ enum CatalogEnum {
   creamyFrench,
   flavoredCoffee
 }
+
+Map<dynamic, dynamic> catalogPriceList = {};
 
 const String kTurkishCoffeeID = "turkishCoffee";
 const String kAdditivesID = "additives";
@@ -143,6 +146,19 @@ class CatalogController extends GetxController {
       default:
         return Container();
     }
+  }
+
+  static Future<void> initCatalogPriceList() async {
+    FirebaseDatabase.instance
+        .ref()
+        .child('CatalogPriceList')
+        .onValue
+        .listen((event) {
+      catalogPriceList = event.snapshot.value as Map;
+      print('catalogPricelist: $catalogPriceList');
+
+      AdditivesController.initAdditivesPrices();
+    });
   }
 }
 
