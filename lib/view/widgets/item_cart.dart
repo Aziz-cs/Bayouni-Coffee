@@ -76,7 +76,8 @@ class CartItem extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      (cartProduct.price * cartProduct.quantity).toString() +
+                      (cartProduct.price * cartProduct.quantity)
+                              .toStringAsFixed(1) +
                           " SR",
                       style: TextStyle(
                         fontSize: 14.5.sp,
@@ -130,12 +131,14 @@ class CartItem extends StatelessWidget {
                                   ))
                             ],
                           )
-                        : Text(
-                            '${cartProduct.kgQuantity} KG',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                            ),
-                          ),
+                        : cartProduct.kgQuantity == 0
+                            ? const SizedBox()
+                            : Text(
+                                '${cartProduct.kgQuantity} KG',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
                     SizedBox(height: 12.h),
                   ],
                 ),

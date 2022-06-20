@@ -26,6 +26,7 @@ class EspressoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    espressoController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -76,6 +77,13 @@ class EspressoPage extends StatelessWidget {
                         fontSize: 18.sp,
                       ),
                     ),
+                    Text(
+                      EspressoController.kgPrice.toString() + ' SR / KG',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
+                      ),
+                    ),
                     aDivider(),
                     Obx(
                       () => RadioListTile<EspressoType>(
@@ -119,6 +127,10 @@ class EspressoPage extends StatelessWidget {
                         },
                       ),
                     ),
+                    Obx(() => espressoController.espressoType.value ==
+                            EspressoType.customized
+                        ? _buildCustomizedEspressoOrder()
+                        : const SizedBox()),
                     Text('Type', style: kTxtStyleNormal),
                     Obx(
                       () => RadioListTile<CoffeeType>(
@@ -153,28 +165,50 @@ class EspressoPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    Obx(
-                      () => espressoController.coffeeType.value ==
-                              CoffeeType.ground
-                          ? Column(
-                              children: [
-                                RadioListTile<GroundType>(
+                    Obx(() => espressoController.coffeeType.value ==
+                            CoffeeType.ground
+                        ? Column(
+                            children: [
+                              RadioListTile<GroundType>(
+                                dense: true,
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 35.w),
+                                title: Text(
+                                  'Fine Grind',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  'Electrical coffee maker',
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                  ),
+                                ),
+                                value: GroundType.fine,
+                                groupValue: espressoController.groundType.value,
+                                onChanged: (value) {
+                                  espressoController.groundType.value = value!;
+                                },
+                              ),
+                              Obx(
+                                () => RadioListTile<GroundType>(
                                   dense: true,
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 35.w),
                                   title: Text(
-                                    'Fine Grind',
+                                    'Course Grind',
                                     style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 15.sp,
                                     ),
                                   ),
                                   subtitle: Text(
-                                    'Electrical coffee maker',
+                                    'Stovetop coffee maker',
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                     ),
                                   ),
-                                  value: GroundType.fine,
+                                  value: GroundType.course,
                                   groupValue:
                                       espressoController.groundType.value,
                                   onChanged: (value) {
@@ -182,36 +216,11 @@ class EspressoPage extends StatelessWidget {
                                         value!;
                                   },
                                 ),
-                                Obx(
-                                  () => RadioListTile<GroundType>(
-                                    dense: true,
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 35.w),
-                                    title: Text(
-                                      'Course Grind',
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      'Stovetop coffee maker',
-                                      style: TextStyle(
-                                        fontSize: 13.sp,
-                                      ),
-                                    ),
-                                    value: GroundType.course,
-                                    groupValue:
-                                        espressoController.groundType.value,
-                                    onChanged: (value) {
-                                      espressoController.groundType.value =
-                                          value!;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            )
-                          : _buildCustomizedEspressoOrder(),
-                    ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox()),
+
                     aDivider(),
                     QuantityRow(
                       quantity: espressoController.quantity,
@@ -220,10 +229,13 @@ class EspressoPage extends StatelessWidget {
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: espressoController.calculateOrderPrice(),
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: espressoController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],
@@ -425,103 +437,7 @@ class EspressoPage extends StatelessWidget {
             ),
           ],
         ),
-        // aDivider(),
-        // Text('Type', style: kTxtStyleNormal),
-        // RadioListTile<CoffeeType>(
-        //   dense: true,
-        //   title: Text(
-        //     'Beans',
-        //     style: TextStyle(
-        //       fontSize: 15.sp,
-        //     ),
-        //   ),
-        //   value: CoffeeType.beans,
-        //   groupValue: _coffeeType,
-        //   onChanged: (value) {
-        //     setState(() {
-        //       _coffeeType = value;
-        //     });
-        //   },
-        // ),
-        // RadioListTile<CoffeeType>(
-        //   dense: true,
-        //   title: Text(
-        //     'Ground',
-        //     style: TextStyle(
-        //       fontSize: 15.sp,
-        //     ),
-        //   ),
-        //   value: CoffeeType.ground,
-        //   groupValue: _coffeeType,
-        //   onChanged: (value) {
-        //     setState(() {
-        //       _coffeeType = value;
-        //     });
-        //   },
-        // ),
-        // if (_coffeeType == CoffeeType.ground)
-        //   Column(
-        //     children: [
-        //       RadioListTile<GroundType>(
-        //         dense: true,
-        //         contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-        //         title: Text(
-        //           'Fine Grind',
-        //           style: TextStyle(
-        //             fontSize: 14.sp,
-        //           ),
-        //         ),
-        //         subtitle: Text(
-        //           'Electrical coffee maker',
-        //           style: TextStyle(
-        //             fontSize: 13.sp,
-        //           ),
-        //         ),
-        //         value: GroundType.fine,
-        //         groupValue: _groundType,
-        //         onChanged: (value) {
-        //           setState(() {
-        //             _groundType = value;
-        //           });
-        //         },
-        //       ),
-        //       RadioListTile<GroundType>(
-        //         dense: true,
-        //         contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-        //         title: Text(
-        //           'Course Grind',
-        //           style: TextStyle(
-        //             fontSize: 15.sp,
-        //           ),
-        //         ),
-        //         subtitle: Text(
-        //           'Stovetop coffee maker',
-        //           style: TextStyle(
-        //             fontSize: 13.sp,
-        //           ),
-        //         ),
-        //         value: GroundType.course,
-        //         groupValue: _groundType,
-        //         onChanged: (value) {
-        //           setState(() {
-        //             _groundType = value;
-        //           });
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // aDivider(),
-        // QuantityRow(
-        //   quantity: espressoController.quantity.value,
-        // ),
       ],
-    );
-  }
-
-  Column _buildSpecialEspressoOrder() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [],
     );
   }
 }

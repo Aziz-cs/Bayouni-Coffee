@@ -36,7 +36,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'SAR 67.00 / KG',
+                    'SR ${TurkishController.turkishKgPrice} / KG',
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
@@ -58,7 +58,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'SAR 71.00 / KG',
+                    'SR ${TurkishController.turkishCardamomKgPrice} / KG',
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
@@ -158,10 +158,17 @@ class EthiopianCoffeeWidget extends StatelessWidget {
             ],
           ),
         ),
-        ShoppingButtons(
-          productTitle: catalogProduct.name,
-          productPrice: catalogProduct.price,
-          productIMG: catalogProduct.imgThumb,
+        Obx(
+          () => ShoppingButtons(
+            productTitle: catalogProduct.name,
+            productPrice: ethiopianController.calculateOrderPrice(
+              coffeeType: ethiopianController.turkishCoffeeType.value,
+              ethiopianCoffeeType:
+                  ethiopianController.ethiopianCoffeeType.value,
+            ),
+            kgQuantity: ethiopianController.eQuantity.value,
+            productIMG: catalogProduct.imgThumb,
+          ),
         ),
         SizedBox(height: 50.h),
       ],

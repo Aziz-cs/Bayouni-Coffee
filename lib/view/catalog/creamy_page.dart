@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/catalog_controllers/creamy_french_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
@@ -19,7 +20,8 @@ class CreamyPage extends StatelessWidget {
     required this.catalogProduct,
   }) : super(key: key);
   CatalogProduct catalogProduct;
-  final _quantity = 1.0.obs;
+  final creamyFrenchController = Get.put(CreamyFrenchController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +76,7 @@ class CreamyPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${catalogProduct.price} SR',
+                      '${CreamyFrenchController.kgPrice} SR / KG',
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
@@ -98,42 +100,19 @@ class CreamyPage extends StatelessWidget {
                     ),
                     aDivider(),
                     QuantityRow(
-                      quantity: _quantity,
+                      quantity: creamyFrenchController.quantity,
                     ),
-                    // Row(
-                    //   children: [
-                    //     const Spacer(),
-                    //     Container(
-                    //       width: 32.w,
-                    //       height: 23.h,
-                    //       decoration: BoxDecoration(
-                    //         shape: BoxShape.rectangle,
-                    //         border: Border.all(
-                    //           color: Colors.black45,
-                    //           width: 1.0,
-                    //         ),
-                    //       ),
-                    //       alignment: Alignment.center,
-                    //       child: TextField(),
-                    //     ),
-                    //     SizedBox(width: 57.w),
-                    //     Text('G', style: kTxtStyleNormal),
-                    //     SizedBox(width: 5.w),
-                    //     const Icon(
-                    //       Icons.radio_button_unchecked,
-                    //       size: 18,
-                    //       color: Colors.brown,
-                    //     )
-                    //   ],
-                    // ),
                     SizedBox(height: 10.h),
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: creamyFrenchController.calculateOrderPrice(),
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: creamyFrenchController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],

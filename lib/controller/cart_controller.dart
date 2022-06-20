@@ -54,7 +54,7 @@ class CartController extends GetxController {
 
   void dismissProductFromCart(CartProduct cartProduct) {
     int quantityOfProduct = cartProduct.quantity;
-    cartOrders.removeWhere((element) => element.name == cartProduct.name);
+    cartOrders.removeWhere((element) => element == cartProduct);
     allCartQuantities.value = allCartQuantities.value - quantityOfProduct;
     updateTotalPurchasePrice();
   }

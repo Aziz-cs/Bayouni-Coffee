@@ -23,6 +23,7 @@ class BlackTeaPage extends StatelessWidget {
   final blackTeaController = Get.put(BlackTeaController());
   @override
   Widget build(BuildContext context) {
+    blackTeaController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -74,13 +75,6 @@ class BlackTeaPage extends StatelessWidget {
                         fontSize: 20.sp,
                       ),
                     ),
-                    Text(
-                      '${catalogProduct.price} SR',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: kBeige,
-                      ),
-                    ),
                     aDivider(),
                     Obx(
                       () => CheckboxListTile(
@@ -116,7 +110,7 @@ class BlackTeaPage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'SR. 42.00',
+                          'SR. ${BlackTeaController.boxBlackTeaPrice}',
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -139,7 +133,7 @@ class BlackTeaPage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'SR. 21.00',
+                          'SR. ${BlackTeaController.bagBlackTeaPrice}',
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -152,13 +146,18 @@ class BlackTeaPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    QuantityRow(
-                      quantity: blackTeaController.quanitity,
-                      isFractioned: false,
-                      mesurementUnit: blackTeaController.blackTeaType.value ==
-                              BlackTeaType.box
-                          ? 'Box'
-                          : 'Bag',
+                    Obx(
+                      () => blackTeaController.isBlackTea.isTrue
+                          ? QuantityRow(
+                              quantity: blackTeaController.blackTeaQuanitity,
+                              isFractioned: false,
+                              mesurementUnit:
+                                  blackTeaController.blackTeaType.value ==
+                                          BlackTeaType.box
+                                      ? 'Box'
+                                      : 'Bag',
+                            )
+                          : const SizedBox(),
                     ),
                     aDivider(),
                     Obx(
@@ -178,15 +177,19 @@ class BlackTeaPage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'SR. 54.00 / kg',
+                          'SR. ${BlackTeaController.greenTeaPrice} / kg',
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
                         ),
                       ),
                     ),
-                    QuantityRow(
-                      quantity: blackTeaController.quanitity,
+                    Obx(
+                      () => blackTeaController.isGreenTea.isTrue
+                          ? QuantityRow(
+                              quantity: blackTeaController.greenTeaQuanitity,
+                            )
+                          : const SizedBox(),
                     ),
                     aDivider(),
                     Obx(
@@ -206,26 +209,32 @@ class BlackTeaPage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'SR. 65.00 / can',
+                          'SR. ${BlackTeaController.shakirTeaPrice} / can',
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
                         ),
                       ),
                     ),
-                    QuantityRow(
-                      quantity: blackTeaController.quanitity,
-                      isFractioned: false,
-                      mesurementUnit: 'PC',
+                    Obx(
+                      () => blackTeaController.isShakirTea.isTrue
+                          ? QuantityRow(
+                              quantity: blackTeaController.shakirTeaQuanitity,
+                              isFractioned: false,
+                              mesurementUnit: 'PC',
+                            )
+                          : const SizedBox(),
                     ),
                     aDivider(),
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: blackTeaController.calculateOrderPrice(),
+                  productIMG: catalogProduct.imgThumb,
+                ),
               ),
               SizedBox(height: 50.h),
             ],

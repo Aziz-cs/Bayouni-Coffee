@@ -57,23 +57,27 @@ class ShoppingButtons extends StatelessWidget {
               ),
             MyButton(
               label: 'ADD TO CART',
-              onPress: () {
-                showToast('Added to cart');
-                CartProduct cartProduct = CartProduct(
-                  name: productTitle,
-                  price: productPrice,
-                  comments: orderComment,
-                  imgURL: productIMG,
-                  quantity: 1,
-                  isAccessoryProduct: isAccessoryProduct,
-                  kgQuantity: kgQuantity,
-                );
-                cartController.addProductToCart(cartProduct);
-                // if (cartController.cartOrders.c)
-                print('product title: $productTitle');
-                print('product price: $productPrice');
-                print('product image: $productIMG');
-              },
+              onPress: productPrice == 0
+                  ? () {
+                      showToast('Please select a product to add');
+                    }
+                  : () {
+                      showToast('Added to cart');
+                      CartProduct cartProduct = CartProduct(
+                        name: productTitle,
+                        price: productPrice,
+                        comments: orderComment,
+                        imgURL: productIMG,
+                        quantity: 1,
+                        isAccessoryProduct: isAccessoryProduct,
+                        kgQuantity: kgQuantity,
+                      );
+                      cartController.addProductToCart(cartProduct);
+                      // if (cartController.cartOrders.c)
+                      print('product title: $productTitle');
+                      print('product price: $productPrice');
+                      print('product image: $productIMG');
+                    },
             ),
             SizedBox(height: 9.h),
             MyButton(
@@ -121,7 +125,8 @@ class TotalVATCart extends StatelessWidget {
                   ),
                   Obx(
                     () => Text(
-                      cartController.totalPurchasePrice.value.toString() +
+                      cartController.totalPurchasePrice.value
+                              .toStringAsFixed(1) +
                           ' SR',
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),

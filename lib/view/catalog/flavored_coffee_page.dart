@@ -1,7 +1,6 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/flavored_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
-import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -25,6 +23,7 @@ class FlavoredCoffeePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    flavoredController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,6 +72,13 @@ class FlavoredCoffeePage extends StatelessWidget {
                       'Flavored Coffee',
                       style: TextStyle(
                         fontSize: 18.sp,
+                      ),
+                    ),
+                    Text(
+                      '${FlavoredController.kgPrice} SR / KG',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: kBeige,
                       ),
                     ),
                     SizedBox(height: 6.h),
@@ -217,10 +223,13 @@ class FlavoredCoffeePage extends StatelessWidget {
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: flavoredController.calculateOrderPrice(),
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: flavoredController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],

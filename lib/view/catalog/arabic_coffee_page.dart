@@ -20,10 +20,11 @@ class ArabicCoffeePage extends StatelessWidget {
     Key? key,
     required this.catalogProduct,
   }) : super(key: key);
-  final arabicCoffeeController = Get.put(ArabicCoffeController());
+  final arabicCoffeeController = Get.put(ArabicCoffeeController());
   CatalogProduct catalogProduct;
   @override
   Widget build(BuildContext context) {
+    arabicCoffeeController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -75,13 +76,13 @@ class ArabicCoffeePage extends StatelessWidget {
                         fontSize: 20.sp,
                       ),
                     ),
-                    Text(
-                      '${catalogProduct.price} SR',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: kBeige,
-                      ),
-                    ),
+                    // Text(
+                    //   '${catalogProduct.price} SR',
+                    //   style: TextStyle(
+                    //     fontSize: 16.sp,
+                    //     color: kBeige,
+                    //   ),
+                    // ),
                     Obx(
                       () => RadioListTile<CoffeeType>(
                         dense: true,
@@ -92,7 +93,10 @@ class ArabicCoffeePage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'SR. 72.00',
+                          'SR. ' +
+                              ArabicCoffeeController.specialBlendPrice
+                                  .toString() +
+                              ' / KG',
                           style: TextStyle(fontSize: 13.sp),
                         ),
                         value: CoffeeType.specialBlend,
@@ -112,7 +116,10 @@ class ArabicCoffeePage extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          'Make your own blend\nSR. 72.00',
+                          'Make your own blend\nSR. ' +
+                              ArabicCoffeeController.customizeBlendPrice
+                                  .toString() +
+                              ' / KG',
                           style: TextStyle(fontSize: 13.sp),
                         ),
                         isThreeLine: true,
@@ -123,17 +130,26 @@ class ArabicCoffeePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    arabicCoffeeController.coffeeType.value ==
-                            CoffeeType.specialBlend
-                        ? _buildSpecialArabicOrder()
-                        : _buildCustomizedArabicOrder(),
+                    Obx(
+                      () => arabicCoffeeController.coffeeType.value ==
+                              CoffeeType.specialBlend
+                          ? _buildSpecialArabicOrder()
+                          : _buildCustomizedArabicOrder(),
+                    ),
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: arabicCoffeeController.calculateOrderPrice(
+                    quantity: arabicCoffeeController.quantity.value,
+                    coffeeType: arabicCoffeeController.coffeeType.value,
+                    isSaffronAdded: arabicCoffeeController.isSaffron.value,
+                  ),
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: arabicCoffeeController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],
@@ -318,7 +334,8 @@ class ArabicCoffeePage extends StatelessWidget {
               style: kTxtStyleNormal,
             ),
             subtitle: Text(
-              '3gms, SR. 34.00',
+              '3gms, SR. ' +
+                  ArabicCoffeeController.saffron3GramPrice.toString(),
               style: TextStyle(
                 fontSize: 13.sp,
               ),

@@ -25,6 +25,7 @@ class BrewedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    brewedController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,7 +78,7 @@ class BrewedPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${catalogProduct.price} SR',
+                      '${BrewedController.kgPrice} SR / KG',
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
@@ -131,10 +132,13 @@ class BrewedPage extends StatelessWidget {
                   ],
                 ),
               ),
-              ShoppingButtons(
-                productTitle: catalogProduct.name,
-                productPrice: catalogProduct.price,
-                productIMG: catalogProduct.imgThumb,
+              Obx(
+                () => ShoppingButtons(
+                  productTitle: catalogProduct.name,
+                  productPrice: brewedController.calculateOrderPrice(),
+                  productIMG: catalogProduct.imgThumb,
+                  kgQuantity: brewedController.quantity.value,
+                ),
               ),
               SizedBox(height: 50.h),
             ],

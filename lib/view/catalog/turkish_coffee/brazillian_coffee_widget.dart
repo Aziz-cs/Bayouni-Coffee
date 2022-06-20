@@ -15,7 +15,7 @@ class BrazillianCoffeeWidget extends StatelessWidget {
     Key? key,
     required this.catalogProduct,
   }) : super(key: key);
-  final turkishController = Get.find<TurkishController>();
+  final brazillianController = Get.find<TurkishController>();
   final CatalogProduct catalogProduct;
   @override
   Widget build(BuildContext context) {
@@ -36,15 +36,15 @@ class BrazillianCoffeeWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'SAR 57.00 / KG',
+                    'SR ${TurkishController.brazillianKgPrice} / KG',
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
                   ),
                   value: BrazillianCoffeeType.brazillian,
-                  groupValue: turkishController.brazillianCoffeeType.value,
+                  groupValue: brazillianController.brazillianCoffeeType.value,
                   onChanged: (BrazillianCoffeeType? value) {
-                    turkishController.brazillianCoffeeType.value = value!;
+                    brazillianController.brazillianCoffeeType.value = value!;
                   },
                 ),
               ),
@@ -58,15 +58,15 @@ class BrazillianCoffeeWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'SAR 61.00 / KG',
+                    'SR ${TurkishController.brazillianCardamomKgPrice} / KG',
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
                   ),
                   value: BrazillianCoffeeType.brazillianCardamom,
-                  groupValue: turkishController.brazillianCoffeeType.value,
+                  groupValue: brazillianController.brazillianCoffeeType.value,
                   onChanged: (BrazillianCoffeeType? value) {
-                    turkishController.brazillianCoffeeType.value = value!;
+                    brazillianController.brazillianCoffeeType.value = value!;
                   },
                 ),
               ),
@@ -87,10 +87,10 @@ class BrazillianCoffeeWidget extends StatelessWidget {
                   ),
                   Obx(
                     () => MyDropDownMenu(
-                      value: turkishController.bDarkRoastPrecentage.value,
+                      value: brazillianController.bDarkRoastPrecentage.value,
                       items: precentageList,
                       onChanged: (val) {
-                        turkishController.bDarkRoastPrecentage.value = val!;
+                        brazillianController.bDarkRoastPrecentage.value = val!;
                       },
                     ),
                   ),
@@ -105,10 +105,11 @@ class BrazillianCoffeeWidget extends StatelessWidget {
                   ),
                   Obx(
                     () => MyDropDownMenu(
-                      value: turkishController.bMediumRoastPrecentage.value,
+                      value: brazillianController.bMediumRoastPrecentage.value,
                       items: precentageList,
                       onChanged: (val) {
-                        turkishController.bMediumRoastPrecentage.value = val!;
+                        brazillianController.bMediumRoastPrecentage.value =
+                            val!;
                       },
                     ),
                   ),
@@ -123,10 +124,10 @@ class BrazillianCoffeeWidget extends StatelessWidget {
                   ),
                   Obx(
                     () => MyDropDownMenu(
-                      value: turkishController.bLightRoastPrecentage.value,
+                      value: brazillianController.bLightRoastPrecentage.value,
                       items: precentageList,
                       onChanged: (val) {
-                        turkishController.bLightRoastPrecentage.value = val!;
+                        brazillianController.bLightRoastPrecentage.value = val!;
                       },
                     ),
                   ),
@@ -134,7 +135,7 @@ class BrazillianCoffeeWidget extends StatelessWidget {
               ),
               aDivider(),
               QuantityRow(
-                quantity: turkishController.bQuantity,
+                quantity: brazillianController.bQuantity,
               ),
               SizedBox(height: 10.h),
               aDivider(),
@@ -158,10 +159,17 @@ class BrazillianCoffeeWidget extends StatelessWidget {
             ],
           ),
         ),
-        ShoppingButtons(
-          productTitle: catalogProduct.name,
-          productPrice: catalogProduct.price,
-          productIMG: catalogProduct.imgThumb,
+        Obx(
+          () => ShoppingButtons(
+            productTitle: catalogProduct.name,
+            productPrice: brazillianController.calculateOrderPrice(
+              coffeeType: brazillianController.turkishCoffeeType.value,
+              brazillianCoffeeType:
+                  brazillianController.brazillianCoffeeType.value,
+            ),
+            kgQuantity: brazillianController.bQuantity.value,
+            productIMG: catalogProduct.imgThumb,
+          ),
         ),
         SizedBox(height: 50.h),
       ],

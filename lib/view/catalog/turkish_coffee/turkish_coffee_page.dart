@@ -1,5 +1,5 @@
 import 'package:bayouni_coffee/model/catalog_product.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget%20copy.dart';
+import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
 import 'package:bayouni_coffee/view/widgets/fav_catalog_btn.dart';
 import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
@@ -23,6 +23,7 @@ class TurkishCoffeePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    turkishController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,13 +74,6 @@ class TurkishCoffeePage extends StatelessWidget {
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
-                      ),
-                    ),
-                    Text(
-                      '${catalogProduct.price} SR',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: kBeige,
                       ),
                     ),
                     Obx(

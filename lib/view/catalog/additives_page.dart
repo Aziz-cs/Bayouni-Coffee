@@ -84,6 +84,13 @@ class AdditivesPage extends StatelessWidget {
                         color: kBeige,
                       ),
                     ),
+                    Text(
+                      catalogProduct.desc,
+                      style: TextStyle(
+                        color: kDarkGrey,
+                        fontSize: 20.sp,
+                      ),
+                    ),
                     SizedBox(height: 6.h),
                     Row(
                       children: [
