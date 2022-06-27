@@ -1,16 +1,7 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
-import 'package:bayouni_coffee/model/accessory.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
-import 'package:bayouni_coffee/view/accessory_page.dart';
-import 'package:bayouni_coffee/view/catalog/additives_page.dart';
-import 'package:bayouni_coffee/view/catalog/arabic_coffee_page.dart';
-import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
-import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
-import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
-import 'package:bayouni_coffee/view/catalog/espresso_page.dart';
-import 'package:bayouni_coffee/view/catalog/flavored_coffee_page.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/turkish_coffee_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +36,7 @@ class CatalogItem extends StatelessWidget {
           ),
         ),
         Text(
-          catalogProduct.name,
+          Translation.isAr() ? catalogProduct.nameAR : catalogProduct.name,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: kDarkGrey,

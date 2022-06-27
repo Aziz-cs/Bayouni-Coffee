@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/utils/shared_prefs.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: () => GetMaterialApp(
+        translations: Translation(), // your translations
+        locale: Locale(sharedPrefs
+            .languageCode), // translations will be displayed in that locale
+        fallbackLocale: const Locale('en'), //
         builder: (context, widget) {
           //add this line
           ScreenUtil.setContext(context);
@@ -35,6 +40,7 @@ class MyApp extends StatelessWidget {
             child: widget!,
           );
         },
+
         debugShowCheckedModeBanner: false,
         title: 'Bayouni Coffee',
         theme: ThemeData(

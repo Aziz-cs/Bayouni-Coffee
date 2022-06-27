@@ -30,13 +30,17 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                 () => RadioListTile<EthiopianCoffeeType>(
                   dense: true,
                   title: Text(
-                    'Turkish',
+                    'plain'.tr,
                     style: TextStyle(
                       fontSize: 15.sp,
                     ),
                   ),
                   subtitle: Text(
-                    'SR ${TurkishController.turkishKgPrice} / KG',
+                    TurkishController.turkishKgPrice.toString() +
+                        ' ' +
+                        'sr'.tr +
+                        ' / ' +
+                        'kg'.tr,
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
@@ -52,13 +56,17 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                 () => RadioListTile<EthiopianCoffeeType>(
                   dense: true,
                   title: Text(
-                    'Turkish with cardamom',
+                    'withCardamom'.tr,
                     style: TextStyle(
                       fontSize: 15.sp,
                     ),
                   ),
                   subtitle: Text(
-                    'SR ${TurkishController.turkishCardamomKgPrice} / KG',
+                    TurkishController.turkishCardamomKgPrice.toString() +
+                        ' ' +
+                        'sr'.tr +
+                        ' / ' +
+                        'kg'.tr,
                     style: TextStyle(
                       fontSize: 13.5.sp,
                     ),
@@ -73,7 +81,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
               aDivider(isVerticalPadding: false),
               SizedBox(height: 8.h),
               Text(
-                'Customize your blend',
+                'customizeBlend'.tr,
                 style: TextStyle(
                   fontSize: 17.sp,
                 ),
@@ -82,7 +90,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Dark Roast',
+                    'darkRoast'.tr,
                     style: kTxtStyleNormal,
                   ),
                   Obx(
@@ -100,7 +108,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Medium Roast',
+                    'mediumRoast'.tr,
                     style: kTxtStyleNormal,
                   ),
                   Obx(
@@ -118,7 +126,7 @@ class EthiopianCoffeeWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Light Roast',
+                    'lightRoast'.tr,
                     style: kTxtStyleNormal,
                   ),
                   Obx(

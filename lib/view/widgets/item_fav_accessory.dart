@@ -1,4 +1,5 @@
 import 'package:bayouni_coffee/model/accessory.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../controller/helper.dart';
@@ -46,7 +48,7 @@ class FavAccessoryItem extends StatelessWidget {
                   pushNewScreen(
                     context,
                     screen: AccessoryProductPage(
-                      routedFrom: 'Favorites',
+                      routedFrom: 'favorites'.tr,
                       accessoryProduct: accessoryProduct,
                     ),
                     withNavBar: true, // OPTIONAL VALUE. True by default.
@@ -77,7 +79,9 @@ class FavAccessoryItem extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text(
-                                    accessoryProduct.name,
+                                    Translation.isAr()
+                                        ? accessoryProduct.nameAR
+                                        : accessoryProduct.name,
                                     style: TextStyle(
                                       fontSize: 14.5.sp,
                                     ),
@@ -92,7 +96,7 @@ class FavAccessoryItem extends StatelessWidget {
                                             .child('accessories')
                                             .child(accessoryProductID)
                                             .remove();
-                                        showToast('Removed from favorites');
+                                        showToast('removedFromFavorites'.tr);
                                       },
                                       icon: const Icon(
                                         CupertinoIcons.xmark,
@@ -102,9 +106,11 @@ class FavAccessoryItem extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.only(right: 44.w),
+                                padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: Text(
-                                  accessoryProduct.price.toString() + ' SR',
+                                  accessoryProduct.price.toString() +
+                                      ' ' +
+                                      'sr'.tr,
                                   style: TextStyle(
                                     fontSize: 14.5.sp,
                                     color: kBeige,
@@ -122,8 +128,8 @@ class FavAccessoryItem extends StatelessWidget {
               );
             }
           } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('Something went wrong'),
+            return Center(
+              child: Text('somethingWentWrong'.tr),
             );
           }
           return const SizedBox();

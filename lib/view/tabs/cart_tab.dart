@@ -42,7 +42,7 @@ class CartTab extends StatelessWidget {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                                'Empty Cart',
+                                'emptyCart'.tr,
                                 style: TextStyle(
                                   fontSize: 20.sp,
                                   color: Colors.brown,
@@ -53,7 +53,7 @@ class CartTab extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: MyButton(
-                                    label: 'START SHOPPING',
+                                    label: 'startShopping'.tr,
                                     onPress: () {
                                       currentTabIndex.value = 0;
                                     }),

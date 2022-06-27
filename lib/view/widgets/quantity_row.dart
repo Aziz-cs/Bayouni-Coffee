@@ -9,7 +9,7 @@ class QuantityRow extends StatelessWidget {
   QuantityRow({
     Key? key,
     required this.quantity,
-    this.mesurementUnit = 'KG',
+    this.mesurementUnit = 'kg',
     this.isFractioned = true,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class QuantityRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Quantity',
+          'quantity'.tr,
           style: kTxtStyleNormal,
         ),
         Row(
@@ -84,7 +84,7 @@ class QuantityRow extends StatelessWidget {
                 )),
             SizedBox(width: 5.w),
             Text(
-              mesurementUnit,
+              mesurementUnit.tr,
               style: kTxtStyleNormal,
             ),
             SizedBox(width: 5.w),

@@ -1,4 +1,5 @@
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/brazillian_coffee_widget.dart';
 import 'package:bayouni_coffee/view/catalog/turkish_coffee/ethiopian_coffee_widget.dart';
 import 'package:bayouni_coffee/view/widgets/fav_catalog_btn.dart';
@@ -45,7 +46,7 @@ class TurkishCoffeePage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -70,7 +71,9 @@ class TurkishCoffeePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catalogProduct.name,
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
@@ -81,7 +84,7 @@ class TurkishCoffeePage extends StatelessWidget {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          'Ethiopian',
+                          'ethopian'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -98,7 +101,7 @@ class TurkishCoffeePage extends StatelessWidget {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          'Brazillian',
+                          'brazillian'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),

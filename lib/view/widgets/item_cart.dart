@@ -67,7 +67,7 @@ class CartItem extends StatelessWidget {
                             onPressed: () {
                               cartController
                                   .dismissProductFromCart(cartProduct);
-                              showToast('Removed from cart');
+                              showToast('removedFromCart'.tr);
                             },
                             icon: const Icon(
                               CupertinoIcons.xmark,
@@ -78,7 +78,8 @@ class CartItem extends StatelessWidget {
                     Text(
                       (cartProduct.price * cartProduct.quantity)
                               .toStringAsFixed(1) +
-                          " SR",
+                          " " +
+                          'sr'.tr,
                       style: TextStyle(
                         fontSize: 14.5.sp,
                         color: kBeige,
@@ -134,7 +135,7 @@ class CartItem extends StatelessWidget {
                         : cartProduct.kgQuantity == 0
                             ? const SizedBox()
                             : Text(
-                                '${cartProduct.kgQuantity} KG',
+                                '${cartProduct.kgQuantity} ' + 'kg'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                 ),

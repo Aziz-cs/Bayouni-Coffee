@@ -2,12 +2,14 @@ import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller
 import 'package:bayouni_coffee/controller/catalog_controllers/catalog_fav_controller.dart';
 import 'package:bayouni_coffee/model/accessory.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -78,7 +80,9 @@ class FavCatalogItem extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text(
-                                    catalogProduct.name,
+                                    Translation.isAr()
+                                        ? catalogProduct.nameAR
+                                        : catalogProduct.name,
                                     style: TextStyle(
                                       fontSize: 14.5.sp,
                                     ),
@@ -93,7 +97,7 @@ class FavCatalogItem extends StatelessWidget {
                                             .child('catalog')
                                             .child(catalogID)
                                             .remove();
-                                        showToast('Removed from favorites');
+                                        showToast('removedFromFavoites'.tr);
                                       },
                                       icon: const Icon(
                                         CupertinoIcons.xmark,
@@ -103,9 +107,11 @@ class FavCatalogItem extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.only(right: 44.w),
+                                padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: Text(
-                                  catalogProduct.price.toString() + ' SR',
+                                  catalogProduct.price.toString() +
+                                      ' ' +
+                                      'sr'.tr,
                                   style: TextStyle(
                                     fontSize: 14.5.sp,
                                     color: kBeige,

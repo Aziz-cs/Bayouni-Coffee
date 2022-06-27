@@ -1,4 +1,5 @@
 import 'package:bayouni_coffee/model/accessory.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
@@ -46,7 +47,7 @@ class AccessoryProductPage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    Text('Back to $routedFrom'),
+                    Text('backTo'.tr + ' ' + routedFrom),
                   ],
                 ),
               ),
@@ -68,7 +69,9 @@ class AccessoryProductPage extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      accessoryProduct.name,
+                      Translation.isAr()
+                          ? accessoryProduct.nameAR
+                          : accessoryProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
@@ -78,7 +81,7 @@ class AccessoryProductPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${accessoryProduct.price} SR',
+                          '${accessoryProduct.price} ' + 'sr'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             color: kBeige,
@@ -105,7 +108,9 @@ class AccessoryProductPage extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      accessoryProduct.discription,
+                      Translation.isAr()
+                          ? accessoryProduct.discriptionAR
+                          : accessoryProduct.discription,
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontSize: 15.sp,
@@ -121,7 +126,9 @@ class AccessoryProductPage extends StatelessWidget {
                 ),
               ),
               ShoppingButtons(
-                productTitle: accessoryProduct.name,
+                productTitle: Translation.isAr()
+                    ? accessoryProduct.nameAR
+                    : accessoryProduct.name,
                 productPrice: accessoryProduct.price,
                 productIMG: accessoryProduct.imgURL,
                 isAccessoryProduct: true,
@@ -150,7 +157,7 @@ class AccessoryProductPage extends StatelessWidget {
             return IconButton(
                 onPressed: () {
                   accessoriesController.addToFavorites(accessoryProduct.id);
-                  showToast('Added to favorites');
+                  showToast('addedToFavorites'.tr);
                 },
                 icon: const Icon(
                   CupertinoIcons.heart_circle_fill,

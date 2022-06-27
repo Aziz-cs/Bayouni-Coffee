@@ -7,6 +7,7 @@ class SharedPrefs {
   static const String keyUsername = "userName";
   static const String keyPhoneNo = "phoneNo";
   static const String keyImageURL = "imageURL";
+  static const String keyLanguageCode = "languageCode";
 
   init() async {
     if (_sharedPrefs == null) {
@@ -17,6 +18,7 @@ class SharedPrefs {
   String get userName => _sharedPrefs!.getString(keyUsername) ?? "";
   String get phoneNo => _sharedPrefs!.getString(keyPhoneNo) ?? "";
   String get imageURL => _sharedPrefs!.getString(keyImageURL) ?? "";
+  String get languageCode => _sharedPrefs!.getString(keyLanguageCode) ?? "en";
 
   set userName(String value) {
     _sharedPrefs!.setString(keyUsername, value);
@@ -28,6 +30,10 @@ class SharedPrefs {
 
   set imageURL(String value) {
     _sharedPrefs!.setString(keyImageURL, value);
+  }
+
+  set languageCode(String value) {
+    _sharedPrefs!.setString(keyLanguageCode, value);
   }
 
   static void clearData() {

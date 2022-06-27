@@ -1,5 +1,6 @@
 import 'package:bayouni_coffee/controller/database.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/utils/shared_prefs.dart';
 import 'package:bayouni_coffee/view/checkout_page.dart';
@@ -132,7 +133,7 @@ class MoreTab extends StatelessWidget {
                             ),
                           ]);
                     },
-                    title: const Text('Name'),
+                    title: Text('name'.tr),
                     subtitle: Text(profileController.userName.value.isEmpty ||
                             profileController.userName.value == 'null'
                         ? 'Not specified'
@@ -154,7 +155,7 @@ class MoreTab extends StatelessWidget {
                             child: MyTextField(
                               controller: _phoneNoController,
                               textInputType: TextInputType.phone,
-                              hintText: 'Phone number',
+                              hintText: 'phoneNo'.tr,
                               iconData: CupertinoIcons.phone,
                               validator: (input) {
                                 if (input!.isEmpty) {
@@ -192,7 +193,7 @@ class MoreTab extends StatelessWidget {
                             ),
                           ]);
                     },
-                    title: const Text('Phone No'),
+                    title: Text('phoneNo'.tr),
                     subtitle: Text(profileController.phoneNo.value.isEmpty ||
                             profileController.phoneNo.value == 'null'
                         ? 'Not specified'
@@ -205,7 +206,7 @@ class MoreTab extends StatelessWidget {
                 ),
                 const Divider(height: 0),
                 _buildRowChoice(
-                  label: "My Orders",
+                  label: "myOrders".tr,
                   iconData: Icons.checklist_rtl_sharp,
                   onPress: () {
                     pushNewScreen(
@@ -225,24 +226,30 @@ class MoreTab extends StatelessWidget {
                 //     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 //   ),
                 // ),
+                // _buildRowChoice(
+                //   label: "Delivery",
+                //   iconData: Icons.delivery_dining_sharp,
+                //   onPress: () => {},
+                // ),
+                // _buildRowChoice(
+                //   label: "Settings",
+                //   iconData: CupertinoIcons.settings,
+                //   onPress: () => pushNewScreen(
+                //     context,
+                //     screen: SettingsPage(
+                //       routedFrom: "Settings",
+                //     ),
+                //     pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                //   ),
+                // ),
                 _buildRowChoice(
-                  label: "Delivery",
-                  iconData: Icons.delivery_dining_sharp,
-                  onPress: () => {},
-                ),
+                    label: Translation.isAr() ? 'English' : 'عربي',
+                    iconData: Icons.language,
+                    onPress: () async {
+                      Translation.switchLang();
+                    }),
                 _buildRowChoice(
-                  label: "Settings",
-                  iconData: CupertinoIcons.settings,
-                  onPress: () => pushNewScreen(
-                    context,
-                    screen: SettingsPage(
-                      routedFrom: "Settings",
-                    ),
-                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                  ),
-                ),
-                _buildRowChoice(
-                    label: "Log out",
+                    label: 'logOut'.tr,
                     iconData: Icons.logout_rounded,
                     onPress: () async {
                       SharedPrefs.clearData();

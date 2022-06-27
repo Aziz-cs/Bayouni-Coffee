@@ -8,7 +8,7 @@ import 'package:bayouni_coffee/controller/catalog_controllers/flavored_controlle
 import 'package:bayouni_coffee/controller/catalog_controllers/turkish_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/view/catalog/additives_page.dart';
-import 'package:bayouni_coffee/view/catalog/arabic_coffee_page.dart';
+import 'package:bayouni_coffee/view/catalog/saudi_coffee_page.dart';
 import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
 import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
 import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
@@ -136,7 +136,7 @@ class CatalogController extends GetxController {
       case kAdditivesID:
         return AdditivesPage(catalogProduct: catalogProduct);
       case kArabicCoffee:
-        return ArabicCoffeePage(catalogProduct: catalogProduct);
+        return SaudiCoffeePage(catalogProduct: catalogProduct);
       case kBrewedID:
         return BrewedPage(catalogProduct: catalogProduct);
       case kEspressoID:

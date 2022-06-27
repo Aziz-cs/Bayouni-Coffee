@@ -54,7 +54,7 @@ class RegisterPage extends StatelessWidget {
                         'assets/images/bayouni_logo.png',
                         width: 70.w,
                       ),
-                      Text('Registeration',
+                      Text('registeration'.tr,
                           style: TextStyle(
                             fontSize: 32.sp,
                             color: const Color(0xFF3A3C40),
@@ -62,7 +62,7 @@ class RegisterPage extends StatelessWidget {
                       SizedBox(height: 16.h),
                       MyTextField(
                         controller: _fullNameContoller,
-                        hintText: 'Full name',
+                        hintText: 'fullName'.tr,
                         iconData: CupertinoIcons.person,
                         validator: (input) {
                           if (input!.isEmpty) {
@@ -79,7 +79,7 @@ class RegisterPage extends StatelessWidget {
                       // ),
                       MyTextField(
                         controller: _phoneNoController,
-                        hintText: 'Phone number',
+                        hintText: 'phoneNo'.tr,
                         iconData: CupertinoIcons.phone,
                         validator: (input) {
                           if (input!.isEmpty) {
@@ -92,7 +92,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                       MyTextField(
                         controller: _emailController,
-                        hintText: 'Email',
+                        hintText: 'email'.tr,
                         iconData: Icons.mail_outline,
                         validator: (input) {
                           if (input!.isEmpty) {
@@ -105,7 +105,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                       MyTextField(
                         controller: _passwordController,
-                        hintText: 'Password',
+                        hintText: 'password'.tr,
                         isObscure: true,
                         iconData: CupertinoIcons.padlock,
                         validator: (input) {
@@ -119,7 +119,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                       MyTextField(
                         controller: _confrimPasswordController,
-                        hintText: 'Confirm Password',
+                        hintText: 'confirmPassword'.tr,
                         isObscure: true,
                         iconData: CupertinoIcons.padlock,
                         validator: (input) {
@@ -137,7 +137,7 @@ class RegisterPage extends StatelessWidget {
                             isAcceptedPrivacy.value = !isAcceptedPrivacy.value;
                           },
                           title: Text(
-                            'I accept the privacy policy',
+                            'acceptPrivacy'.tr,
                             style: TextStyle(
                               color: const Color(0xFF565853),
                               fontSize: 16.sp,
@@ -152,7 +152,7 @@ class RegisterPage extends StatelessWidget {
                         () => authController.isLoadingEmail.isTrue
                             ? const CircularProgressIndicator()
                             : MyButton(
-                                label: 'REGISTER',
+                                label: 'register'.tr,
                                 onPress: () {
                                   if (!_formKey.currentState!.validate()) {
                                     return;
@@ -175,7 +175,7 @@ class RegisterPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () => Get.to(() => LoginPage()),
                         child: Text(
-                          'I already have an account',
+                          'alreadyHaveAccount'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                             color: kDarkGrey,

@@ -23,7 +23,7 @@ class AccessoriesTab extends StatelessWidget {
             MyTextField(
               controller: _searchController,
               iconData: Icons.search,
-              hintText: 'Type something..',
+              hintText: 'typeSomething'.tr,
               validator: (input) {},
               onChanged: (searchedText) {
                 accessoriesController.getResultList(searchedText);

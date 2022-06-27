@@ -1,6 +1,7 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -47,7 +48,7 @@ class BrewedPage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -71,14 +72,20 @@ class BrewedPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catalogProduct.name,
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
                       ),
                     ),
                     Text(
-                      '${BrewedController.kgPrice} SR / KG',
+                      BrewedController.kgPrice.toString() +
+                          ' ' +
+                          'sr'.tr +
+                          ' / ' +
+                          'kg'.tr,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
@@ -89,13 +96,13 @@ class BrewedPage extends StatelessWidget {
                       () => RadioListTile<BrewedType>(
                         dense: true,
                         title: Text(
-                          'Special blend medium roast (recommended)',
+                          'brewedSpecial'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'Ethiopian + Colombian',
+                          'brewedSpecialSubTitle'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -111,7 +118,7 @@ class BrewedPage extends StatelessWidget {
                       () => RadioListTile<BrewedType>(
                         dense: true,
                         title: Text(
-                          'Customize your own blend',
+                          'brewedCustomize'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -134,7 +141,9 @@ class BrewedPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: brewedController.calculateOrderPrice(),
                   productIMG: catalogProduct.imgThumb,
                   kgQuantity: brewedController.quantity.value,
@@ -155,13 +164,25 @@ class BrewedPage extends StatelessWidget {
       children: [
         Row(
           children: [
+            Flexible(
+              child: Text('brewedCustomizeSubTitle'.tr,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.red.shade700,
+                  )),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Row(
+          children: [
             const Expanded(
                 child: Divider(
               color: Colors.grey,
             )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text('Ethiopian blend precentage',
+              child: Text('ethiopianPrecentage'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                   )),
@@ -176,7 +197,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Dark Roast',
+              'darkRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -194,7 +215,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medium Roast',
+              'mediumRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -212,7 +233,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Light Roast',
+              'lightRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -234,7 +255,7 @@ class BrewedPage extends StatelessWidget {
             )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text('Colombian blend precentage',
+              child: Text('colombianPrecentage'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                   )),
@@ -249,7 +270,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Dark Roast',
+              'darkRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -267,7 +288,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medium Roast',
+              'mediumRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -285,7 +306,7 @@ class BrewedPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Light Roast',
+              'lightRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -300,12 +321,12 @@ class BrewedPage extends StatelessWidget {
           ],
         ),
         aDivider(),
-        Text('Type', style: kTxtStyleNormal),
+        Text('type'.tr, style: kTxtStyleNormal),
         Obx(
           () => RadioListTile<CoffeeType>(
             dense: true,
             title: Text(
-              'Beans',
+              'beans'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -321,7 +342,7 @@ class BrewedPage extends StatelessWidget {
           () => RadioListTile<CoffeeType>(
             dense: true,
             title: Text(
-              'Ground',
+              'ground'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -343,12 +364,12 @@ class BrewedPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Type', style: kTxtStyleNormal),
+        Text('type'.tr, style: kTxtStyleNormal),
         Obx(
           () => RadioListTile<CoffeeType>(
             dense: true,
             title: Text(
-              'Beans',
+              'beans'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -364,7 +385,7 @@ class BrewedPage extends StatelessWidget {
           () => RadioListTile<CoffeeType>(
             dense: true,
             title: Text(
-              'Ground',
+              'ground'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),

@@ -1,5 +1,6 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
@@ -15,8 +16,8 @@ import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 import '../widgets/my_drop_menu.dart';
 
-class ArabicCoffeePage extends StatelessWidget {
-  ArabicCoffeePage({
+class SaudiCoffeePage extends StatelessWidget {
+  SaudiCoffeePage({
     Key? key,
     required this.catalogProduct,
   }) : super(key: key);
@@ -46,7 +47,7 @@ class ArabicCoffeePage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -70,7 +71,9 @@ class ArabicCoffeePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catalogProduct.name,
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
@@ -87,16 +90,17 @@ class ArabicCoffeePage extends StatelessWidget {
                       () => RadioListTile<CoffeeType>(
                         dense: true,
                         title: Text(
-                          'Special Blend',
+                          'specialBlend'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'SR. ' +
-                              ArabicCoffeeController.specialBlendPrice
-                                  .toString() +
-                              ' / KG',
+                          ArabicCoffeeController.specialBlendPrice.toString() +
+                              ' ' +
+                              'sr'.tr +
+                              ' / ' +
+                              'kg'.tr,
                           style: TextStyle(fontSize: 13.sp),
                         ),
                         value: CoffeeType.specialBlend,
@@ -110,16 +114,20 @@ class ArabicCoffeePage extends StatelessWidget {
                       () => RadioListTile<CoffeeType>(
                         dense: true,
                         title: Text(
-                          'Customize',
+                          'customize'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'Make your own blend\nSR. ' +
+                          'makeYourOwnBlend'.tr +
+                              ' \n' +
                               ArabicCoffeeController.customizeBlendPrice
                                   .toString() +
-                              ' / KG',
+                              ' ' +
+                              'sr'.tr +
+                              ' / ' +
+                              'kg'.tr,
                           style: TextStyle(fontSize: 13.sp),
                         ),
                         isThreeLine: true,
@@ -141,7 +149,9 @@ class ArabicCoffeePage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: arabicCoffeeController.calculateOrderPrice(
                     quantity: arabicCoffeeController.quantity.value,
                     coffeeType: arabicCoffeeController.coffeeType.value,
@@ -166,11 +176,11 @@ class ArabicCoffeePage extends StatelessWidget {
       children: [
         SizedBox(height: 10.h),
         Text(
-          'Customize (Plain coffee)',
+          'customize'.tr,
           style: kTxtStyleNormal,
         ),
         Text(
-          'Make your own blend',
+          'makeYourOwnBlend'.tr,
           style: TextStyle(
             fontSize: 13.sp,
           ),
@@ -180,7 +190,7 @@ class ArabicCoffeePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Dark Roast',
+              'darkRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -198,7 +208,7 @@ class ArabicCoffeePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medium Roast',
+              'mediumRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -216,7 +226,7 @@ class ArabicCoffeePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Light Roast',
+              'lightRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -233,12 +243,12 @@ class ArabicCoffeePage extends StatelessWidget {
         aDivider(),
         QuantityRow(quantity: arabicCoffeeController.quantity),
         aDivider(),
-        Text('Type', style: kTxtStyleNormal),
+        Text('type'.tr, style: kTxtStyleNormal),
         Obx(
           () => RadioListTile<BlendType>(
             dense: true,
             title: Text(
-              'Beans',
+              'beans'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -254,7 +264,7 @@ class ArabicCoffeePage extends StatelessWidget {
           () => RadioListTile<BlendType>(
             dense: true,
             title: Text(
-              'Ground',
+              'ground'.tr,
               style: TextStyle(
                 fontSize: 15.sp,
               ),
@@ -274,7 +284,7 @@ class ArabicCoffeePage extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
                   dense: true,
                   title: Text(
-                    'Fine',
+                    'fine'.tr,
                     style: TextStyle(
                       fontSize: 13.sp,
                     ),
@@ -291,7 +301,7 @@ class ArabicCoffeePage extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
                   dense: true,
                   title: Text(
-                    'Medium',
+                    'medium'.tr,
                     style: TextStyle(
                       fontSize: 13.sp,
                     ),
@@ -308,7 +318,7 @@ class ArabicCoffeePage extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
                   dense: true,
                   title: Text(
-                    'Course',
+                    'course'.tr,
                     style: TextStyle(
                       fontSize: 13.sp,
                     ),
@@ -324,18 +334,23 @@ class ArabicCoffeePage extends StatelessWidget {
           ),
         aDivider(),
         Text(
-          'Additional option',
+          'additionalOption'.tr,
           style: kTxtStyleNormal,
         ),
         Obx(
           () => CheckboxListTile(
             title: Text(
-              'Saffron',
+              'addSaffron'.tr,
               style: kTxtStyleNormal,
             ),
             subtitle: Text(
-              '3gms, SR. ' +
-                  ArabicCoffeeController.saffron3GramPrice.toString(),
+              ArabicCoffeeController.saffron3GramPrice.toString() +
+                  ' ' +
+                  'sr'.tr +
+                  ' / ' +
+                  '3' +
+                  ' ' +
+                  'gm'.tr,
               style: TextStyle(
                 fontSize: 13.sp,
               ),
@@ -357,11 +372,11 @@ class ArabicCoffeePage extends StatelessWidget {
       children: [
         SizedBox(height: 10.h),
         Text(
-          'Special Blend',
+          'specialBlend'.tr,
           style: kTxtStyleNormal,
         ),
         Text(
-          'Pre-Blended Coffee and Cardamon',
+          'specialBlendSubTitle'.tr,
           style: TextStyle(
             fontSize: 13.sp,
           ),
@@ -369,11 +384,17 @@ class ArabicCoffeePage extends StatelessWidget {
         Obx(
           () => CheckboxListTile(
             title: Text(
-              'Saffron',
+              'addSaffron'.tr,
               style: kTxtStyleNormal,
             ),
             subtitle: Text(
-              '3gms, SR. 34.00',
+              ArabicCoffeeController.saffron3GramPrice.toString() +
+                  ' ' +
+                  'sr'.tr +
+                  ' / ' +
+                  '3' +
+                  ' ' +
+                  'gm'.tr,
               style: TextStyle(
                 fontSize: 13.sp,
               ),

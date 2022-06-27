@@ -1,6 +1,7 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/blacktea_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -45,7 +46,7 @@ class BlackTeaPage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -69,7 +70,9 @@ class BlackTeaPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catalogProduct.name,
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
@@ -87,13 +90,13 @@ class BlackTeaPage extends StatelessWidget {
                               !blackTeaController.isBlackTea.value;
                         },
                         title: Text(
-                          'Bayouni Black Tea',
+                          'bayouniBlackTea'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'Good quality black Kenyan tea',
+                          'bayouniBlackTeaSubTitle'.tr,
                           style: TextStyle(
                             fontSize: 14.sp,
                           ),
@@ -104,13 +107,15 @@ class BlackTeaPage extends StatelessWidget {
                       () => RadioListTile<BlackTeaType>(
                         dense: true,
                         title: Text(
-                          'Box (2 x 750gms)',
+                          'blackTeaBox'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'SR. ${BlackTeaController.boxBlackTeaPrice}',
+                          BlackTeaController.boxBlackTeaPrice.toString() +
+                              ' ' +
+                              'sr'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -127,13 +132,15 @@ class BlackTeaPage extends StatelessWidget {
                       () => RadioListTile<BlackTeaType>(
                         dense: true,
                         title: Text(
-                          'Bag (1 x 750gms)',
+                          'blackTeaBag'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'SR. ${BlackTeaController.bagBlackTeaPrice}',
+                          BlackTeaController.bagBlackTeaPrice.toString() +
+                              ' ' +
+                              'sr'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -154,8 +161,8 @@ class BlackTeaPage extends StatelessWidget {
                               mesurementUnit:
                                   blackTeaController.blackTeaType.value ==
                                           BlackTeaType.box
-                                      ? 'Box'
-                                      : 'Bag',
+                                      ? 'box'.tr
+                                      : 'bag'.tr,
                             )
                           : const SizedBox(),
                     ),
@@ -171,13 +178,15 @@ class BlackTeaPage extends StatelessWidget {
                               !blackTeaController.isGreenTea.value;
                         },
                         title: Text(
-                          'Green Tea',
+                          'greenTea'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'SR. ${BlackTeaController.greenTeaPrice} / kg',
+                          BlackTeaController.greenTeaPrice.toString() +
+                              ' ' +
+                              'sr'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -203,13 +212,15 @@ class BlackTeaPage extends StatelessWidget {
                               !blackTeaController.isShakirTea.value;
                         },
                         title: Text(
-                          'Shakir Tea 500gms',
+                          'shakirTea'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'SR. ${BlackTeaController.shakirTeaPrice} / can',
+                          BlackTeaController.shakirTeaPrice.toString() +
+                              ' ' +
+                              'sr'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -221,7 +232,7 @@ class BlackTeaPage extends StatelessWidget {
                           ? QuantityRow(
                               quantity: blackTeaController.shakirTeaQuanitity,
                               isFractioned: false,
-                              mesurementUnit: 'PC',
+                              mesurementUnit: 'pc'.tr,
                             )
                           : const SizedBox(),
                     ),
@@ -231,7 +242,9 @@ class BlackTeaPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: blackTeaController.calculateOrderPrice(),
                   productIMG: catalogProduct.imgThumb,
                 ),

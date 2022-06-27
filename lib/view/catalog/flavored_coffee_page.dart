@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../translations/translation.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 
@@ -45,7 +46,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -69,13 +70,19 @@ class FlavoredCoffeePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Flavored Coffee',
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         fontSize: 18.sp,
                       ),
                     ),
                     Text(
-                      '${FlavoredController.kgPrice} SR / KG',
+                      FlavoredController.kgPrice.toString() +
+                          ' ' +
+                          'sr'.tr +
+                          ' / ' +
+                          'kg'.tr,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
@@ -83,54 +90,54 @@ class FlavoredCoffeePage extends StatelessWidget {
                     ),
                     SizedBox(height: 6.h),
                     _buildRadioTileFlavored(
-                      title: 'Hazenut',
+                      title: 'hazenut'.tr,
                       flavoredStyle: FlavoredStyle.hazenut,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'French Vanilla',
+                      title: 'frenchVanilla'.tr,
                       flavoredStyle: FlavoredStyle.frenchVanilla,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Chocolate',
+                      title: 'chocolate'.tr,
                       flavoredStyle: FlavoredStyle.chocolate,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Macadomia',
+                      title: 'macadomia'.tr,
                       flavoredStyle: FlavoredStyle.macadomia,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Almonds',
+                      title: 'almonds'.tr,
                       flavoredStyle: FlavoredStyle.almonds,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     _buildRadioTileFlavored(
-                      title: 'Caramel',
+                      title: 'caramel'.tr,
                       flavoredStyle: FlavoredStyle.caramel,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
                       },
                     ),
                     aDivider(),
-                    Text('Type', style: kTxtStyleNormal),
+                    Text('type'.tr, style: kTxtStyleNormal),
                     Obx(
                       () => RadioListTile<GroundType>(
                         dense: true,
                         title: Text(
-                          'Beans',
+                          'beans'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -146,7 +153,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       () => RadioListTile<GroundType>(
                         dense: true,
                         title: Text(
-                          'Ground',
+                          'ground'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -158,65 +165,72 @@ class FlavoredCoffeePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    if (flavoredController.groundType.value ==
-                        GroundType.ground)
-                      Column(
-                        children: [
-                          Obx(
-                            () => RadioListTile<FlavoredType>(
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 35.w),
-                              dense: true,
-                              title: Text(
-                                'Fine',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
+                    Obx(
+                      () => flavoredController.groundType.value ==
+                              GroundType.ground
+                          ? Column(
+                              children: [
+                                Obx(
+                                  () => RadioListTile<FlavoredType>(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 35.w),
+                                    dense: true,
+                                    title: Text(
+                                      'fine'.tr,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text('turkishCoffee'.tr),
+                                    value: FlavoredType.fine,
+                                    groupValue:
+                                        flavoredController.flavoredType.value,
+                                    onChanged: (value) {},
+                                  ),
                                 ),
-                              ),
-                              subtitle: const Text('Turkish coffee'),
-                              value: FlavoredType.fine,
-                              groupValue: flavoredController.flavoredType.value,
-                              onChanged: (value) {},
-                            ),
-                          ),
-                          Obx(
-                            () => RadioListTile<FlavoredType>(
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 35.w),
-                              dense: true,
-                              title: Text(
-                                'Light Powder',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
+                                Obx(
+                                  () => RadioListTile<FlavoredType>(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 35.w),
+                                    dense: true,
+                                    title: Text(
+                                      'lightPowder'.tr,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text('espressoMachine'.tr),
+                                    value: FlavoredType.powder,
+                                    groupValue:
+                                        flavoredController.flavoredType.value,
+                                    onChanged: (value) {},
+                                  ),
                                 ),
-                              ),
-                              subtitle: const Text('Espresso Machine'),
-                              value: FlavoredType.powder,
-                              groupValue: flavoredController.flavoredType.value,
-                              onChanged: (value) {},
-                            ),
-                          ),
-                          Obx(
-                            () => RadioListTile<FlavoredType>(
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 35.w),
-                              dense: true,
-                              title: Text(
-                                'Course',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
+                                Obx(
+                                  () => RadioListTile<FlavoredType>(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 35.w),
+                                    dense: true,
+                                    title: Text(
+                                      'course'.tr,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text('brewedCoffee'.tr),
+                                    value: FlavoredType.course,
+                                    groupValue:
+                                        flavoredController.flavoredType.value,
+                                    onChanged: (value) {
+                                      flavoredController.flavoredType.value =
+                                          value!;
+                                    },
+                                  ),
                                 ),
-                              ),
-                              subtitle: const Text('Brewed Coffee'),
-                              value: FlavoredType.course,
-                              groupValue: flavoredController.flavoredType.value,
-                              onChanged: (value) {
-                                flavoredController.flavoredType.value = value!;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                              ],
+                            )
+                          : const SizedBox(),
+                    ),
                     QuantityRow(
                       quantity: flavoredController.quantity,
                     ),
@@ -225,7 +239,9 @@ class FlavoredCoffeePage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: flavoredController.calculateOrderPrice(),
                   productIMG: catalogProduct.imgThumb,
                   kgQuantity: flavoredController.quantity.value,

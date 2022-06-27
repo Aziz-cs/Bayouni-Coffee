@@ -1,6 +1,7 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/espresso_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
 import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
@@ -48,7 +49,7 @@ class EspressoPage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -72,7 +73,9 @@ class EspressoPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Espresso',
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         fontSize: 18.sp,
                       ),
@@ -89,13 +92,13 @@ class EspressoPage extends StatelessWidget {
                       () => RadioListTile<EspressoType>(
                         dense: true,
                         title: Text(
-                          'Special italian roasting blend',
+                          'espressoSpecial'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
                         ),
                         subtitle: Text(
-                          'Recommended',
+                          'recommended'.tr,
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -113,7 +116,7 @@ class EspressoPage extends StatelessWidget {
                       () => RadioListTile<EspressoType>(
                         dense: true,
                         title: Text(
-                          'Customize your own blend',
+                          'espressoCustomize'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -131,12 +134,12 @@ class EspressoPage extends StatelessWidget {
                             EspressoType.customized
                         ? _buildCustomizedEspressoOrder()
                         : const SizedBox()),
-                    Text('Type', style: kTxtStyleNormal),
+                    Text('type'.tr, style: kTxtStyleNormal),
                     Obx(
                       () => RadioListTile<CoffeeType>(
                         dense: true,
                         title: Text(
-                          'Beans',
+                          'beans'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -152,7 +155,7 @@ class EspressoPage extends StatelessWidget {
                       () => RadioListTile<CoffeeType>(
                         dense: true,
                         title: Text(
-                          'Ground',
+                          'ground'.tr,
                           style: TextStyle(
                             fontSize: 15.sp,
                           ),
@@ -174,13 +177,13 @@ class EspressoPage extends StatelessWidget {
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 35.w),
                                 title: Text(
-                                  'Fine Grind',
+                                  'fine'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                   ),
                                 ),
                                 subtitle: Text(
-                                  'Electrical coffee maker',
+                                  'fineSubTitle'.tr,
                                   style: TextStyle(
                                     fontSize: 13.sp,
                                   ),
@@ -197,13 +200,13 @@ class EspressoPage extends StatelessWidget {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 35.w),
                                   title: Text(
-                                    'Course Grind',
+                                    'course'.tr,
                                     style: TextStyle(
                                       fontSize: 15.sp,
                                     ),
                                   ),
                                   subtitle: Text(
-                                    'Stovetop coffee maker',
+                                    'courseEspressoSubTitle'.tr,
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                     ),
@@ -231,7 +234,9 @@ class EspressoPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: espressoController.calculateOrderPrice(),
                   productIMG: catalogProduct.imgThumb,
                   kgQuantity: espressoController.quantity.value,
@@ -252,6 +257,18 @@ class EspressoPage extends StatelessWidget {
       children: [
         Row(
           children: [
+            Flexible(
+              child: Text('espressoCustomizeSubTitle'.tr,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.red.shade700,
+                  )),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Row(
+          children: [
             Obx(
               () => Checkbox(
                   value: espressoController.isItalianRoast.value,
@@ -265,11 +282,11 @@ class EspressoPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Italian',
+                  'italian'.tr,
                   style: kTxtStyleNormal,
                 ),
                 Text(
-                  'Special Italian roast',
+                  'specialItalianRoast'.tr,
                   style: TextStyle(
                     fontSize: 13.sp,
                   ),
@@ -299,7 +316,7 @@ class EspressoPage extends StatelessWidget {
             )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text('Ethiopian blend precentage',
+              child: Text('ethiopianPrecentage'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                   )),
@@ -314,7 +331,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Dark Roast',
+              'darkRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -332,7 +349,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medium Roast',
+              'mediumRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -350,7 +367,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Light Roast',
+              'lightRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -372,7 +389,7 @@ class EspressoPage extends StatelessWidget {
             )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text('Colombian blend precentage',
+              child: Text('colombianPrecentage'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                   )),
@@ -387,7 +404,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Dark Roast',
+              'darkRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -405,7 +422,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medium Roast',
+              'mediumRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(
@@ -423,7 +440,7 @@ class EspressoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Light Roast',
+              'lightRoast'.tr,
               style: kTxtStyleNormal,
             ),
             Obx(

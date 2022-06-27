@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
 
@@ -23,7 +24,7 @@ class FavoritesTab extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'My Favorites',
+                  'myFavorites'.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                     color: kDarkGrey,
@@ -31,7 +32,7 @@ class FavoritesTab extends StatelessWidget {
                 ),
               ],
             ),
-            _buildDivider(title: 'Catalog'),
+            _buildDivider(title: 'catalog'.tr),
             Expanded(
               child: FirebaseAnimatedList(
                   query: FirebaseDatabase.instance
@@ -47,7 +48,7 @@ class FavoritesTab extends StatelessWidget {
                     return FavCatalogItem(catalogID: catalogID);
                   }),
             ),
-            _buildDivider(title: 'Accessories'),
+            _buildDivider(title: 'accessories'.tr),
             Expanded(
               child: FirebaseAnimatedList(
                   query: FirebaseDatabase.instance

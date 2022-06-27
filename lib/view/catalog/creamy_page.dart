@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../translations/translation.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 
@@ -45,7 +46,7 @@ class CreamyPage extends StatelessWidget {
                       ),
                       constraints: const BoxConstraints(),
                     ),
-                    const Text('Back'),
+                    Text('back'.tr),
                   ],
                 ),
               ),
@@ -69,34 +70,52 @@ class CreamyPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      catalogProduct.name,
+                      Translation.isAr()
+                          ? catalogProduct.nameAR
+                          : catalogProduct.name,
                       style: TextStyle(
                         color: kDarkGrey,
                         fontSize: 20.sp,
                       ),
                     ),
                     Text(
-                      '${CreamyFrenchController.kgPrice} SR / KG',
+                      CreamyFrenchController.kgPrice.toString() +
+                          ' ' +
+                          'sr'.tr +
+                          ' / ' +
+                          'kg'.tr,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: kBeige,
                       ),
                     ),
                     SizedBox(height: 3.h),
-                    Text(
-                      'Made from scartch at our premises',
-                      style: TextStyle(
-                        fontSize: 14.5.sp,
-                        color: Colors.grey.shade700,
-                      ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'creamyFrenchSubTitle1'.tr,
+                            style: TextStyle(
+                              fontSize: 14.5.sp,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 3.h),
-                    Text(
-                      'Ingredients: Coffee, Milk, Hazelnut Flavora and Chocolate',
-                      style: TextStyle(
-                        fontSize: 14.5.sp,
-                        color: Colors.grey.shade700,
-                      ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'creamyFrenchSubTitle2'.tr,
+                            style: TextStyle(
+                              fontSize: 14.5.sp,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     aDivider(),
                     QuantityRow(
@@ -108,7 +127,9 @@ class CreamyPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: catalogProduct.name,
+                  productTitle: Translation.isAr()
+                      ? catalogProduct.nameAR
+                      : catalogProduct.name,
                   productPrice: creamyFrenchController.calculateOrderPrice(),
                   productIMG: catalogProduct.imgThumb,
                   kgQuantity: creamyFrenchController.quantity.value,

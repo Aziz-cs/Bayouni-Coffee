@@ -1,5 +1,5 @@
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
-import 'package:bayouni_coffee/view/navigator_page.dart';
 import 'package:bayouni_coffee/view/start/register_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/auth.dart';
+import '../widgets/localize_row.dart';
 import '../widgets/my_textfield.dart';
-import '../widgets/nav_page.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Login',
+                      Text('login'.tr,
                           style: TextStyle(
                             fontSize: 32.sp,
                             color: const Color(0xFF3A3C40),
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
                       SizedBox(height: 16.h),
                       MyTextField(
                         controller: _emailController,
-                        hintText: 'Email',
+                        hintText: 'email'.tr,
                         iconData: Icons.mail_outline,
                         validator: (input) {
                           if (input!.isEmpty) {
@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       MyTextField(
                         controller: _passwordController,
-                        hintText: 'Password',
+                        hintText: 'password'.tr,
                         iconData: CupertinoIcons.padlock,
                         isObscure: true,
                         validator: (input) {
@@ -236,7 +236,7 @@ class LoginPage extends StatelessWidget {
                               ignoreSafeArea: false,
                             ),
                             child: Text(
-                              'Forgot your password?',
+                              'forgotPassword'.tr,
                               style: TextStyle(
                                 color: kBeige,
                                 fontSize: 16.sp,
@@ -250,7 +250,7 @@ class LoginPage extends StatelessWidget {
                         () => authController.isLoadingEmail.isTrue
                             ? const CircularProgressIndicator()
                             : MyButton(
-                                label: 'LOGIN',
+                                label: 'loginBtn'.tr,
                                 onPress: () {
                                   if (!_formKey.currentState!.validate()) {
                                     return;
@@ -265,7 +265,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       SizedBox(height: 32.h),
                       Text(
-                        'or',
+                        'or'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: const Color(0xFF3A3C40),
@@ -289,7 +289,7 @@ class LoginPage extends StatelessWidget {
                         () => authController.isLoadingGoogle.value
                             ? const CircularProgressIndicator()
                             : _buildIconBtn(
-                                label: 'Login with Google',
+                                label: 'signWithGoogle'.tr,
                                 icon:
                                     Image.asset('assets/images/ic_google.png'),
                                 onPress: () {
@@ -300,11 +300,20 @@ class LoginPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () => Get.to(() => RegisterPage()),
                         child: Text(
-                          'Don’t have an account? Create one',
+                          'noAccountTxt'.tr,
                           style: TextStyle(
                             fontSize: 14.sp,
                             color: kDarkGrey,
                           ),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      GestureDetector(
+                        onTap: () => Translation.switchLang(),
+                        child: Container(
+                          color: kBeige.withOpacity(0.15),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: LocalizeRow(),
                         ),
                       ),
                     ],

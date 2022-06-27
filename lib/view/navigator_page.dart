@@ -39,27 +39,27 @@ class NavigatorPage extends StatelessWidget {
           onTap: (index) => currentTabIndex.value = index,
           items: [
             _buildTabItem(
-              label: 'Catalog',
+              label: 'catalog'.tr,
               imgName: 'tab_catalog',
               isSelected: currentTabIndex.value == 0,
             ),
             _buildTabItem(
-              label: 'Accessories',
+              label: 'accessories'.tr,
               imgName: 'tab_additives',
               isSelected: currentTabIndex.value == 1,
             ),
             _buildTabItem(
-              label: 'Cart',
+              label: 'cart'.tr,
               imgName: 'tab_cart',
               isSelected: currentTabIndex.value == 2,
             ),
             _buildTabItem(
-              label: 'Favorites',
+              label: 'favorites'.tr,
               imgName: 'tab_favorites',
               isSelected: currentTabIndex.value == 3,
             ),
             _buildTabItem(
-              label: 'More',
+              label: 'more'.tr,
               imgName: 'tab_more',
               isSelected: currentTabIndex.value == 4,
             )

@@ -56,13 +56,13 @@ class ShoppingButtons extends StatelessWidget {
                 },
               ),
             MyButton(
-              label: 'ADD TO CART',
+              label: 'addToCart'.tr,
               onPress: productPrice == 0
                   ? () {
                       showToast('Please select a product to add');
                     }
                   : () {
-                      showToast('Added to cart');
+                      showToast('addedToCart'.tr);
                       CartProduct cartProduct = CartProduct(
                         name: productTitle,
                         price: productPrice,
@@ -81,13 +81,13 @@ class ShoppingButtons extends StatelessWidget {
             ),
             SizedBox(height: 9.h),
             MyButton(
-              label: 'CONTINUE SHOPPING',
+              label: 'continueShopping'.tr,
               onPress: () => Navigator.pop(context),
               isFilled: false,
             ),
             SizedBox(height: 9.h),
             MyButton(
-                label: 'CHECK OUT',
+                label: 'checkOut'.tr,
                 onPress: () {
                   currentTabIndex.value = 2;
                   Get.back();
@@ -119,7 +119,7 @@ class TotalVATCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Purchase Amount',
+                    'purchaseAmount'.tr,
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
@@ -127,7 +127,8 @@ class TotalVATCart extends StatelessWidget {
                     () => Text(
                       cartController.totalPurchasePrice.value
                               .toStringAsFixed(1) +
-                          ' SR',
+                          ' ' +
+                          'sr'.tr,
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
@@ -141,14 +142,15 @@ class TotalVATCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'VAT (15%):',
+                    'vat15'.tr,
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   Obx(
                     () => Text(
                       cartController.vatPrecentage.value.toStringAsFixed(1) +
-                          ' SR',
+                          ' ' +
+                          'sr'.tr,
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
@@ -162,13 +164,13 @@ class TotalVATCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total amount',
+                    'totalAmount'.tr,
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   Obx(
                     () => Text(
-                      cartController.getTotalPriceWithVat() + " SR",
+                      cartController.getTotalPriceWithVat() + " " + 'sr'.tr,
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
@@ -190,7 +192,7 @@ class TotalVATCart extends StatelessWidget {
             // ),
             MyButton(
               isDimmed: cartController.cartOrders.isEmpty ? true : false,
-              label: 'BUY NOW',
+              label: 'buyNow'.tr,
               onPress: () => pushNewScreen(
                 context,
                 screen: CheckOutPage(),
