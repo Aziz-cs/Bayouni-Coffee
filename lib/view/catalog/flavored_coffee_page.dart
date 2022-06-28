@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../model/cart_product.dart';
 import '../../translations/translation.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -239,12 +240,13 @@ class FlavoredCoffeePage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: Translation.isAr()
-                      ? catalogProduct.nameAR
-                      : catalogProduct.name,
-                  productPrice: flavoredController.calculateOrderPrice(),
-                  productIMG: catalogProduct.imgThumb,
-                  kgQuantity: flavoredController.quantity.value,
+                  cartProduct: CartProduct(
+                    name: catalogProduct.name,
+                    nameAR: catalogProduct.nameAR,
+                    price: flavoredController.calculateOrderPrice(),
+                    imgURL: catalogProduct.imgThumb,
+                    kgQuantity: flavoredController.quantity.value,
+                  ),
                 ),
               ),
               SizedBox(height: 50.h),

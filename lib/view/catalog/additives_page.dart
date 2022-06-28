@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../model/cart_product.dart';
 import '../../model/catalog_product.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -255,16 +256,16 @@ class AdditivesPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: Translation.isAr()
-                      ? catalogProduct.nameAR
-                      : catalogProduct.name,
-                  productPrice: additivesController.calculateOrderPrice(
-                    quantity: additivesController.quantity.value,
-                    saffron: additivesController.saffronGram.value,
+                  cartProduct: CartProduct(
+                    name: catalogProduct.name,
+                    nameAR: catalogProduct.nameAR,
+                    price: additivesController.calculateOrderPrice(
+                      quantity: additivesController.quantity.value,
+                      saffron: additivesController.saffronGram.value,
+                    ),
+                    imgURL: catalogProduct.imgThumb,
+                    kgQuantity: additivesController.quantity.value,
                   ),
-                  // productPrice: catalogProduct.price,
-                  productIMG: catalogProduct.imgThumb,
-                  kgQuantity: additivesController.quantity.value,
                 ),
               ),
               SizedBox(height: 50.h),

@@ -1,17 +1,19 @@
 class CartProduct {
   final String name;
+  final String nameAR;
   final double price;
-  int quantity;
-  final String comments;
   final String imgURL;
   final bool isAccessoryProduct;
   final double kgQuantity;
+  int quantity;
+  String comments;
   CartProduct({
     required this.name,
+    required this.nameAR,
     required this.price,
-    required this.comments,
     required this.imgURL,
-    required this.quantity,
+    this.comments = '',
+    this.quantity = 1,
     this.isAccessoryProduct = false,
     this.kgQuantity = 0.0,
   });

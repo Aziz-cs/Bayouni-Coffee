@@ -15,24 +15,14 @@ import '../navigator_page.dart';
 class ShoppingButtons extends StatelessWidget {
   ShoppingButtons({
     Key? key,
-    required this.productTitle,
-    required this.productPrice,
-    required this.productIMG,
-    this.orderComment = '',
-    this.showAddComment = false,
-    this.isAccessoryProduct = false,
-    this.kgQuantity = 0.0,
+    required this.cartProduct,
+    this.showAddComment = true,
   }) : super(key: key);
 
-  final double productPrice;
-  final String productTitle;
-  final String productIMG;
-  final String orderComment;
-  final bool isAccessoryProduct;
-  final double kgQuantity;
+  final CartProduct cartProduct;
+
   bool showAddComment;
   final _commentController = TextEditingController();
-
   final cartController = Get.find<CartController>();
 
   @override
@@ -47,7 +37,7 @@ class ShoppingButtons extends StatelessWidget {
               MyTextField(
                 controller: _commentController,
                 iconData: Icons.comment_outlined,
-                hintText: 'Add comment',
+                hintText: 'addNotes'.tr,
                 isPrefixIcon: false,
                 validator: (input) {
                   if (input!.length > 4000) {
@@ -57,26 +47,15 @@ class ShoppingButtons extends StatelessWidget {
               ),
             MyButton(
               label: 'addToCart'.tr,
-              onPress: productPrice == 0
+              onPress: cartProduct.price == 0
                   ? () {
                       showToast('Please select a product to add');
                     }
                   : () {
                       showToast('addedToCart'.tr);
-                      CartProduct cartProduct = CartProduct(
-                        name: productTitle,
-                        price: productPrice,
-                        comments: orderComment,
-                        imgURL: productIMG,
-                        quantity: 1,
-                        isAccessoryProduct: isAccessoryProduct,
-                        kgQuantity: kgQuantity,
-                      );
+                      cartProduct.comments = _commentController.text.trim();
                       cartController.addProductToCart(cartProduct);
-                      // if (cartController.cartOrders.c)
-                      print('product title: $productTitle');
-                      print('product price: $productPrice');
-                      print('product image: $productIMG');
+                      _commentController.clear();
                     },
             ),
             SizedBox(height: 9.h),
@@ -126,7 +105,7 @@ class TotalVATCart extends StatelessWidget {
                   Obx(
                     () => Text(
                       cartController.totalPurchasePrice.value
-                              .toStringAsFixed(1) +
+                              .toStringAsFixed(2) +
                           ' ' +
                           'sr'.tr,
                       style: TextStyle(
@@ -148,7 +127,7 @@ class TotalVATCart extends StatelessWidget {
                   ),
                   Obx(
                     () => Text(
-                      cartController.vatPrecentage.value.toStringAsFixed(1) +
+                      cartController.vatPrecentage.value.toStringAsFixed(2) +
                           ' ' +
                           'sr'.tr,
                       style: TextStyle(

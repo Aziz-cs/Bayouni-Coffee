@@ -11,6 +11,7 @@ const Map<String, String> en = {
   'beans': 'Beans',
   'ground': 'Ground',
   'back': 'Back',
+  'addNotes': 'Add notes',
   //========= Login Page =========
   'login': 'Login',
   'loginBtn': 'LOGIN',

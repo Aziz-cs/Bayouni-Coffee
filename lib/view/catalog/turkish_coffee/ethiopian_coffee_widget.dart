@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../model/cart_product.dart';
 import '../../../model/catalog_product.dart';
 import '../../widgets/widgets_helper.dart';
 
@@ -168,14 +169,13 @@ class EthiopianCoffeeWidget extends StatelessWidget {
         ),
         Obx(
           () => ShoppingButtons(
-            productTitle: catalogProduct.name,
-            productPrice: ethiopianController.calculateOrderPrice(
-              coffeeType: ethiopianController.turkishCoffeeType.value,
-              ethiopianCoffeeType:
-                  ethiopianController.ethiopianCoffeeType.value,
+            cartProduct: CartProduct(
+              name: catalogProduct.name,
+              nameAR: catalogProduct.nameAR,
+              price: catalogProduct.price,
+              imgURL: catalogProduct.imgThumb,
+              kgQuantity: ethiopianController.eQuantity.value,
             ),
-            kgQuantity: ethiopianController.eQuantity.value,
-            productIMG: catalogProduct.imgThumb,
           ),
         ),
         SizedBox(height: 50.h),

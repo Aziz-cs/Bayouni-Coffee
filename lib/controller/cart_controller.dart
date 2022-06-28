@@ -24,7 +24,7 @@ class CartController extends GetxController {
   }
 
   String getTotalPriceWithVat() {
-    return (totalPurchasePrice.value + vatPrecentage.value).toStringAsFixed(1);
+    return (totalPurchasePrice.value + vatPrecentage.value).toStringAsFixed(2);
   }
 
   void addProductToCart(CartProduct cartProduct) {

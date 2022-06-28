@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../model/cart_product.dart';
 import '../../utils/constants.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -242,11 +243,12 @@ class BlackTeaPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: Translation.isAr()
-                      ? catalogProduct.nameAR
-                      : catalogProduct.name,
-                  productPrice: blackTeaController.calculateOrderPrice(),
-                  productIMG: catalogProduct.imgThumb,
+                  cartProduct: CartProduct(
+                    name: catalogProduct.name,
+                    nameAR: catalogProduct.nameAR,
+                    price: blackTeaController.calculateOrderPrice(),
+                    imgURL: catalogProduct.imgThumb,
+                  ),
                 ),
               ),
               SizedBox(height: 50.h),

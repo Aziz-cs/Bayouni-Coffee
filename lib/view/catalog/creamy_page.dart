@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../model/cart_product.dart';
 import '../../translations/translation.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -127,12 +128,13 @@ class CreamyPage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: Translation.isAr()
-                      ? catalogProduct.nameAR
-                      : catalogProduct.name,
-                  productPrice: creamyFrenchController.calculateOrderPrice(),
-                  productIMG: catalogProduct.imgThumb,
-                  kgQuantity: creamyFrenchController.quantity.value,
+                  cartProduct: CartProduct(
+                    name: catalogProduct.name,
+                    nameAR: catalogProduct.nameAR,
+                    price: creamyFrenchController.calculateOrderPrice(),
+                    imgURL: catalogProduct.imgThumb,
+                    kgQuantity: creamyFrenchController.quantity.value,
+                  ),
                 ),
               ),
               SizedBox(height: 50.h),

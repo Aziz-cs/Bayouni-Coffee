@@ -11,6 +11,7 @@ const Map<String, String> ar = {
   'beans': 'حبوب كاملة',
   'ground': 'مطحون',
   'back': 'رجوع',
+  'addNotes': 'اضف ملاحظات',
   //========= Login Page =========
   'login': 'تسجيل دخول',
   'loginBtn': 'تسجيل دخول',

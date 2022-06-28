@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/catalog_controllers/arabic_coffee_controller.dart';
+import '../../model/cart_product.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 import '../widgets/my_drop_menu.dart';
@@ -149,16 +150,17 @@ class SaudiCoffeePage extends StatelessWidget {
               ),
               Obx(
                 () => ShoppingButtons(
-                  productTitle: Translation.isAr()
-                      ? catalogProduct.nameAR
-                      : catalogProduct.name,
-                  productPrice: arabicCoffeeController.calculateOrderPrice(
-                    quantity: arabicCoffeeController.quantity.value,
-                    coffeeType: arabicCoffeeController.coffeeType.value,
-                    isSaffronAdded: arabicCoffeeController.isSaffron.value,
+                  cartProduct: CartProduct(
+                    name: catalogProduct.name,
+                    nameAR: catalogProduct.nameAR,
+                    price: arabicCoffeeController.calculateOrderPrice(
+                      quantity: arabicCoffeeController.quantity.value,
+                      coffeeType: arabicCoffeeController.coffeeType.value,
+                      isSaffronAdded: arabicCoffeeController.isSaffron.value,
+                    ),
+                    imgURL: catalogProduct.imgThumb,
+                    kgQuantity: arabicCoffeeController.quantity.value,
                   ),
-                  productIMG: catalogProduct.imgThumb,
-                  kgQuantity: arabicCoffeeController.quantity.value,
                 ),
               ),
               SizedBox(height: 50.h),

@@ -1,6 +1,7 @@
 import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/cart_product.dart';
+import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +57,9 @@ class CartItem extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Text(
-                          cartProduct.name,
+                          Translation.isAr()
+                              ? cartProduct.nameAR
+                              : cartProduct.name,
                           style: TextStyle(
                             fontSize: 16.sp,
                           ),
@@ -75,15 +78,27 @@ class CartItem extends StatelessWidget {
                             ))
                       ],
                     ),
-                    Text(
-                      (cartProduct.price * cartProduct.quantity)
-                              .toStringAsFixed(1) +
-                          " " +
-                          'sr'.tr,
-                      style: TextStyle(
-                        fontSize: 14.5.sp,
-                        color: kBeige,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          (cartProduct.price * cartProduct.quantity)
+                                  .toStringAsFixed(2) +
+                              " " +
+                              'sr'.tr,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: kBeige,
+                          ),
+                        ),
+                        cartProduct.kgQuantity == 0
+                            ? const SizedBox()
+                            : Text(
+                                ' - ${cartProduct.kgQuantity} ' + 'kg'.tr,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                      ],
                     ),
                     SizedBox(height: 2.h),
                     cartProduct.isAccessoryProduct
@@ -132,14 +147,13 @@ class CartItem extends StatelessWidget {
                                   ))
                             ],
                           )
-                        : cartProduct.kgQuantity == 0
-                            ? const SizedBox()
-                            : Text(
-                                '${cartProduct.kgQuantity} ' + 'kg'.tr,
+                        : cartProduct.comments.isNotEmpty
+                            ? Text(
+                                cartProduct.comments,
                                 style: TextStyle(
-                                  fontSize: 14.sp,
-                                ),
-                              ),
+                                    fontSize: 13.sp, color: Colors.grey),
+                              )
+                            : const SizedBox(),
                     SizedBox(height: 12.h),
                   ],
                 ),

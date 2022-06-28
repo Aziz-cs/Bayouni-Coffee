@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/catalog_controllers/turkish_controller.dart';
+import '../../../model/cart_product.dart';
 import '../../../utils/constants.dart';
 import '../../widgets/my_drop_menu.dart';
 import '../../widgets/quantity_row.dart';
@@ -169,14 +170,13 @@ class BrazillianCoffeeWidget extends StatelessWidget {
         ),
         Obx(
           () => ShoppingButtons(
-            productTitle: catalogProduct.name,
-            productPrice: brazillianController.calculateOrderPrice(
-              coffeeType: brazillianController.turkishCoffeeType.value,
-              brazillianCoffeeType:
-                  brazillianController.brazillianCoffeeType.value,
+            cartProduct: CartProduct(
+              name: catalogProduct.name,
+              nameAR: catalogProduct.nameAR,
+              price: catalogProduct.price,
+              imgURL: catalogProduct.imgThumb,
+              kgQuantity: brazillianController.bQuantity.value,
             ),
-            kgQuantity: brazillianController.bQuantity.value,
-            productIMG: catalogProduct.imgThumb,
           ),
         ),
         SizedBox(height: 50.h),

@@ -1,4 +1,5 @@
 import 'package:bayouni_coffee/model/accessory.dart';
+import 'package:bayouni_coffee/model/cart_product.dart';
 import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/view/widgets/floating_cart.dart';
@@ -126,12 +127,14 @@ class AccessoryProductPage extends StatelessWidget {
                 ),
               ),
               ShoppingButtons(
-                productTitle: Translation.isAr()
-                    ? accessoryProduct.nameAR
-                    : accessoryProduct.name,
-                productPrice: accessoryProduct.price,
-                productIMG: accessoryProduct.imgURL,
-                isAccessoryProduct: true,
+                cartProduct: CartProduct(
+                  name: accessoryProduct.name,
+                  nameAR: accessoryProduct.nameAR,
+                  price: accessoryProduct.price,
+                  imgURL: accessoryProduct.imgURL,
+                  isAccessoryProduct: true,
+                ),
+                showAddComment: false,
               ),
             ],
           ),
