@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import 'catalog_controller.dart';
 
 enum BrewedType { special, customized }
+
 enum CoffeeType { beans, ground }
 
 class BrewedController extends GetxController {
@@ -17,7 +20,8 @@ class BrewedController extends GetxController {
   final cDarkRoastPrecentage = "10 %".obs;
   final cMediumRoastPrecentage = "10 %".obs;
   final cLightRoastPrecentage = "10 %".obs;
-
+  final Map<String, String> selectedDetails = {};
+  final Map<String, String> selectedDetailsAR = {};
   void resetProperties() {
     brewedType.value = BrewedType.special;
     coffeeType.value = CoffeeType.beans;
@@ -28,6 +32,12 @@ class BrewedController extends GetxController {
     cMediumRoastPrecentage.value = "10 %";
     cLightRoastPrecentage.value = "10 %";
     quantity.value = 1.0;
+    selectedDetails.clear();
+    selectedDetailsAR.clear();
+    selectedDetails[en['product']!] = en['brewedSpecial']!;
+    selectedDetails[en['type']!] = en['beans']!;
+    selectedDetailsAR[ar['product']!] = ar['brewedSpecial']!;
+    selectedDetailsAR[ar['type']!] = ar['beans']!;
   }
 
   static void initBrewedCoffeePrice() {

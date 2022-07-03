@@ -1,5 +1,4 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
-import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
@@ -12,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../model/cart_product.dart';
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import '../../utils/constants.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
@@ -112,6 +113,10 @@ class BrewedPage extends StatelessWidget {
                         groupValue: brewedController.brewedType.value,
                         onChanged: (value) {
                           brewedController.brewedType.value = value!;
+                          brewedController.selectedDetails[en['product']!] =
+                              en['brewedSpecial']!;
+                          brewedController.selectedDetailsAR[ar['product']!] =
+                              ar['brewedSpecial']!;
                         },
                       ),
                     ),
@@ -128,6 +133,10 @@ class BrewedPage extends StatelessWidget {
                         groupValue: brewedController.brewedType.value,
                         onChanged: (value) {
                           brewedController.brewedType.value = value!;
+                          brewedController.selectedDetails[en['product']!] =
+                              en['brewedCustomize']!;
+                          brewedController.selectedDetailsAR[ar['product']!] =
+                              ar['brewedCustomize']!;
                         },
                       ),
                     ),
@@ -148,6 +157,8 @@ class BrewedPage extends StatelessWidget {
                     price: brewedController.calculateOrderPrice(),
                     imgURL: catalogProduct.imgThumb,
                     kgQuantity: brewedController.quantity.value,
+                    selectedDetails: {...brewedController.selectedDetails},
+                    selectedDetailsAR: {...brewedController.selectedDetailsAR},
                   ),
                 ),
               ),
@@ -208,6 +219,11 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eDarkRoastPrecentage.value = val!;
+                  brewedController
+                          .selectedDetails[en['ethopian']! + en['darkRoast']!] =
+                      val;
+                  brewedController.selectedDetailsAR[
+                      ar['ethopian']! + ar['darkRoast']!] = val;
                 },
               ),
             ),
@@ -226,6 +242,10 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eMediumRoastPrecentage.value = val!;
+                  brewedController.selectedDetails[
+                      ar['ethopian']! + en['mediumRoast']!] = val;
+                  brewedController.selectedDetailsAR[
+                      ar['ethopian']! + ar['mediumRoast']!] = val;
                 },
               ),
             ),
@@ -244,6 +264,10 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eLightRoastPrecentage.value = val!;
+                  brewedController.selectedDetails[
+                      en['ethopian']! + en['lightRoast']!] = val;
+                  brewedController.selectedDetailsAR[
+                      ar['ethopian']! + ar['lightRoast']!] = val;
                 },
               ),
             ),
@@ -281,6 +305,10 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eDarkRoastPrecentage.value = val!;
+                  brewedController.selectedDetails[
+                      en['colombian']! + en['darkRoast']!] = val;
+                  brewedController.selectedDetailsAR[
+                      ar['colombian']! + ar['darkRoast']!] = val;
                 },
               ),
             ),
@@ -299,6 +327,10 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eMediumRoastPrecentage.value = val!;
+                  brewedController.selectedDetails[
+                      en['colombian']! + en['mediumRoast']!] = val;
+                  brewedController.selectedDetailsAR[
+                      ar['colombian']! + ar['mediumRoast']!] = val;
                 },
               ),
             ),
@@ -317,6 +349,10 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eLightRoastPrecentage.value = val!;
+                  brewedController.selectedDetails[
+                      en['colombian']! + en['lightRoast']!] = val;
+                  brewedController.selectedDetailsAR[
+                      ar['colombian']! + ar['lightRoast']!] = val;
                 },
               ),
             ),
@@ -337,6 +373,8 @@ class BrewedPage extends StatelessWidget {
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
               brewedController.coffeeType.value = value!;
+              brewedController.selectedDetails[en['type']!] = en['beans']!;
+              brewedController.selectedDetailsAR[ar['type']!] = ar['beans']!;
             },
           ),
         ),
@@ -353,6 +391,8 @@ class BrewedPage extends StatelessWidget {
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
               brewedController.coffeeType.value = value!;
+              brewedController.selectedDetails[en['type']!] = en['ground']!;
+              brewedController.selectedDetailsAR[ar['type']!] = ar['ground']!;
             },
           ),
         ),
@@ -380,6 +420,8 @@ class BrewedPage extends StatelessWidget {
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
               brewedController.coffeeType.value = value!;
+              brewedController.selectedDetails[en['type']!] = en['beans']!;
+              brewedController.selectedDetailsAR[ar['type']!] = ar['beans']!;
             },
           ),
         ),
@@ -395,7 +437,10 @@ class BrewedPage extends StatelessWidget {
             value: CoffeeType.ground,
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
+              print('added ground');
               brewedController.coffeeType.value = value!;
+              brewedController.selectedDetails[en['type']!] = en['ground']!;
+              brewedController.selectedDetailsAR[ar['type']!] = ar['ground']!;
             },
           ),
         ),

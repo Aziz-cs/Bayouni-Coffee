@@ -133,6 +133,8 @@ class AccessoryProductPage extends StatelessWidget {
                   price: accessoryProduct.price,
                   imgURL: accessoryProduct.imgURL,
                   isAccessoryProduct: true,
+                  selectedDetails: {},
+                  selectedDetailsAR: {},
                 ),
                 showAddComment: false,
               ),

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'catalog_controller.dart';
 
 enum TurkishCoffeeType { ethiopian, brazillian }
+
 enum BrazillianCoffeeType { brazillian, brazillianCardamom }
+
 enum EthiopianCoffeeType { turkish, turkishCardamom }
 
 class TurkishController extends GetxController {
@@ -22,11 +24,12 @@ class TurkishController extends GetxController {
 
   final ethiopianCoffeeType = EthiopianCoffeeType.turkish.obs;
   final eQuantity = 1.0.obs;
-
   final eDarkRoastPrecentage = "10 %".obs;
   final eMediumRoastPrecentage = "10 %".obs;
   final eLightRoastPrecentage = "10 %".obs;
 
+  final Map<String, String> selectedDetails = {};
+  final Map<String, String> selectedDetailsAR = {};
   void resetProperties() {
     turkishCoffeeType.value = TurkishCoffeeType.ethiopian;
     brazillianCoffeeType.value = BrazillianCoffeeType.brazillian;
@@ -44,6 +47,8 @@ class TurkishController extends GetxController {
     eDarkRoastPrecentage.value = "10 %";
     eMediumRoastPrecentage.value = "10 %";
     eLightRoastPrecentage.value = "10 %";
+    selectedDetails.clear();
+    selectedDetailsAR.clear();
   }
 
   static void initTurkishCoffeePrice() {

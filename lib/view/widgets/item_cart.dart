@@ -147,13 +147,55 @@ class CartItem extends StatelessWidget {
                                   ))
                             ],
                           )
-                        : cartProduct.comments.isNotEmpty
-                            ? Text(
-                                cartProduct.comments,
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: Colors.grey),
+                        : !cartProduct.isAccessoryProduct &&
+                                cartProduct.selectedDetails.isNotEmpty
+                            ? Column(
+                                children: List.generate(
+                                  cartProduct.selectedDetails.length,
+                                  (index) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          Translation.isAr()
+                                              ? cartProduct
+                                                  .selectedDetailsAR.keys
+                                                  .elementAt(index)
+                                              : cartProduct.selectedDetails.keys
+                                                      .elementAt(index) +
+                                                  ': ',
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          Translation.isAr()
+                                              ? cartProduct
+                                                  .selectedDetailsAR.values
+                                                  .elementAt(index)
+                                              : cartProduct
+                                                  .selectedDetails.values
+                                                  .elementAt(index),
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                            color: kBeige,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               )
                             : const SizedBox(),
+                    if (cartProduct.comments.isNotEmpty)
+                      Text(
+                        cartProduct.comments,
+                        style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                      ),
                     SizedBox(height: 12.h),
                   ],
                 ),

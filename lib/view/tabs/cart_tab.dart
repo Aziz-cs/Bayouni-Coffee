@@ -16,6 +16,15 @@ class CartTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    cartController.cartOrders.forEach(
+      (element) => print(element.selectedDetails),
+    );
+
+    cartController.cartOrders.forEach((element) {
+      print('name ${element.name}');
+      print('price ${element.price}');
+      print('selected Details ${element.selectedDetails}');
+    });
     return Scaffold(
       body: SafeArea(
           child: Column(

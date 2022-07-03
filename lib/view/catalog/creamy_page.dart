@@ -134,6 +134,12 @@ class CreamyPage extends StatelessWidget {
                     price: creamyFrenchController.calculateOrderPrice(),
                     imgURL: catalogProduct.imgThumb,
                     kgQuantity: creamyFrenchController.quantity.value,
+                    selectedDetails: {
+                      ...creamyFrenchController.selectedDetails
+                    },
+                    selectedDetailsAR: {
+                      ...creamyFrenchController.selectedDetailsAR
+                    },
                   ),
                 ),
               ),

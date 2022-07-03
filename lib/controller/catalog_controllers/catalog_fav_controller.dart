@@ -1,18 +1,5 @@
-import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
-import 'package:bayouni_coffee/model/catalog_product.dart';
-import 'package:bayouni_coffee/view/catalog/additives_page.dart';
-import 'package:bayouni_coffee/view/catalog/saudi_coffee_page.dart';
-import 'package:bayouni_coffee/view/catalog/black_tea_page.dart';
-import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
-import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
-import 'package:bayouni_coffee/view/catalog/espresso_page.dart';
-import 'package:bayouni_coffee/view/catalog/flavored_coffee_page.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/turkish_coffee_page.dart';
-import 'package:bayouni_coffee/view/start/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CatalogFavController {
   static void addToFavorites(String catalogID) {

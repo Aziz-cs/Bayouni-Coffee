@@ -1,15 +1,10 @@
-import 'package:bayouni_coffee/controller/database.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/utils/shared_prefs.dart';
-import 'package:bayouni_coffee/view/checkout_page.dart';
 import 'package:bayouni_coffee/view/orders_page.dart';
-import 'package:bayouni_coffee/view/settings_page.dart';
-import 'package:bayouni_coffee/view/thanks_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../controller/profile_controller.dart';
-import '../../model/catalog_product.dart';
 import '../widgets/my_textfield.dart';
 
 class MoreTab extends StatelessWidget {

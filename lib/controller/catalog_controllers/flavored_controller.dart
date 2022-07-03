@@ -10,7 +10,9 @@ enum FlavoredStyle {
   almonds,
   caramel,
 }
+
 enum GroundType { beans, ground }
+
 enum FlavoredType { fine, course, powder }
 
 class FlavoredController extends GetxController {
@@ -20,12 +22,16 @@ class FlavoredController extends GetxController {
   final flavoredType = FlavoredType.fine.obs;
   final groundType = GroundType.beans.obs;
   final quantity = 1.0.obs;
+  final Map<String, String> selectedDetails = {};
+  final Map<String, String> selectedDetailsAR = {};
 
   void resetProperties() {
     quantity.value = 1.0;
     flavoredStyle.value = FlavoredStyle.hazenut;
     flavoredType.value = FlavoredType.fine;
     groundType.value = GroundType.beans;
+    selectedDetails.clear();
+    selectedDetailsAR.clear();
   }
 
   static void initFlavoredCoffeePrice() {

@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'catalog_controller.dart';
 
 enum BlackTeaType { box, bag }
+
 enum GreenTeaType { green, none }
+
 enum ShakerTeaType { shakir, none }
+
 enum OtherTeaType { other, none }
 
 class BlackTeaController extends GetxController {
@@ -25,6 +28,8 @@ class BlackTeaController extends GetxController {
   final blackTeaQuanitity = 1.0.obs;
   final greenTeaQuanitity = 1.0.obs;
   final shakirTeaQuanitity = 1.0.obs;
+  final Map<String, String> selectedDetails = {};
+  final Map<String, String> selectedDetailsAR = {};
 
   void resetProperties() {
     blackTeaType.value = BlackTeaType.box;
@@ -39,6 +44,8 @@ class BlackTeaController extends GetxController {
     blackTeaQuanitity.value = 1.0;
     greenTeaQuanitity.value = 1.0;
     shakirTeaQuanitity.value = 1.0;
+    selectedDetails.clear();
+    selectedDetailsAR.clear();
   }
 
   static void initBlackTeaPrices() {

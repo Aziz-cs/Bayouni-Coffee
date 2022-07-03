@@ -248,6 +248,10 @@ class BlackTeaPage extends StatelessWidget {
                     nameAR: catalogProduct.nameAR,
                     price: blackTeaController.calculateOrderPrice(),
                     imgURL: catalogProduct.imgThumb,
+                    selectedDetails: {...blackTeaController.selectedDetails},
+                    selectedDetailsAR: {
+                      ...blackTeaController.selectedDetailsAR
+                    },
                   ),
                 ),
               ),

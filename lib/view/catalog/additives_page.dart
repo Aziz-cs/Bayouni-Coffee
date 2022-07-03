@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 import '../../model/cart_product.dart';
 import '../../model/catalog_product.dart';
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 
@@ -21,7 +23,6 @@ class AdditivesPage extends StatelessWidget {
     required this.catalogProduct,
   }) : super(key: key);
   CatalogProduct catalogProduct;
-
   final additivesController = Get.put(AdditivesController());
 
   @override
@@ -134,6 +135,10 @@ class AdditivesPage extends StatelessWidget {
                         onChanged: (value) {
                           additivesController.additivesType.value =
                               value ?? AdditivesType.beans;
+                          additivesController.selectedDetails[en['type']!] =
+                              en['beans']!;
+                          additivesController.selectedDetailsAR[ar['type']!] =
+                              ar['beans']!;
                         },
                       ),
                     ),
@@ -151,6 +156,10 @@ class AdditivesPage extends StatelessWidget {
                         onChanged: (value) {
                           additivesController.additivesType.value =
                               value ?? AdditivesType.beans;
+                          additivesController.selectedDetails[en['type']!] =
+                              en['course']!;
+                          additivesController.selectedDetailsAR[ar['type']!] =
+                              ar['course']!;
                         },
                       ),
                     ),
@@ -224,6 +233,23 @@ class AdditivesPage extends StatelessWidget {
                         groupValue: additivesController.saffronGram.value,
                         onChanged: (value) {
                           additivesController.saffronGram.value = value!;
+                          additivesController.selectedDetails[en['saffron']!] =
+                              '3 ' +
+                                  en['gm']! +
+                                  ' ' +
+                                  AdditivesController.saffron3GramPrice
+                                      .toString() +
+                                  ' ' +
+                                  en['sr']!;
+                          additivesController
+                                  .selectedDetailsAR[ar['saffron']!] =
+                              '3 ' +
+                                  ar['gm']! +
+                                  ' ' +
+                                  AdditivesController.saffron3GramPrice
+                                      .toString() +
+                                  ' ' +
+                                  ar['sr']!;
                         },
                       ),
                     ),
@@ -245,6 +271,23 @@ class AdditivesPage extends StatelessWidget {
                         groupValue: additivesController.saffronGram.value,
                         onChanged: (value) {
                           additivesController.saffronGram.value = value!;
+                          additivesController.selectedDetails[en['saffron']!] =
+                              '5 ' +
+                                  en['gm']! +
+                                  ' ' +
+                                  AdditivesController.saffron5GramPrice
+                                      .toString() +
+                                  ' ' +
+                                  en['sr']!;
+                          additivesController
+                                  .selectedDetailsAR[ar['saffron']!] =
+                              '5 ' +
+                                  ar['gm']! +
+                                  ' ' +
+                                  AdditivesController.saffron5GramPrice
+                                      .toString() +
+                                  ' ' +
+                                  ar['sr']!;
                         },
                       ),
                     ),
@@ -265,6 +308,10 @@ class AdditivesPage extends StatelessWidget {
                     ),
                     imgURL: catalogProduct.imgThumb,
                     kgQuantity: additivesController.quantity.value,
+                    selectedDetails: {...additivesController.selectedDetails},
+                    selectedDetailsAR: {
+                      ...additivesController.selectedDetailsAR
+                    },
                   ),
                 ),
               ),

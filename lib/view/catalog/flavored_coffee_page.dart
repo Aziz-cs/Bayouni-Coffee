@@ -246,6 +246,10 @@ class FlavoredCoffeePage extends StatelessWidget {
                     price: flavoredController.calculateOrderPrice(),
                     imgURL: catalogProduct.imgThumb,
                     kgQuantity: flavoredController.quantity.value,
+                    selectedDetails: {...flavoredController.selectedDetails},
+                    selectedDetailsAR: {
+                      ...flavoredController.selectedDetailsAR
+                    },
                   ),
                 ),
               ),

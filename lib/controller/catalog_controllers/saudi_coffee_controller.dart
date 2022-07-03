@@ -1,11 +1,16 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
 import 'package:get/get.dart';
 
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
+
 enum CoffeeType { specialBlend, customize }
+
 enum BlendType { beans, ground }
+
 enum BlendTense { fine, medium, course }
 
-class ArabicCoffeeController extends GetxController {
+class SaudiCoffeeController extends GetxController {
   static late var specialBlendPrice;
   static late var customizeBlendPrice;
   static late var saffron3GramPrice;
@@ -18,7 +23,8 @@ class ArabicCoffeeController extends GetxController {
   final darkRoastPrecentage = "10 %".obs;
   final mediumRoastPrecentage = "10 %".obs;
   final lightRoastPrecentage = "10 %".obs;
-
+  final Map<String, String> selectedDetails = {};
+  final Map<String, String> selectedDetailsAR = {};
   static void initArabicCoffeePrice() {
     specialBlendPrice = catalogPriceList['arabicCoffee']['specialBlend'];
     customizeBlendPrice = catalogPriceList['arabicCoffee']['customizeBlend'];
@@ -56,5 +62,9 @@ class ArabicCoffeeController extends GetxController {
     darkRoastPrecentage.value = "10 %";
     mediumRoastPrecentage.value = "10 %";
     lightRoastPrecentage.value = "10 %";
+    selectedDetails.clear();
+    selectedDetailsAR.clear();
+    selectedDetails[en['product']!] = en['specialBlend']!;
+    selectedDetailsAR[ar['product']!] = ar['specialBlend']!;
   }
 }

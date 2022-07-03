@@ -5,6 +5,8 @@ class CartProduct {
   final String imgURL;
   final bool isAccessoryProduct;
   final double kgQuantity;
+  final Map<String, String> selectedDetails;
+  final Map<String, String> selectedDetailsAR;
   int quantity;
   String comments;
   CartProduct({
@@ -12,6 +14,8 @@ class CartProduct {
     required this.nameAR,
     required this.price,
     required this.imgURL,
+    required this.selectedDetails,
+    required this.selectedDetailsAR,
     this.comments = '',
     this.quantity = 1,
     this.isAccessoryProduct = false,

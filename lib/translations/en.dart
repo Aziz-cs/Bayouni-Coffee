@@ -12,6 +12,7 @@ const Map<String, String> en = {
   'ground': 'Ground',
   'back': 'Back',
   'addNotes': 'Add notes',
+  'product': 'Product',
   //========= Login Page =========
   'login': 'Login',
   'loginBtn': 'LOGIN',
@@ -90,6 +91,7 @@ const Map<String, String> en = {
   //
   'ethiopianPrecentage': 'Ethiopian blend precentage',
   'colombianPrecentage': 'Colombian blend precentage',
+  'colombian': 'Colombian',
   //========= Espresso product =========
   'espressoSpecial': 'Special italian roasting blend',
   'recommended': 'Recommended',

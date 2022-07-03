@@ -1,5 +1,5 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/additives_controller.dart';
-import 'package:bayouni_coffee/controller/catalog_controllers/arabic_coffee_controller.dart';
+import 'package:bayouni_coffee/controller/catalog_controllers/saudi_coffee_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/blacktea_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/creamy_french_controller.dart';
@@ -41,7 +41,8 @@ const String kEspressoID = "espresso";
 const String kBlackTea = "blackTea";
 const String kCreamyFrenchID = "creamyFrench";
 const String kFlavoredCoffeeID = "flavoredCoffee";
-
+final Map<String, String> selectedDetails = {};
+final Map<String, String> selectedDetailsAR = {};
 // class CatalogController extends GetxController {
 //   var resultList = <CatalogProduct>[].obs;
 //   var searchText = ''.obs;
@@ -163,7 +164,7 @@ class CatalogController extends GetxController {
 
       TurkishController.initTurkishCoffeePrice();
       AdditivesController.initAdditivesPrices();
-      ArabicCoffeeController.initArabicCoffeePrice();
+      SaudiCoffeeController.initArabicCoffeePrice();
       BrewedController.initBrewedCoffeePrice();
       EspressoController.initEspressoPrice();
       CreamyFrenchController.initCreamyFrenchPrice();

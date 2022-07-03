@@ -241,6 +241,10 @@ class EspressoPage extends StatelessWidget {
                     price: espressoController.calculateOrderPrice(),
                     imgURL: catalogProduct.imgThumb,
                     kgQuantity: espressoController.quantity.value,
+                    selectedDetails: {...espressoController.selectedDetails},
+                    selectedDetailsAR: {
+                      ...espressoController.selectedDetailsAR
+                    },
                   ),
                 ),
               ),

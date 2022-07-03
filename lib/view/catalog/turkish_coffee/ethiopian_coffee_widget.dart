@@ -175,6 +175,8 @@ class EthiopianCoffeeWidget extends StatelessWidget {
               price: catalogProduct.price,
               imgURL: catalogProduct.imgThumb,
               kgQuantity: ethiopianController.eQuantity.value,
+              selectedDetails: {...ethiopianController.selectedDetails},
+              selectedDetailsAR: {...ethiopianController.selectedDetailsAR},
             ),
           ),
         ),

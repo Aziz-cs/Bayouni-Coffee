@@ -176,6 +176,8 @@ class BrazillianCoffeeWidget extends StatelessWidget {
               price: catalogProduct.price,
               imgURL: catalogProduct.imgThumb,
               kgQuantity: brazillianController.bQuantity.value,
+              selectedDetails: {...brazillianController.selectedDetails},
+              selectedDetailsAR: {...brazillianController.selectedDetailsAR},
             ),
           ),
         ),
