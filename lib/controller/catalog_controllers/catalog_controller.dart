@@ -14,7 +14,7 @@ import 'package:bayouni_coffee/view/catalog/brewed_page.dart';
 import 'package:bayouni_coffee/view/catalog/creamy_page.dart';
 import 'package:bayouni_coffee/view/catalog/espresso_page.dart';
 import 'package:bayouni_coffee/view/catalog/flavored_coffee_page.dart';
-import 'package:bayouni_coffee/view/catalog/turkish_coffee/turkish_coffee_page.dart';
+import 'package:bayouni_coffee/view/catalog/turkish_coffee_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +160,6 @@ class CatalogController extends GetxController {
         .onValue
         .listen((event) {
       catalogPriceList = event.snapshot.value as Map;
-      print('catalogPricelist: $catalogPriceList');
 
       TurkishController.initTurkishCoffeePrice();
       AdditivesController.initAdditivesPrices();

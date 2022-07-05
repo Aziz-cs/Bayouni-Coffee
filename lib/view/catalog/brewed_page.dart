@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/brewed_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/translations/translation.dart';
@@ -10,13 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/helper.dart';
 import '../../model/cart_product.dart';
 import '../../translations/ar.dart';
 import '../../translations/en.dart';
 import '../../utils/constants.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
 import '../widgets/my_drop_menu.dart';
+import '../widgets/shopping_btns.dart';
 
 class BrewedPage extends StatelessWidget {
   BrewedPage({
@@ -25,6 +30,9 @@ class BrewedPage extends StatelessWidget {
   }) : super(key: key);
   CatalogProduct catalogProduct;
   final brewedController = Get.put(BrewedController());
+
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +121,8 @@ class BrewedPage extends StatelessWidget {
                         groupValue: brewedController.brewedType.value,
                         onChanged: (value) {
                           brewedController.brewedType.value = value!;
-                          brewedController.selectedDetails[en['product']!] =
-                              en['brewedSpecial']!;
-                          brewedController.selectedDetailsAR[ar['product']!] =
-                              ar['brewedSpecial']!;
+                          addProductDetails(
+                              key: 'product', value: 'brewedSpecial');
                         },
                       ),
                     ),
@@ -133,10 +139,8 @@ class BrewedPage extends StatelessWidget {
                         groupValue: brewedController.brewedType.value,
                         onChanged: (value) {
                           brewedController.brewedType.value = value!;
-                          brewedController.selectedDetails[en['product']!] =
-                              en['brewedCustomize']!;
-                          brewedController.selectedDetailsAR[ar['product']!] =
-                              ar['brewedCustomize']!;
+                          addProductDetails(
+                              key: 'product', value: 'brewedCustomize');
                         },
                       ),
                     ),
@@ -149,19 +153,54 @@ class BrewedPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: brewedController.calculateOrderPrice(),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: brewedController.quantity.value,
-                    selectedDetails: {...brewedController.selectedDetails},
-                    selectedDetailsAR: {...brewedController.selectedDetailsAR},
-                  ),
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: brewedController.calculateOrderPrice(),
+                          imgURL: catalogProduct.imgThumb,
+                          kgQuantity: brewedController.quantity.value,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        brewedController.resetProperties();
+                        _commentController.clear();
+                      },
+                    ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
+              // Obx(
+              //   () => ShoppingButtons(
+              //     cartProduct: CartProduct(
+              //       name: catalogProduct.name,
+              //       nameAR: catalogProduct.nameAR,
+              //       price: brewedController.calculateOrderPrice(),
+              //       imgURL: catalogProduct.imgThumb,
+              //       kgQuantity: brewedController.quantity.value,
+              //       selectedDetails: {...productDetails},
+              //       selectedDetailsAR: {...productDetailsAR},
+              //       // selectedDetails: {...brewedController.selectedDetails},
+              //       // selectedDetailsAR: {...brewedController.selectedDetailsAR},
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 50.h),
             ],
           ),
@@ -219,11 +258,18 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eDarkRoastPrecentage.value = val!;
-                  brewedController
-                          .selectedDetails[en['ethopian']! + en['darkRoast']!] =
-                      val;
-                  brewedController.selectedDetailsAR[
-                      ar['ethopian']! + ar['darkRoast']!] = val;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -242,10 +288,18 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eMediumRoastPrecentage.value = val!;
-                  brewedController.selectedDetails[
-                      ar['ethopian']! + en['mediumRoast']!] = val;
-                  brewedController.selectedDetailsAR[
-                      ar['ethopian']! + ar['mediumRoast']!] = val;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -264,10 +318,18 @@ class BrewedPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   brewedController.eLightRoastPrecentage.value = val!;
-                  brewedController.selectedDetails[
-                      en['ethopian']! + en['lightRoast']!] = val;
-                  brewedController.selectedDetailsAR[
-                      ar['ethopian']! + ar['lightRoast']!] = val;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -301,14 +363,22 @@ class BrewedPage extends StatelessWidget {
             ),
             Obx(
               () => MyDropDownMenu(
-                value: brewedController.eDarkRoastPrecentage.value,
+                value: brewedController.cDarkRoastPrecentage.value,
                 items: precentageList,
                 onChanged: (val) {
-                  brewedController.eDarkRoastPrecentage.value = val!;
-                  brewedController.selectedDetails[
-                      en['colombian']! + en['darkRoast']!] = val;
-                  brewedController.selectedDetailsAR[
-                      ar['colombian']! + ar['darkRoast']!] = val;
+                  brewedController.cDarkRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -323,14 +393,22 @@ class BrewedPage extends StatelessWidget {
             ),
             Obx(
               () => MyDropDownMenu(
-                value: brewedController.eMediumRoastPrecentage.value,
+                value: brewedController.cMediumRoastPrecentage.value,
                 items: precentageList,
                 onChanged: (val) {
-                  brewedController.eMediumRoastPrecentage.value = val!;
-                  brewedController.selectedDetails[
-                      en['colombian']! + en['mediumRoast']!] = val;
-                  brewedController.selectedDetailsAR[
-                      ar['colombian']! + ar['mediumRoast']!] = val;
+                  brewedController.cMediumRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -345,14 +423,22 @@ class BrewedPage extends StatelessWidget {
             ),
             Obx(
               () => MyDropDownMenu(
-                value: brewedController.eLightRoastPrecentage.value,
+                value: brewedController.cLightRoastPrecentage.value,
                 items: precentageList,
                 onChanged: (val) {
-                  brewedController.eLightRoastPrecentage.value = val!;
-                  brewedController.selectedDetails[
-                      en['colombian']! + en['lightRoast']!] = val;
-                  brewedController.selectedDetailsAR[
-                      ar['colombian']! + ar['lightRoast']!] = val;
+                  brewedController.cLightRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -373,8 +459,7 @@ class BrewedPage extends StatelessWidget {
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
               brewedController.coffeeType.value = value!;
-              brewedController.selectedDetails[en['type']!] = en['beans']!;
-              brewedController.selectedDetailsAR[ar['type']!] = ar['beans']!;
+              addProductDetails(key: 'type', value: 'beans');
             },
           ),
         ),
@@ -390,9 +475,9 @@ class BrewedPage extends StatelessWidget {
             value: CoffeeType.ground,
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
+              print('changed to ground');
               brewedController.coffeeType.value = value!;
-              brewedController.selectedDetails[en['type']!] = en['ground']!;
-              brewedController.selectedDetailsAR[ar['type']!] = ar['ground']!;
+              addProductDetails(key: 'type', value: 'ground');
             },
           ),
         ),
@@ -420,8 +505,7 @@ class BrewedPage extends StatelessWidget {
             groupValue: brewedController.coffeeType.value,
             onChanged: (value) {
               brewedController.coffeeType.value = value!;
-              brewedController.selectedDetails[en['type']!] = en['beans']!;
-              brewedController.selectedDetailsAR[ar['type']!] = ar['beans']!;
+              addProductDetails(key: 'type', value: 'beans');
             },
           ),
         ),
@@ -439,8 +523,8 @@ class BrewedPage extends StatelessWidget {
             onChanged: (value) {
               print('added ground');
               brewedController.coffeeType.value = value!;
-              brewedController.selectedDetails[en['type']!] = en['ground']!;
-              brewedController.selectedDetailsAR[ar['type']!] = ar['ground']!;
+              addProductDetails(key: 'type', value: 'ground');
+              print(brewedController.selectedDetails);
             },
           ),
         ),

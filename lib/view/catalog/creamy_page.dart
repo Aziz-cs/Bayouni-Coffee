@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/creamy_french_controller.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
@@ -13,10 +14,15 @@ import 'package:get/get.dart';
 
 import '../../model/cart_product.dart';
 import '../../translations/translation.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
+import '../widgets/shopping_btns.dart';
 
 class CreamyPage extends StatelessWidget {
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
   CreamyPage({
     Key? key,
     required this.catalogProduct,
@@ -126,21 +132,37 @@ class CreamyPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: creamyFrenchController.calculateOrderPrice(),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: creamyFrenchController.quantity.value,
-                    selectedDetails: {
-                      ...creamyFrenchController.selectedDetails
-                    },
-                    selectedDetailsAR: {
-                      ...creamyFrenchController.selectedDetailsAR
-                    },
-                  ),
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: creamyFrenchController.calculateOrderPrice(),
+                          imgURL: catalogProduct.imgThumb,
+                          kgQuantity: creamyFrenchController.quantity.value,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        creamyFrenchController.resetProperties();
+                        _commentController.clear();
+                      },
+                    ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
               SizedBox(height: 50.h),

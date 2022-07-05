@@ -28,14 +28,14 @@ class CartItem extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width: 90.w,
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(2.0),
                       child: CachedNetworkImage(
                         imageUrl: cartProduct.imgURL,
                         fit: BoxFit.fill,
@@ -100,112 +100,12 @@ class CartItem extends StatelessWidget {
                               ),
                       ],
                     ),
-                    SizedBox(height: 2.h),
-                    cartProduct.isAccessoryProduct
-                        ? Row(
-                            children: [
-                              IconButton(
-                                  splashColor: kBeige,
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: () {
-                                    cartController
-                                        .addProductToCart(cartProduct);
-                                    // cartProduct.quantity++;
-                                    // cartController.allCartQuantities.value++;
-                                  },
-                                  icon: const Icon(
-                                    CupertinoIcons.add,
-                                    size: 19,
-                                  )),
-                              SizedBox(width: 17.w),
-                              Obx(
-                                () => Text(
-                                  cartController.cartOrders
-                                      .firstWhere((element) =>
-                                          cartProduct.name == element.name)
-                                      .quantity
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 17.w),
-                              IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: () {
-                                    if (cartProduct.quantity > 1) {
-                                      cartController.decrementProductFromCart(
-                                          cartProduct);
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    CupertinoIcons.minus,
-                                    size: 19,
-                                  ))
-                            ],
-                          )
-                        : !cartProduct.isAccessoryProduct &&
-                                cartProduct.selectedDetails.isNotEmpty
-                            ? Column(
-                                children: List.generate(
-                                  cartProduct.selectedDetails.length,
-                                  (index) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          Translation.isAr()
-                                              ? cartProduct
-                                                  .selectedDetailsAR.keys
-                                                  .elementAt(index)
-                                              : cartProduct.selectedDetails.keys
-                                                      .elementAt(index) +
-                                                  ': ',
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          Translation.isAr()
-                                              ? cartProduct
-                                                  .selectedDetailsAR.values
-                                                  .elementAt(index)
-                                              : cartProduct
-                                                  .selectedDetails.values
-                                                  .elementAt(index),
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: kBeige,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
-                    if (cartProduct.comments.isNotEmpty)
-                      Text(
-                        cartProduct.comments,
-                        style: TextStyle(fontSize: 13.sp, color: Colors.grey),
-                      ),
-                    SizedBox(height: 12.h),
                   ],
                 ),
               ),
             ],
           ),
-          const Divider(
-            color: kGrey,
-            height: 1,
-          ),
+
           // SizedBox(height: 13.h),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,7 +125,124 @@ class CartItem extends StatelessWidget {
           //     )
           //   ],
           // ),
-          SizedBox(height: 13.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Column(
+              children: [
+                SizedBox(height: 2.h),
+                cartProduct.isAccessoryProduct
+                    ? Row(
+                        children: [
+                          IconButton(
+                              splashColor: kBeige,
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                cartController.addProductToCart(cartProduct);
+                                // cartProduct.quantity++;
+                                // cartController.allCartQuantities.value++;
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.add,
+                                size: 19,
+                              )),
+                          SizedBox(width: 17.w),
+                          Obx(
+                            () => Text(
+                              cartController.cartOrders
+                                  .firstWhere((element) =>
+                                      cartProduct.name == element.name)
+                                  .quantity
+                                  .toString(),
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 17.w),
+                          IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                if (cartProduct.quantity > 1) {
+                                  cartController
+                                      .decrementProductFromCart(cartProduct);
+                                }
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.minus,
+                                size: 19,
+                              ))
+                        ],
+                      )
+                    : !cartProduct.isAccessoryProduct &&
+                            cartProduct.selectedDetails.isNotEmpty
+                        ? Column(
+                            children: List.generate(
+                              cartProduct.selectedDetails.length,
+                              (index) => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      Translation.isAr()
+                                          ? cartProduct.selectedDetailsAR.keys
+                                              .elementAt(index)
+                                          : cartProduct.selectedDetails.keys
+                                                  .elementAt(index) +
+                                              ': ',
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      Translation.isAr()
+                                          ? cartProduct.selectedDetailsAR.values
+                                              .elementAt(index)
+                                          : cartProduct.selectedDetails.values
+                                              .elementAt(index),
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: kBeige,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                if (cartProduct.comments.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'notes'.tr,
+                        style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                      ),
+                      Flexible(
+                        child: Text(
+                          cartProduct.comments,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: kBeige,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                SizedBox(height: 12.h),
+                const Divider(
+                  color: kGrey,
+                  height: 1,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

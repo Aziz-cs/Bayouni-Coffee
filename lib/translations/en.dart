@@ -1,5 +1,6 @@
 const Map<String, String> en = {
   //========= COMMONS =======
+  '': '',
   'sr': 'SR',
   'kg': 'KG',
   'gm': 'grams',
@@ -13,6 +14,8 @@ const Map<String, String> en = {
   'back': 'Back',
   'addNotes': 'Add notes',
   'product': 'Product',
+  'notes': 'Notes',
+  'errSelectProduct': 'Please select a product to add',
   //========= Login Page =========
   'login': 'Login',
   'loginBtn': 'LOGIN',
@@ -62,7 +65,7 @@ const Map<String, String> en = {
   //========= Error messages =========
   'somethingWentWrong': 'Something went wrong..',
   //========= Turkish product =========
-  'ethopian': 'Ethiopian',
+  'ethiopian': 'Ethiopian',
   'brazillian': 'Brazillian',
   'plain': 'Plain',
   'withCardamom': 'With cardamom',
@@ -105,6 +108,7 @@ const Map<String, String> en = {
   'specialItalianRoast': 'Special Italian roast',
   //========= Tea product =========
   'bayouniBlackTea': 'Bayouni Black Tea',
+  'bayouniBlackTeaType': 'Black tea type',
   'bayouniBlackTeaSubTitle': 'Good quality black Kenyan tea',
   'blackTeaBox': 'Box (2 x 750gms)',
   'blackTeaBag': 'Bag (1 x 750gs)',

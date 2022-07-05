@@ -1,7 +1,12 @@
 import 'package:bayouni_coffee/model/cart_product.dart';
 import 'package:get/get.dart';
 
+import '../translations/ar.dart';
+import '../translations/en.dart';
 import 'helper.dart';
+
+Map<String, String> productDetails = {};
+Map<String, String> productDetailsAR = {};
 
 class CartController extends GetxController {
   final cartOrders = <CartProduct>[].obs;
@@ -70,4 +75,39 @@ class CartController extends GetxController {
   double getAllTotalWithVAT() {
     return 0;
   }
+}
+
+void addProductDetails({
+  required String key,
+  required String value,
+  bool isCustomized = false,
+  bool isEN = true,
+}) {
+  if (isCustomized && isEN) {
+    print('isCustomized && isEN)');
+    productDetails[key] = value;
+  } else if (isCustomized && !isEN) {
+    print('isCustomized && isAR)');
+
+    productDetailsAR[key] = value;
+  } else {
+    print('else at all)');
+    productDetails[en[key]!] = en[value]!;
+    productDetailsAR[ar[key]!] = ar[value]!;
+  }
+}
+
+bool isDetailIsAdded({required String key}) {
+  return productDetails.containsKey(en[key]) ||
+      productDetailsAR.containsKey(ar[key]);
+}
+
+void removeProductDetails({required String key}) {
+  productDetails.remove(en[key]);
+  productDetailsAR.remove(ar[key]);
+}
+
+void clearProductDetails() {
+  productDetails.clear();
+  productDetailsAR.clear();
 }

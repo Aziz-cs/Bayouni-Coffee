@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../cart_controller.dart';
 import 'catalog_controller.dart';
 
 enum EspressoType { special, customized }
@@ -24,9 +25,6 @@ class EspressoController extends GetxController {
   final cMediumRoastPrecentage = "10 %".obs;
   final cLightRoastPrecentage = "10 %".obs;
 
-  final Map<String, String> selectedDetails = {};
-  final Map<String, String> selectedDetailsAR = {};
-
   static void initEspressoPrice() {
     kgPrice = catalogPriceList['espresso']['kgPrice'];
   }
@@ -48,7 +46,9 @@ class EspressoController extends GetxController {
     cDarkRoastPrecentage.value = "10 %";
     cMediumRoastPrecentage.value = "10 %";
     cLightRoastPrecentage.value = "10 %";
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
+    productDetails.clear();
+    productDetailsAR.clear();
+    addProductDetails(key: 'product', value: 'specialItalianRoast');
+    addProductDetails(key: 'type', value: 'beans');
   }
 }

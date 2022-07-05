@@ -4,22 +4,29 @@ import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
-import 'package:bayouni_coffee/view/widgets/total_vat.dart';
+import 'package:bayouni_coffee/view/widgets/shopping_btns.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../controller/cart_controller.dart';
 import '../../controller/catalog_controllers/saudi_coffee_controller.dart';
 import '../../model/cart_product.dart';
 import '../../translations/ar.dart';
 import '../../translations/en.dart';
+import '../navigator_page.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
 import '../widgets/my_drop_menu.dart';
+import '../widgets/my_textfield.dart';
 
 class SaudiCoffeePage extends StatelessWidget {
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
   SaudiCoffeePage({
     Key? key,
     required this.catalogProduct,
@@ -110,12 +117,10 @@ class SaudiCoffeePage extends StatelessWidget {
                         groupValue: arabicCoffeeController.coffeeType.value,
                         onChanged: (value) {
                           arabicCoffeeController.coffeeType.value = value!;
-                          arabicCoffeeController
-                                  .selectedDetails[en['product']!] =
-                              en['specialBlend']!;
-                          arabicCoffeeController
-                                  .selectedDetailsAR[ar['product']!] =
-                              ar['specialBlend']!;
+                          addProductDetails(
+                              key: 'product', value: 'specialBlend');
+                          removeProductDetails(key: 'type');
+                          removeProductDetails(key: 'ground');
                         },
                       ),
                     ),
@@ -144,12 +149,8 @@ class SaudiCoffeePage extends StatelessWidget {
                         groupValue: arabicCoffeeController.coffeeType.value,
                         onChanged: (value) {
                           arabicCoffeeController.coffeeType.value = value!;
-                          arabicCoffeeController
-                                  .selectedDetails[en['product']!] =
-                              en['customize']!;
-                          arabicCoffeeController
-                                  .selectedDetailsAR[ar['product']!] =
-                              ar['customize']!;
+                          addProductDetails(key: 'product', value: 'customize');
+                          addProductDetails(key: 'type', value: 'beans');
                         },
                       ),
                     ),
@@ -162,27 +163,44 @@ class SaudiCoffeePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: arabicCoffeeController.calculateOrderPrice(
-                      quantity: arabicCoffeeController.quantity.value,
-                      coffeeType: arabicCoffeeController.coffeeType.value,
-                      isSaffronAdded: arabicCoffeeController.isSaffron.value,
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: arabicCoffeeController.calculateOrderPrice(
+                            quantity: arabicCoffeeController.quantity.value,
+                            coffeeType: arabicCoffeeController.coffeeType.value,
+                            isSaffronAdded:
+                                arabicCoffeeController.isSaffron.value,
+                          ),
+                          imgURL: catalogProduct.imgThumb,
+                          kgQuantity: arabicCoffeeController.quantity.value,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        arabicCoffeeController.resetProperties();
+                        _commentController.clear();
+                      },
                     ),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: arabicCoffeeController.quantity.value,
-                    selectedDetails: {
-                      ...arabicCoffeeController.selectedDetails
-                    },
-                    selectedDetailsAR: {
-                      ...arabicCoffeeController.selectedDetailsAR
-                    },
-                  ),
+                  ],
                 ),
               ),
+              const ShoppingBtns(),
               SizedBox(height: 50.h),
             ],
           ),
@@ -221,10 +239,17 @@ class SaudiCoffeePage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   arabicCoffeeController.darkRoastPrecentage.value = val!;
-                  arabicCoffeeController.selectedDetails[en['darkRoast']!] =
-                      val;
-                  arabicCoffeeController.selectedDetailsAR[ar['darkRoast']!] =
-                      val;
+                  addProductDetails(
+                    key: en['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+                  addProductDetails(
+                    key: ar['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -243,10 +268,17 @@ class SaudiCoffeePage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   arabicCoffeeController.mediumRoastPrecentage.value = val!;
-                  arabicCoffeeController.selectedDetails[en['mediumRoast']!] =
-                      val;
-                  arabicCoffeeController.selectedDetailsAR[ar['mediumRoast']!] =
-                      val;
+                  addProductDetails(
+                    key: en['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+                  addProductDetails(
+                    key: ar['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -265,10 +297,17 @@ class SaudiCoffeePage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   arabicCoffeeController.lightRoastPrecentage.value = val!;
-                  arabicCoffeeController.selectedDetails[en['lightRoast']!] =
-                      val;
-                  arabicCoffeeController.selectedDetailsAR[ar['lightRoast']!] =
-                      val;
+                  addProductDetails(
+                    key: en['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+                  addProductDetails(
+                    key: ar['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -291,10 +330,6 @@ class SaudiCoffeePage extends StatelessWidget {
             groupValue: arabicCoffeeController.blendType.value,
             onChanged: (value) {
               arabicCoffeeController.blendType.value = value!;
-              arabicCoffeeController.selectedDetails[en['type']!] =
-                  en['beans']!;
-              arabicCoffeeController.selectedDetailsAR[ar['type']!] =
-                  ar['beans']!;
             },
           ),
         ),
@@ -310,11 +345,10 @@ class SaudiCoffeePage extends StatelessWidget {
             value: BlendType.ground,
             groupValue: arabicCoffeeController.blendType.value,
             onChanged: (value) {
+              print('changed to ground');
               arabicCoffeeController.blendType.value = value!;
-              arabicCoffeeController.selectedDetails[en['type']!] =
-                  en['ground']!;
-              arabicCoffeeController.selectedDetailsAR[ar['type']!] =
-                  ar['ground']!;
+              addProductDetails(key: 'type', value: 'ground');
+              addProductDetails(key: 'ground', value: 'fine');
             },
           ),
         ),
@@ -335,10 +369,7 @@ class SaudiCoffeePage extends StatelessWidget {
                   groupValue: arabicCoffeeController.blendTense.value,
                   onChanged: (value) {
                     arabicCoffeeController.blendTense.value = value!;
-                    arabicCoffeeController.selectedDetails[en['ground']!] =
-                        en['fine']!;
-                    arabicCoffeeController.selectedDetailsAR[ar['ground']!] =
-                        ar['fine']!;
+                    addProductDetails(key: 'ground', value: 'fine');
                   },
                 ),
               ),
@@ -356,10 +387,7 @@ class SaudiCoffeePage extends StatelessWidget {
                   groupValue: arabicCoffeeController.blendTense.value,
                   onChanged: (value) {
                     arabicCoffeeController.blendTense.value = value!;
-                    arabicCoffeeController.selectedDetails[en['ground']!] =
-                        en['medium']!;
-                    arabicCoffeeController.selectedDetailsAR[ar['ground']!] =
-                        ar['medium']!;
+                    addProductDetails(key: 'ground', value: 'medium');
                   },
                 ),
               ),
@@ -377,10 +405,7 @@ class SaudiCoffeePage extends StatelessWidget {
                   groupValue: arabicCoffeeController.blendTense.value,
                   onChanged: (value) {
                     arabicCoffeeController.blendTense.value = value!;
-                    arabicCoffeeController.selectedDetails[en['ground']!] =
-                        en['course']!;
-                    arabicCoffeeController.selectedDetailsAR[ar['ground']!] =
-                        ar['course']!;
+                    addProductDetails(key: 'ground', value: 'course');
                   },
                 ),
               ),
@@ -413,25 +438,30 @@ class SaudiCoffeePage extends StatelessWidget {
             onChanged: (value) {
               arabicCoffeeController.isSaffron.value =
                   !arabicCoffeeController.isSaffron.value;
-              arabicCoffeeController
-                      .selectedDetailsAR[en['additionalOption']!] =
-                  en['addSaffron']! +
-                      ' ' +
-                      en['sr']! +
-                      ' / ' +
-                      '3' +
-                      ' ' +
-                      en['gm']!;
+              addProductDetails(
+                key: en['additionalOption']!,
+                value: en['addSaffron']! +
+                    ' ' +
+                    en['sr']! +
+                    ' / ' +
+                    '3' +
+                    ' ' +
+                    en['gm']!,
+                isCustomized: true,
+              );
 
-              arabicCoffeeController
-                      .selectedDetailsAR[ar['additionalOption']!] =
-                  ar['addSaffron']! +
-                      ' ' +
-                      ar['sr']! +
-                      ' / ' +
-                      '3' +
-                      ' ' +
-                      ar['gm']!;
+              addProductDetails(
+                key: ar['additionalOption']!,
+                value: ar['addSaffron']! +
+                    ' ' +
+                    ar['sr']! +
+                    ' / ' +
+                    '3' +
+                    ' ' +
+                    ar['gm']!,
+                isCustomized: true,
+                isEN: false,
+              );
             },
           ),
         ),
@@ -476,24 +506,30 @@ class SaudiCoffeePage extends StatelessWidget {
             onChanged: (value) {
               arabicCoffeeController.isSaffron.value =
                   !arabicCoffeeController.isSaffron.value;
-              arabicCoffeeController.selectedDetails[en['additionalOption']!] =
-                  en['addSaffron']! +
-                      ' ' +
-                      en['sr']! +
-                      ' / ' +
-                      '3' +
-                      ' ' +
-                      en['gm']!;
+              addProductDetails(
+                key: en['additionalOption']!,
+                value: en['addSaffron']! +
+                    ' ' +
+                    en['sr']! +
+                    ' / ' +
+                    '3' +
+                    ' ' +
+                    en['gm']!,
+                isCustomized: true,
+              );
 
-              arabicCoffeeController
-                      .selectedDetailsAR[ar['additionalOption']!] =
-                  ar['addSaffron']! +
-                      ' ' +
-                      ar['sr']! +
-                      ' / ' +
-                      '3' +
-                      ' ' +
-                      ar['gm']!;
+              addProductDetails(
+                key: ar['additionalOption']!,
+                value: ar['addSaffron']! +
+                    ' ' +
+                    ar['sr']! +
+                    ' / ' +
+                    '3' +
+                    ' ' +
+                    ar['gm']!,
+                isCustomized: true,
+                isEN: false,
+              );
             },
           ),
         ),

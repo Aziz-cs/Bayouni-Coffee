@@ -10,12 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
+import '../../controller/helper.dart';
 import '../../model/cart_product.dart';
 import '../../translations/translation.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
+import '../widgets/shopping_btns.dart';
 
 class FlavoredCoffeePage extends StatelessWidget {
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
   FlavoredCoffeePage({
     Key? key,
     required this.catalogProduct,
@@ -95,6 +102,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.hazenut,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(key: 'product', value: 'hazenut');
                       },
                     ),
                     _buildRadioTileFlavored(
@@ -102,6 +110,8 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.frenchVanilla,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(
+                            key: 'product', value: 'frenchVanilla');
                       },
                     ),
                     _buildRadioTileFlavored(
@@ -109,6 +119,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.chocolate,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(key: 'product', value: 'chocolate');
                       },
                     ),
                     _buildRadioTileFlavored(
@@ -116,6 +127,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.macadomia,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(key: 'product', value: 'macadomia');
                       },
                     ),
                     _buildRadioTileFlavored(
@@ -123,6 +135,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.almonds,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(key: 'product', value: 'almonds');
                       },
                     ),
                     _buildRadioTileFlavored(
@@ -130,6 +143,7 @@ class FlavoredCoffeePage extends StatelessWidget {
                       flavoredStyle: FlavoredStyle.caramel,
                       onPress: (value) {
                         flavoredController.flavoredStyle.value = value!;
+                        addProductDetails(key: 'product', value: 'caramel');
                       },
                     ),
                     aDivider(),
@@ -147,6 +161,8 @@ class FlavoredCoffeePage extends StatelessWidget {
                         groupValue: flavoredController.groundType.value,
                         onChanged: (value) {
                           flavoredController.groundType.value = value!;
+                          addProductDetails(key: 'type', value: 'beans');
+                          removeProductDetails(key: 'ground');
                         },
                       ),
                     ),
@@ -163,6 +179,8 @@ class FlavoredCoffeePage extends StatelessWidget {
                         groupValue: flavoredController.groundType.value,
                         onChanged: (value) {
                           flavoredController.groundType.value = value!;
+                          addProductDetails(key: 'type', value: 'ground');
+                          addProductDetails(key: 'ground', value: 'fine');
                         },
                       ),
                     ),
@@ -186,7 +204,12 @@ class FlavoredCoffeePage extends StatelessWidget {
                                     value: FlavoredType.fine,
                                     groupValue:
                                         flavoredController.flavoredType.value,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      flavoredController.flavoredType.value =
+                                          value!;
+                                      addProductDetails(
+                                          key: 'ground', value: 'fine');
+                                    },
                                   ),
                                 ),
                                 Obx(
@@ -204,7 +227,12 @@ class FlavoredCoffeePage extends StatelessWidget {
                                     value: FlavoredType.powder,
                                     groupValue:
                                         flavoredController.flavoredType.value,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      flavoredController.flavoredType.value =
+                                          value!;
+                                      addProductDetails(
+                                          key: 'ground', value: 'lightPowder');
+                                    },
                                   ),
                                 ),
                                 Obx(
@@ -225,6 +253,8 @@ class FlavoredCoffeePage extends StatelessWidget {
                                     onChanged: (value) {
                                       flavoredController.flavoredType.value =
                                           value!;
+                                      addProductDetails(
+                                          key: 'ground', value: 'course');
                                     },
                                   ),
                                 ),
@@ -238,19 +268,37 @@ class FlavoredCoffeePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: flavoredController.calculateOrderPrice(),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: flavoredController.quantity.value,
-                    selectedDetails: {...flavoredController.selectedDetails},
-                    selectedDetailsAR: {
-                      ...flavoredController.selectedDetailsAR
-                    },
-                  ),
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: flavoredController.calculateOrderPrice(),
+                          imgURL: catalogProduct.imgThumb,
+                          kgQuantity: flavoredController.quantity.value,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        flavoredController.resetProperties();
+                        _commentController.clear();
+                      },
+                    ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
               SizedBox(height: 50.h),

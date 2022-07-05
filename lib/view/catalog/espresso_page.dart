@@ -1,9 +1,7 @@
 import 'package:bayouni_coffee/controller/catalog_controllers/espresso_controller.dart';
-import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/catalog_product.dart';
 import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
-import 'package:bayouni_coffee/view/widgets/total_vat.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,20 +9,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
+import '../../controller/helper.dart';
 import '../../model/cart_product.dart';
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import '../../utils/constants.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
 import '../widgets/my_drop_menu.dart';
+import '../widgets/shopping_btns.dart';
 
 class EspressoPage extends StatelessWidget {
+  CatalogProduct catalogProduct;
+  final espressoController = Get.put(EspressoController());
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
+
   EspressoPage({
     Key? key,
     required this.catalogProduct,
   }) : super(key: key);
-
-  CatalogProduct catalogProduct;
-  final espressoController = Get.put(EspressoController());
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +117,10 @@ class EspressoPage extends StatelessWidget {
                           espressoController.espressoType.value = value!;
                           espressoController.coffeeType.value =
                               CoffeeType.beans;
+                          removeProductDetails(key: 'ground');
+                          addProductDetails(
+                              key: 'product', value: 'specialItalianRoast');
+                          addProductDetails(key: 'type', value: 'beans');
                         },
                       ),
                     ),
@@ -128,6 +139,10 @@ class EspressoPage extends StatelessWidget {
                           espressoController.espressoType.value = value!;
                           espressoController.coffeeType.value =
                               CoffeeType.beans;
+                          removeProductDetails(key: 'ground');
+                          addProductDetails(
+                              key: 'product', value: 'brewedCustomize');
+                          addProductDetails(key: 'type', value: 'beans');
                         },
                       ),
                     ),
@@ -149,6 +164,7 @@ class EspressoPage extends StatelessWidget {
                         groupValue: espressoController.coffeeType.value,
                         onChanged: (value) {
                           espressoController.coffeeType.value = value!;
+                          addProductDetails(key: 'type', value: 'beans');
                         },
                       ),
                     ),
@@ -166,6 +182,8 @@ class EspressoPage extends StatelessWidget {
                         onChanged: (value) {
                           espressoController.coffeeType.value = value!;
                           espressoController.groundType.value = GroundType.fine;
+                          addProductDetails(key: 'type', value: 'ground');
+                          addProductDetails(key: 'ground', value: 'fine');
                         },
                       ),
                     ),
@@ -193,6 +211,8 @@ class EspressoPage extends StatelessWidget {
                                 groupValue: espressoController.groundType.value,
                                 onChanged: (value) {
                                   espressoController.groundType.value = value!;
+                                  addProductDetails(
+                                      key: 'ground', value: 'fine');
                                 },
                               ),
                               Obx(
@@ -218,6 +238,8 @@ class EspressoPage extends StatelessWidget {
                                   onChanged: (value) {
                                     espressoController.groundType.value =
                                         value!;
+                                    addProductDetails(
+                                        key: 'ground', value: 'course');
                                   },
                                 ),
                               ),
@@ -233,19 +255,36 @@ class EspressoPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: espressoController.calculateOrderPrice(),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: espressoController.quantity.value,
-                    selectedDetails: {...espressoController.selectedDetails},
-                    selectedDetailsAR: {
-                      ...espressoController.selectedDetailsAR
-                    },
-                  ),
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                            name: catalogProduct.name,
+                            nameAR: catalogProduct.nameAR,
+                            price: espressoController.calculateOrderPrice(),
+                            imgURL: catalogProduct.imgThumb,
+                            kgQuantity: espressoController.quantity.value,
+                            selectedDetails: {...productDetails},
+                            selectedDetailsAR: {...productDetailsAR});
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        espressoController.resetProperties();
+                        _commentController.clear();
+                      },
+                    ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
               SizedBox(height: 50.h),
@@ -281,6 +320,13 @@ class EspressoPage extends StatelessWidget {
                   onChanged: (_) {
                     espressoController.isItalianRoast.value =
                         !espressoController.isItalianRoast.value;
+                    if (isDetailIsAdded(key: 'italian')) {
+                      removeProductDetails(key: 'italian');
+                      removeProductDetails(key: 'specialItalianRoast');
+                    } else {
+                      addProductDetails(
+                          key: 'italian', value: 'specialItalianRoast');
+                    }
                   }),
             ),
             Column(
@@ -307,6 +353,10 @@ class EspressoPage extends StatelessWidget {
                       items: precentageList,
                       onChanged: (val) {
                         espressoController.italianRoastPrecentage.value = val!;
+                        addProductDetails(
+                          key: 'specialItalianRoast',
+                          value: val,
+                        );
                       },
                     )
                   : const SizedBox(),
@@ -346,6 +396,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.eDarkRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -364,6 +426,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.eMediumRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -382,6 +456,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.eLightRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['ethiopian']! + ' ' + en['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['ethiopian']! + ' ' + ar['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -419,6 +505,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.cDarkRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['darkRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -437,6 +535,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.cMediumRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['mediumRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),
@@ -455,6 +565,18 @@ class EspressoPage extends StatelessWidget {
                 items: precentageList,
                 onChanged: (val) {
                   espressoController.cLightRoastPrecentage.value = val!;
+                  addProductDetails(
+                    key: en['colombian']! + ' ' + en['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                  );
+
+                  addProductDetails(
+                    key: ar['colombian']! + ' ' + ar['lightRoast']!,
+                    value: val,
+                    isCustomized: true,
+                    isEN: false,
+                  );
                 },
               ),
             ),

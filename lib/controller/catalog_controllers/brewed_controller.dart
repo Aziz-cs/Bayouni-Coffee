@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:get/get.dart';
 
 import '../../translations/ar.dart';
@@ -23,6 +24,7 @@ class BrewedController extends GetxController {
   final Map<String, String> selectedDetails = {};
   final Map<String, String> selectedDetailsAR = {};
   void resetProperties() {
+    print('brewed has been reset');
     brewedType.value = BrewedType.special;
     coffeeType.value = CoffeeType.beans;
     eDarkRoastPrecentage.value = "10 %";
@@ -32,12 +34,27 @@ class BrewedController extends GetxController {
     cMediumRoastPrecentage.value = "10 %";
     cLightRoastPrecentage.value = "10 %";
     quantity.value = 1.0;
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
-    selectedDetails[en['product']!] = en['brewedSpecial']!;
-    selectedDetails[en['type']!] = en['beans']!;
-    selectedDetailsAR[ar['product']!] = ar['brewedSpecial']!;
-    selectedDetailsAR[ar['type']!] = ar['beans']!;
+
+    productDetails.clear();
+    productDetails.clear();
+    addProductDetails(key: 'product', value: 'brewedSpecial');
+    addProductDetails(key: 'type', value: 'beans');
+  }
+
+  void addToSelectedDetails({
+    required String key,
+    required String value,
+    bool isCustomized = false,
+    bool isEN = true,
+  }) {
+    if (isCustomized && isEN) {
+      selectedDetails[key] = value;
+    } else if (isCustomized && !isEN) {
+      selectedDetailsAR[key] = value;
+    } else {
+      selectedDetails[en[key]!] = en[value]!;
+      selectedDetailsAR[ar[key]!] = ar[value]!;
+    }
   }
 
   static void initBrewedCoffeePrice() {

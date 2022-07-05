@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../cart_controller.dart';
 import 'catalog_controller.dart';
 
 enum FlavoredStyle {
@@ -30,8 +31,10 @@ class FlavoredController extends GetxController {
     flavoredStyle.value = FlavoredStyle.hazenut;
     flavoredType.value = FlavoredType.fine;
     groundType.value = GroundType.beans;
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
+    productDetails.clear();
+    productDetailsAR.clear();
+    addProductDetails(key: 'product', value: 'hazenut');
+    addProductDetails(key: 'type', value: 'beans');
   }
 
   static void initFlavoredCoffeePrice() {

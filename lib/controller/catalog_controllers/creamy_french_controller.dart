@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
 
+import '../cart_controller.dart';
 import 'catalog_controller.dart';
 
 class CreamyFrenchController extends GetxController {
   static late var kgPrice;
   final quantity = 1.0.obs;
-  final Map<String, String> selectedDetails = {};
-  final Map<String, String> selectedDetailsAR = {};
   void resetProperties() {
     quantity.value = 1.0;
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
+    productDetails.clear();
+    productDetailsAR.clear();
   }
 
   static void initCreamyFrenchPrice() {

@@ -1,3 +1,4 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:bayouni_coffee/controller/catalog_controllers/catalog_controller.dart';
 import 'package:get/get.dart';
 
@@ -23,8 +24,6 @@ class SaudiCoffeeController extends GetxController {
   final darkRoastPrecentage = "10 %".obs;
   final mediumRoastPrecentage = "10 %".obs;
   final lightRoastPrecentage = "10 %".obs;
-  final Map<String, String> selectedDetails = {};
-  final Map<String, String> selectedDetailsAR = {};
   static void initArabicCoffeePrice() {
     specialBlendPrice = catalogPriceList['arabicCoffee']['specialBlend'];
     customizeBlendPrice = catalogPriceList['arabicCoffee']['customizeBlend'];
@@ -62,9 +61,8 @@ class SaudiCoffeeController extends GetxController {
     darkRoastPrecentage.value = "10 %";
     mediumRoastPrecentage.value = "10 %";
     lightRoastPrecentage.value = "10 %";
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
-    selectedDetails[en['product']!] = en['specialBlend']!;
-    selectedDetailsAR[ar['product']!] = ar['specialBlend']!;
+    productDetails.clear();
+    productDetailsAR.clear();
+    addProductDetails(key: 'product', value: 'specialBlend');
   }
 }

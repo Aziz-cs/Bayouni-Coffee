@@ -1,8 +1,11 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:get/get.dart';
 
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import 'catalog_controller.dart';
 
-enum BlackTeaType { box, bag }
+enum BlackTeaType { box, bag, none }
 
 enum GreenTeaType { green, none }
 
@@ -28,8 +31,6 @@ class BlackTeaController extends GetxController {
   final blackTeaQuanitity = 1.0.obs;
   final greenTeaQuanitity = 1.0.obs;
   final shakirTeaQuanitity = 1.0.obs;
-  final Map<String, String> selectedDetails = {};
-  final Map<String, String> selectedDetailsAR = {};
 
   void resetProperties() {
     blackTeaType.value = BlackTeaType.box;
@@ -44,8 +45,20 @@ class BlackTeaController extends GetxController {
     blackTeaQuanitity.value = 1.0;
     greenTeaQuanitity.value = 1.0;
     shakirTeaQuanitity.value = 1.0;
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
+    productDetails.clear();
+    productDetailsAR.clear();
+    addProductDetails(
+      key: 'bayouniBlackTea'.tr,
+      value: blackTeaQuanitity.value.toString() + ' ' + en['kg']!,
+      isCustomized: true,
+    );
+    addProductDetails(
+      key: 'bayouniBlackTea'.tr,
+      value: blackTeaQuanitity.value.toString() + ' ' + ar['kg']!,
+      isCustomized: true,
+      isEN: false,
+    );
+    addProductDetails(key: 'bayouniBlackTeaType', value: 'box');
   }
 
   static void initBlackTeaPrices() {
@@ -57,21 +70,29 @@ class BlackTeaController extends GetxController {
 
   double calculateOrderPrice() {
     double totalPrice = 0.0;
-    if (isBlackTea.value) {
+    print('isBlackTea ${isBlackTea.value}');
+    print('isGreenTea ${isGreenTea.value}');
+    print('isShakirTea ${isShakirTea.value}');
+    if (isBlackTea.isTrue) {
       if (blackTeaType.value == BlackTeaType.box) {
         totalPrice = totalPrice + (boxBlackTeaPrice * blackTeaQuanitity.value);
-      } else {
+      } else if (blackTeaType.value == BlackTeaType.bag) {
         totalPrice = totalPrice + (bagBlackTeaPrice * blackTeaQuanitity.value);
+      } else {
+        totalPrice = 0.0;
       }
     }
+    print('total price after blacktea = $totalPrice');
 
-    if (isGreenTea.value) {
+    if (isGreenTea.isTrue) {
       totalPrice = totalPrice + (greenTeaPrice * greenTeaQuanitity.value);
     }
 
-    if (isShakirTea.value) {
+    if (isShakirTea.isTrue) {
       totalPrice = totalPrice + (shakirTeaPrice * shakirTeaQuanitity.value);
     }
+
+    print('total price after all = $totalPrice');
     return totalPrice;
   }
 }

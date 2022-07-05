@@ -27,6 +27,7 @@ class ShoppingButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('selectedDetails widget: ${cartProduct.selectedDetails}');
     return Container(
       color: Colors.grey.shade200,
       child: Padding(
@@ -52,6 +53,8 @@ class ShoppingButtons extends StatelessWidget {
                       showToast('Please select a product to add');
                     }
                   : () {
+                      print('selectedDetails: ${cartProduct.selectedDetails}');
+
                       showToast('addedToCart'.tr);
                       cartProduct.comments = _commentController.text.trim();
                       cartController.addProductToCart(cartProduct);

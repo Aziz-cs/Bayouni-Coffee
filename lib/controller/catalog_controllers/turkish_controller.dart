@@ -1,5 +1,8 @@
+import 'package:bayouni_coffee/controller/cart_controller.dart';
 import 'package:get/get.dart';
 
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import 'catalog_controller.dart';
 
 enum TurkishCoffeeType { ethiopian, brazillian }
@@ -28,8 +31,6 @@ class TurkishController extends GetxController {
   final eMediumRoastPrecentage = "10 %".obs;
   final eLightRoastPrecentage = "10 %".obs;
 
-  final Map<String, String> selectedDetails = {};
-  final Map<String, String> selectedDetailsAR = {};
   void resetProperties() {
     turkishCoffeeType.value = TurkishCoffeeType.ethiopian;
     brazillianCoffeeType.value = BrazillianCoffeeType.brazillian;
@@ -47,8 +48,28 @@ class TurkishController extends GetxController {
     eDarkRoastPrecentage.value = "10 %";
     eMediumRoastPrecentage.value = "10 %";
     eLightRoastPrecentage.value = "10 %";
-    selectedDetails.clear();
-    selectedDetailsAR.clear();
+    productDetails.clear();
+    productDetailsAR.clear();
+    addProductDetails(key: 'turkishCoffee', value: 'ethiopian');
+    addProductDetails(
+      key: en['plain']!,
+      value: TurkishController.turkishKgPrice.toString() +
+          ' ' +
+          en['sr']! +
+          ' / ' +
+          en['kg']!,
+      isCustomized: true,
+    );
+    addProductDetails(
+      key: ar['plain']!,
+      value: TurkishController.turkishKgPrice.toString() +
+          ' ' +
+          ar['sr']! +
+          ' / ' +
+          ar['kg']!,
+      isCustomized: true,
+      isEN: false,
+    );
   }
 
   static void initTurkishCoffeePrice() {

@@ -11,12 +11,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
 import '../../model/cart_product.dart';
+import '../../translations/ar.dart';
+import '../../translations/en.dart';
 import '../../utils/constants.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
+import '../widgets/shopping_btns.dart';
 
 class BlackTeaPage extends StatelessWidget {
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
   BlackTeaPage({
     Key? key,
     required this.catalogProduct,
@@ -89,6 +97,14 @@ class BlackTeaPage extends StatelessWidget {
                         onChanged: (value) {
                           blackTeaController.isBlackTea.value =
                               !blackTeaController.isBlackTea.value;
+                          print('isBlackTea');
+                          print(blackTeaController.isBlackTea.value);
+
+                          if (blackTeaController.isBlackTea.isFalse) {
+                            blackTeaController.blackTeaType.value =
+                                BlackTeaType.none;
+                            print('is none');
+                          }
                         },
                         title: Text(
                           'bayouniBlackTea'.tr,
@@ -105,65 +121,76 @@ class BlackTeaPage extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                      () => RadioListTile<BlackTeaType>(
-                        dense: true,
-                        title: Text(
-                          'blackTeaBox'.tr,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                        subtitle: Text(
-                          BlackTeaController.boxBlackTeaPrice.toString() +
-                              ' ' +
-                              'sr'.tr,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                          ),
-                        ),
-                        value: BlackTeaType.box,
-                        groupValue: blackTeaController.blackTeaType.value,
-                        onChanged: (value) {
-                          blackTeaController.blackTeaType.value =
-                              value ?? BlackTeaType.box;
-                        },
-                      ),
-                    ),
-                    Obx(
-                      () => RadioListTile<BlackTeaType>(
-                        dense: true,
-                        title: Text(
-                          'blackTeaBag'.tr,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                        subtitle: Text(
-                          BlackTeaController.bagBlackTeaPrice.toString() +
-                              ' ' +
-                              'sr'.tr,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                          ),
-                        ),
-                        value: BlackTeaType.bag,
-                        groupValue: blackTeaController.blackTeaType.value,
-                        onChanged: (value) {
-                          blackTeaController.blackTeaType.value =
-                              value ?? BlackTeaType.box;
-                        },
-                      ),
-                    ),
-                    Obx(
                       () => blackTeaController.isBlackTea.isTrue
-                          ? QuantityRow(
-                              quantity: blackTeaController.blackTeaQuanitity,
-                              isFractioned: false,
-                              mesurementUnit:
-                                  blackTeaController.blackTeaType.value ==
-                                          BlackTeaType.box
-                                      ? 'box'.tr
-                                      : 'bag'.tr,
+                          ? Column(
+                              children: [
+                                Obx(
+                                  () => RadioListTile<BlackTeaType>(
+                                    dense: true,
+                                    title: Text(
+                                      'blackTeaBox'.tr,
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      BlackTeaController.boxBlackTeaPrice
+                                              .toString() +
+                                          ' ' +
+                                          'sr'.tr,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    value: BlackTeaType.box,
+                                    groupValue:
+                                        blackTeaController.blackTeaType.value,
+                                    onChanged: (value) {
+                                      blackTeaController.blackTeaType.value =
+                                          value ?? BlackTeaType.box;
+                                    },
+                                  ),
+                                ),
+                                Obx(
+                                  () => RadioListTile<BlackTeaType>(
+                                    dense: true,
+                                    title: Text(
+                                      'blackTeaBag'.tr,
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      BlackTeaController.bagBlackTeaPrice
+                                              .toString() +
+                                          ' ' +
+                                          'sr'.tr,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    value: BlackTeaType.bag,
+                                    groupValue:
+                                        blackTeaController.blackTeaType.value,
+                                    onChanged: (value) {
+                                      blackTeaController.blackTeaType.value =
+                                          value ?? BlackTeaType.box;
+                                    },
+                                  ),
+                                ),
+                                Obx(
+                                  () => QuantityRow(
+                                    quantity:
+                                        blackTeaController.blackTeaQuanitity,
+                                    isFractioned: false,
+                                    mesurementUnit:
+                                        blackTeaController.blackTeaType.value ==
+                                                BlackTeaType.box
+                                            ? 'box'.tr
+                                            : 'bag'.tr,
+                                  ),
+                                ),
+                              ],
                             )
                           : const SizedBox(),
                     ),
@@ -177,6 +204,9 @@ class BlackTeaPage extends StatelessWidget {
                         onChanged: (value) {
                           blackTeaController.isGreenTea.value =
                               !blackTeaController.isGreenTea.value;
+                          // if (isDetailIsAdded(key: 'greenTea')) {
+                          //   removeProductDetails(key: 'greenTea');
+                          // } else {}
                         },
                         title: Text(
                           'greenTea'.tr,
@@ -211,6 +241,11 @@ class BlackTeaPage extends StatelessWidget {
                         onChanged: (value) {
                           blackTeaController.isShakirTea.value =
                               !blackTeaController.isShakirTea.value;
+                          // if (isDetailIsAdded(key: 'shakirTea')) {
+                          //   removeProductDetails(key: 'shakirTea');
+                          // } else {
+                          //   addProductDetails(key: 'shakirTea', value: 'pc');
+                          // }
                         },
                         title: Text(
                           'shakirTea'.tr,
@@ -241,18 +276,95 @@ class BlackTeaPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: blackTeaController.calculateOrderPrice(),
-                    imgURL: catalogProduct.imgThumb,
-                    selectedDetails: {...blackTeaController.selectedDetails},
-                    selectedDetailsAR: {
-                      ...blackTeaController.selectedDetailsAR
-                    },
-                  ),
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (blackTeaController.isBlackTea.isTrue) {
+                          addProductDetails(
+                            key: 'bayouniBlackTea'.tr,
+                            value:
+                                '${blackTeaController.blackTeaQuanitity.value} ' +
+                                    en['kg']!,
+                            isCustomized: true,
+                          );
+                          addProductDetails(
+                            key: 'bayouniBlackTea'.tr,
+                            value:
+                                '${blackTeaController.blackTeaQuanitity.value} ' +
+                                    ar['kg']!,
+                            isCustomized: true,
+                            isEN: false,
+                          );
+
+                          addProductDetails(
+                            key: 'bayouniBlackTeaType',
+                            value: blackTeaController.blackTeaType.value ==
+                                    BlackTeaType.box
+                                ? 'box'
+                                : 'bag',
+                          );
+                        }
+                        if (blackTeaController.isGreenTea.isTrue) {
+                          addProductDetails(
+                            key: 'greenTea'.tr,
+                            value:
+                                '${blackTeaController.greenTeaQuanitity.value} ' +
+                                    en['kg']!,
+                            isCustomized: true,
+                          );
+                          addProductDetails(
+                            key: 'greenTea'.tr,
+                            value:
+                                '${blackTeaController.greenTeaQuanitity.value} ' +
+                                    ar['kg']!,
+                            isCustomized: true,
+                            isEN: false,
+                          );
+                        }
+                        if (blackTeaController.isShakirTea.isTrue) {
+                          addProductDetails(
+                            key: 'shakirTea'.tr,
+                            value:
+                                '${blackTeaController.shakirTeaQuanitity.value} ' +
+                                    en['pc']!,
+                            isCustomized: true,
+                          );
+                          addProductDetails(
+                            key: 'shakirTea'.tr,
+                            value:
+                                '${blackTeaController.shakirTeaQuanitity.value} ' +
+                                    ar['pc']!,
+                            isCustomized: true,
+                            isEN: false,
+                          );
+                        }
+                        if (blackTeaController.calculateOrderPrice() == 0.0) {
+                          showToast('errSelectProduct'.tr);
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: blackTeaController.calculateOrderPrice(),
+                          imgURL: catalogProduct.imgThumb,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        blackTeaController.resetProperties();
+                        _commentController.clear();
+                      },
+                    ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
               SizedBox(height: 50.h),

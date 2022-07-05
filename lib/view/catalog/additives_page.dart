@@ -10,14 +10,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
+import '../../controller/helper.dart';
 import '../../model/cart_product.dart';
 import '../../model/catalog_product.dart';
 import '../../translations/ar.dart';
 import '../../translations/en.dart';
+import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
+import '../widgets/my_button.dart';
+import '../widgets/shopping_btns.dart';
 
 class AdditivesPage extends StatelessWidget {
+  final _commentController = TextEditingController();
+  final cartController = Get.find<CartController>();
+
   AdditivesPage({
     Key? key,
     required this.catalogProduct,
@@ -135,10 +143,7 @@ class AdditivesPage extends StatelessWidget {
                         onChanged: (value) {
                           additivesController.additivesType.value =
                               value ?? AdditivesType.beans;
-                          additivesController.selectedDetails[en['type']!] =
-                              en['beans']!;
-                          additivesController.selectedDetailsAR[ar['type']!] =
-                              ar['beans']!;
+                          addProductDetails(key: 'type', value: 'beans');
                         },
                       ),
                     ),
@@ -156,10 +161,7 @@ class AdditivesPage extends StatelessWidget {
                         onChanged: (value) {
                           additivesController.additivesType.value =
                               value ?? AdditivesType.beans;
-                          additivesController.selectedDetails[en['type']!] =
-                              en['course']!;
-                          additivesController.selectedDetailsAR[ar['type']!] =
-                              ar['course']!;
+                          addProductDetails(key: 'type', value: 'course');
                         },
                       ),
                     ),
@@ -233,23 +235,29 @@ class AdditivesPage extends StatelessWidget {
                         groupValue: additivesController.saffronGram.value,
                         onChanged: (value) {
                           additivesController.saffronGram.value = value!;
-                          additivesController.selectedDetails[en['saffron']!] =
-                              '3 ' +
-                                  en['gm']! +
-                                  ' ' +
-                                  AdditivesController.saffron3GramPrice
-                                      .toString() +
-                                  ' ' +
-                                  en['sr']!;
-                          additivesController
-                                  .selectedDetailsAR[ar['saffron']!] =
-                              '3 ' +
-                                  ar['gm']! +
-                                  ' ' +
-                                  AdditivesController.saffron3GramPrice
-                                      .toString() +
-                                  ' ' +
-                                  ar['sr']!;
+                          addProductDetails(
+                            key: en['saffron']!,
+                            value: '3 ' +
+                                en['gm']! +
+                                ' ' +
+                                AdditivesController.saffron3GramPrice
+                                    .toString() +
+                                ' ' +
+                                en['sr']!,
+                            isCustomized: true,
+                          );
+                          addProductDetails(
+                            key: ar['saffron']!,
+                            value: '3 ' +
+                                ar['gm']! +
+                                ' ' +
+                                AdditivesController.saffron3GramPrice
+                                    .toString() +
+                                ' ' +
+                                ar['sr']!,
+                            isCustomized: true,
+                            isEN: false,
+                          );
                         },
                       ),
                     ),
@@ -271,23 +279,29 @@ class AdditivesPage extends StatelessWidget {
                         groupValue: additivesController.saffronGram.value,
                         onChanged: (value) {
                           additivesController.saffronGram.value = value!;
-                          additivesController.selectedDetails[en['saffron']!] =
-                              '5 ' +
-                                  en['gm']! +
-                                  ' ' +
-                                  AdditivesController.saffron5GramPrice
-                                      .toString() +
-                                  ' ' +
-                                  en['sr']!;
-                          additivesController
-                                  .selectedDetailsAR[ar['saffron']!] =
-                              '5 ' +
-                                  ar['gm']! +
-                                  ' ' +
-                                  AdditivesController.saffron5GramPrice
-                                      .toString() +
-                                  ' ' +
-                                  ar['sr']!;
+                          addProductDetails(
+                            key: en['saffron']!,
+                            value: '5 ' +
+                                en['gm']! +
+                                ' ' +
+                                AdditivesController.saffron5GramPrice
+                                    .toString() +
+                                ' ' +
+                                en['sr']!,
+                            isCustomized: true,
+                          );
+                          addProductDetails(
+                            key: ar['saffron']!,
+                            value: '5 ' +
+                                ar['gm']! +
+                                ' ' +
+                                AdditivesController.saffron5GramPrice
+                                    .toString() +
+                                ' ' +
+                                ar['sr']!,
+                            isCustomized: true,
+                            isEN: false,
+                          );
                         },
                       ),
                     ),
@@ -297,22 +311,40 @@ class AdditivesPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(
-                () => ShoppingButtons(
-                  cartProduct: CartProduct(
-                    name: catalogProduct.name,
-                    nameAR: catalogProduct.nameAR,
-                    price: additivesController.calculateOrderPrice(
-                      quantity: additivesController.quantity.value,
-                      saffron: additivesController.saffronGram.value,
+              AddNotesTextField(commentController: _commentController),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Column(
+                  children: [
+                    MyButton(
+                      label: 'addToCart'.tr,
+                      onPress: () {
+                        if (catalogProduct.price == 0) {
+                          showToast('Please select a product to add');
+                          return;
+                        }
+                        CartProduct cartProduct = CartProduct(
+                          name: catalogProduct.name,
+                          nameAR: catalogProduct.nameAR,
+                          price: additivesController.calculateOrderPrice(
+                            quantity: additivesController.quantity.value,
+                            saffron: additivesController.saffronGram.value,
+                          ),
+                          imgURL: catalogProduct.imgThumb,
+                          kgQuantity: additivesController.quantity.value,
+                          selectedDetails: {...productDetails},
+                          selectedDetailsAR: {...productDetailsAR},
+                        );
+                        showToast('addedToCart'.tr);
+                        cartProduct.comments = _commentController.text.trim();
+                        cartController.addProductToCart(cartProduct);
+                        additivesController.resetProperties();
+                        _commentController.clear();
+                      },
                     ),
-                    imgURL: catalogProduct.imgThumb,
-                    kgQuantity: additivesController.quantity.value,
-                    selectedDetails: {...additivesController.selectedDetails},
-                    selectedDetailsAR: {
-                      ...additivesController.selectedDetailsAR
-                    },
-                  ),
+                    const ShoppingBtns(),
+                  ],
                 ),
               ),
               SizedBox(height: 50.h),

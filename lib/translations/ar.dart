@@ -1,5 +1,6 @@
 const Map<String, String> ar = {
   //========= COMMONS =======
+  '': '',
   'sr': 'ريال',
   'kg': 'كجم',
   'gm': 'جم',
@@ -13,6 +14,8 @@ const Map<String, String> ar = {
   'back': 'رجوع',
   'addNotes': 'اضف ملاحظات',
   'product': 'المنتج',
+  'notes': 'ملحوظات',
+  'errSelectProduct': 'برجاء إختيار منتج ليتم إضافته',
   //========= Login Page =========
   'login': 'تسجيل دخول',
   'loginBtn': 'تسجيل دخول',
@@ -62,7 +65,7 @@ const Map<String, String> ar = {
   //========= Error messages =========
   'somethingWentWrong': 'حدث خطاً ما..',
   //========= Turkish product =========
-  'ethopian': 'اثيوبي (مفضلة)',
+  'ethiopian': 'اثيوبي (مفضلة)',
   'brazillian': 'برازيلي',
   'plain': 'بدول هيل',
   'withCardamom': 'بالهيل',
@@ -105,6 +108,7 @@ const Map<String, String> ar = {
   'specialItalianRoast': 'تحميص ايطالي خاص',
   //========= Tea product =========
   'bayouniBlackTea': 'شاي بايوني - شاي أسود',
+  'bayouniBlackTeaType': 'نوع الشاي الأسود',
   'bayouniBlackTeaSubTitle': 'من اجود انواع الشاي الكیني',
   'blackTeaBox': 'كرتون عبوتین 750جم',
   'blackTeaBag': 'كیس عبوة واحدة 750 جم',
