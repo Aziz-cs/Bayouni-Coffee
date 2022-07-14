@@ -15,8 +15,9 @@ class AccessoriesController extends GetxController {
   void addToFavorites(String accessoryID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('accessories')
         .update(
       {
@@ -28,8 +29,9 @@ class AccessoriesController extends GetxController {
   void removeFromFavorites(String accessoryID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('accessories')
         .child(accessoryID)
         .remove();

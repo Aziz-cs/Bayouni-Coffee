@@ -18,8 +18,9 @@ class FavCatalogBtn extends StatelessWidget {
     return StreamBuilder(
       stream: FirebaseDatabase.instance
           .ref()
-          .child('Favorites')
+          .child('Users')
           .child(FirebaseAuth.instance.currentUser!.uid)
+          .child('Favorites')
           .child('catalog')
           .child(catalogID)
           .onValue,

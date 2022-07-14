@@ -78,8 +78,9 @@ class CatalogController extends GetxController {
   void addToFavorites(String catalogProductID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('catalog')
         .update(
       {
@@ -91,8 +92,9 @@ class CatalogController extends GetxController {
   void removeFromFavorites(String catalogProductID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('catalog')
         .child(catalogProductID)
         .remove();

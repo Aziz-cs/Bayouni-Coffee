@@ -21,9 +21,9 @@ class SaudiCoffeeController extends GetxController {
   final blendTense = BlendTense.fine.obs;
   final isSaffron = false.obs;
   final quantity = 1.0.obs;
-  final darkRoastPrecentage = "10 %".obs;
-  final mediumRoastPrecentage = "10 %".obs;
-  final lightRoastPrecentage = "10 %".obs;
+  final darkRoastPrecentage = "0 %".obs;
+  final mediumRoastPrecentage = "0 %".obs;
+  final lightRoastPrecentage = "0 %".obs;
   static void initArabicCoffeePrice() {
     specialBlendPrice = catalogPriceList['arabicCoffee']['specialBlend'];
     customizeBlendPrice = catalogPriceList['arabicCoffee']['customizeBlend'];
@@ -58,9 +58,9 @@ class SaudiCoffeeController extends GetxController {
     blendTense.value = BlendTense.fine;
     isSaffron.value = false;
     quantity.value = 1.0;
-    darkRoastPrecentage.value = "10 %";
-    mediumRoastPrecentage.value = "10 %";
-    lightRoastPrecentage.value = "10 %";
+    darkRoastPrecentage.value = "0 %";
+    mediumRoastPrecentage.value = "0 %";
+    lightRoastPrecentage.value = "0 %";
     productDetails.clear();
     productDetailsAR.clear();
     addProductDetails(key: 'product', value: 'specialBlend');

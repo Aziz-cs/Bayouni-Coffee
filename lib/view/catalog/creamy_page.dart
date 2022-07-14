@@ -32,6 +32,7 @@ class CreamyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    creamyFrenchController.resetProperties();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

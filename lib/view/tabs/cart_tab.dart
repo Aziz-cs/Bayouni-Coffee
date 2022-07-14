@@ -31,7 +31,7 @@ class CartTab extends StatelessWidget {
         children: [
           Expanded(
             child: Scrollbar(
-              isAlwaysShown: true,
+              thumbVisibility: true,
               thickness: 4,
               child: SingleChildScrollView(
                 child: Column(

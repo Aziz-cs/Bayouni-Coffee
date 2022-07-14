@@ -150,8 +150,9 @@ class AccessoryProductPage extends StatelessWidget {
     return StreamBuilder(
       stream: FirebaseDatabase.instance
           .ref()
-          .child('Favorites')
+          .child('Users')
           .child(FirebaseAuth.instance.currentUser!.uid)
+          .child('Favorites')
           .child('accessories')
           .child(accessoryProduct.id)
           .onValue,

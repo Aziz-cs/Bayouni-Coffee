@@ -33,7 +33,7 @@ class AdditivesController extends GetxController {
   }) {
     print('quantity $quantity');
     print('SaffronGram $saffron');
-    double saffronPrice;
+    var saffronPrice;
     switch (saffron) {
       case SaffronGram.none:
         saffronPrice = 0.0;

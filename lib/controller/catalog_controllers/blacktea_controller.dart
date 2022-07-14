@@ -48,12 +48,12 @@ class BlackTeaController extends GetxController {
     productDetails.clear();
     productDetailsAR.clear();
     addProductDetails(
-      key: 'bayouniBlackTea'.tr,
+      key: en['bayouniBlackTea']!,
       value: blackTeaQuanitity.value.toString() + ' ' + en['kg']!,
       isCustomized: true,
     );
     addProductDetails(
-      key: 'bayouniBlackTea'.tr,
+      key: ar['bayouniBlackTea']!,
       value: blackTeaQuanitity.value.toString() + ' ' + ar['kg']!,
       isCustomized: true,
       isEN: false,

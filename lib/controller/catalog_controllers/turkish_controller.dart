@@ -21,33 +21,33 @@ class TurkishController extends GetxController {
 
   final brazillianCoffeeType = BrazillianCoffeeType.brazillian.obs;
   final bQuantity = 0.5.obs;
-  final bDarkRoastPrecentage = "10 %".obs;
-  final bMediumRoastPrecentage = "10 %".obs;
-  final bLightRoastPrecentage = "10 %".obs;
+  final bDarkRoastPrecentage = "0 %".obs;
+  final bMediumRoastPrecentage = "0 %".obs;
+  final bLightRoastPrecentage = "0 %".obs;
 
   final ethiopianCoffeeType = EthiopianCoffeeType.turkish.obs;
   final eQuantity = 1.0.obs;
-  final eDarkRoastPrecentage = "10 %".obs;
-  final eMediumRoastPrecentage = "10 %".obs;
-  final eLightRoastPrecentage = "10 %".obs;
+  final eDarkRoastPrecentage = "0 %".obs;
+  final eMediumRoastPrecentage = "0 %".obs;
+  final eLightRoastPrecentage = "0 %".obs;
 
   void resetProperties() {
     turkishCoffeeType.value = TurkishCoffeeType.ethiopian;
     brazillianCoffeeType.value = BrazillianCoffeeType.brazillian;
 
     bQuantity.value = 1.0;
-    bDarkRoastPrecentage.value = "10 %";
-    bMediumRoastPrecentage.value = "10 %";
-    bLightRoastPrecentage.value = "10 %";
+    bDarkRoastPrecentage.value = "0 %";
+    bMediumRoastPrecentage.value = "0 %";
+    bLightRoastPrecentage.value = "0 %";
 
     ethiopianCoffeeType.value = EthiopianCoffeeType.turkish;
 
     eQuantity.value = 1.0;
     bQuantity.value = 1.0;
 
-    eDarkRoastPrecentage.value = "10 %";
-    eMediumRoastPrecentage.value = "10 %";
-    eLightRoastPrecentage.value = "10 %";
+    eDarkRoastPrecentage.value = "0 %";
+    eMediumRoastPrecentage.value = "0 %";
+    eLightRoastPrecentage.value = "0 %";
     productDetails.clear();
     productDetailsAR.clear();
     addProductDetails(key: 'turkishCoffee', value: 'ethiopian');

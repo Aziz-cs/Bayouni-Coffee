@@ -103,7 +103,10 @@ class BlackTeaPage extends StatelessWidget {
                           if (blackTeaController.isBlackTea.isFalse) {
                             blackTeaController.blackTeaType.value =
                                 BlackTeaType.none;
-                            print('is none');
+                            if (value == false) {
+                              removeProductDetails(key: 'bayouniBlackTea');
+                              removeProductDetails(key: 'bayouniBlackTeaType');
+                            }
                           }
                         },
                         title: Text(

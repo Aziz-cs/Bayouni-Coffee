@@ -101,7 +101,27 @@ class TotalVATCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'purchaseAmount'.tr,
+                    'totalAmount'.tr,
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  Obx(
+                    () => Text(
+                      cartController.getTotalPriceWithVat() + " " + 'sr'.tr,
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'totalWOVat'.tr,
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
@@ -140,26 +160,6 @@ class TotalVATCart extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'totalAmount'.tr,
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Obx(
-                    () => Text(
-                      cartController.getTotalPriceWithVat() + " " + 'sr'.tr,
-                      style: TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 10.h),
             // MyTextField(
             //   controller: _commentController,
@@ -175,12 +175,13 @@ class TotalVATCart extends StatelessWidget {
             MyButton(
               isDimmed: cartController.cartOrders.isEmpty ? true : false,
               label: 'buyNow'.tr,
-              onPress: () => pushNewScreen(
-                context,
-                screen: CheckOutPage(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              ),
+              onPress: () {},
+              //  => pushNewScreen(
+              //   context,
+              //   screen: CheckOutPage(),
+              //   withNavBar: true, // OPTIONAL VALUE. True by default.
+              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              // ),
             ),
           ],
         ),

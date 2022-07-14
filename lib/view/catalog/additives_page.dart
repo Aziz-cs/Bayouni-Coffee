@@ -320,6 +320,7 @@ class AdditivesPage extends StatelessWidget {
                     MyButton(
                       label: 'addToCart'.tr,
                       onPress: () {
+                        print('add clicked');
                         if (catalogProduct.price == 0) {
                           showToast('Please select a product to add');
                           return;

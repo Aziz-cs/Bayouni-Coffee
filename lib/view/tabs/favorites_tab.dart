@@ -37,8 +37,9 @@ class FavoritesTab extends StatelessWidget {
               child: FirebaseAnimatedList(
                   query: FirebaseDatabase.instance
                       .ref()
-                      .child('Favorites')
+                      .child('Users')
                       .child(FirebaseAuth.instance.currentUser!.uid)
+                      .child('Favorites')
                       .child('catalog'),
                   itemBuilder: (BuildContext context, DataSnapshot snapshot,
                       Animation<double> animation, int index) {
@@ -53,8 +54,9 @@ class FavoritesTab extends StatelessWidget {
               child: FirebaseAnimatedList(
                   query: FirebaseDatabase.instance
                       .ref()
-                      .child('Favorites')
+                      .child('Users')
                       .child(FirebaseAuth.instance.currentUser!.uid)
+                      .child('Favorites')
                       .child('accessories'),
                   itemBuilder: (BuildContext context, DataSnapshot snapshot,
                       Animation<double> animation, int index) {

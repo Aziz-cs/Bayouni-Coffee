@@ -5,8 +5,9 @@ class CatalogFavController {
   static void addToFavorites(String catalogID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('catalog')
         .update(
       {
@@ -18,8 +19,9 @@ class CatalogFavController {
   static void removeFromFavorites(String catalogID) {
     FirebaseDatabase.instance
         .ref()
-        .child('Favorites')
+        .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('Favorites')
         .child('catalog')
         .child(catalogID)
         .remove();

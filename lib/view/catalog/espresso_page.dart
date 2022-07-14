@@ -354,8 +354,16 @@ class EspressoPage extends StatelessWidget {
                       onChanged: (val) {
                         espressoController.italianRoastPrecentage.value = val!;
                         addProductDetails(
-                          key: 'specialItalianRoast',
+                          key: en['specialItalianRoast']!,
                           value: val,
+                          isCustomized: true,
+                        );
+
+                        addProductDetails(
+                          key: ar['specialItalianRoast']!,
+                          value: val,
+                          isCustomized: true,
+                          isEN: false,
                         );
                       },
                     )

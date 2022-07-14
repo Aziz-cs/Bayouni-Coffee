@@ -17,13 +17,13 @@ class EspressoController extends GetxController {
   final groundType = GroundType.fine.obs;
   final isItalianRoast = false.obs;
   final quantity = 1.0.obs;
-  final italianRoastPrecentage = "10 %".obs;
-  final eDarkRoastPrecentage = "10 %".obs;
-  final eMediumRoastPrecentage = "10 %".obs;
-  final eLightRoastPrecentage = "10 %".obs;
-  final cDarkRoastPrecentage = "10 %".obs;
-  final cMediumRoastPrecentage = "10 %".obs;
-  final cLightRoastPrecentage = "10 %".obs;
+  final italianRoastPrecentage = "0 %".obs;
+  final eDarkRoastPrecentage = "0 %".obs;
+  final eMediumRoastPrecentage = "0 %".obs;
+  final eLightRoastPrecentage = "0 %".obs;
+  final cDarkRoastPrecentage = "0 %".obs;
+  final cMediumRoastPrecentage = "0 %".obs;
+  final cLightRoastPrecentage = "0 %".obs;
 
   static void initEspressoPrice() {
     kgPrice = catalogPriceList['espresso']['kgPrice'];
@@ -39,13 +39,13 @@ class EspressoController extends GetxController {
     groundType.value = GroundType.fine;
     isItalianRoast.value = false;
     quantity.value = 1.0;
-    italianRoastPrecentage.value = "10 %";
-    eDarkRoastPrecentage.value = "10 %";
-    eMediumRoastPrecentage.value = "10 %";
-    eLightRoastPrecentage.value = "10 %";
-    cDarkRoastPrecentage.value = "10 %";
-    cMediumRoastPrecentage.value = "10 %";
-    cLightRoastPrecentage.value = "10 %";
+    italianRoastPrecentage.value = "0 %";
+    eDarkRoastPrecentage.value = "0 %";
+    eMediumRoastPrecentage.value = "0 %";
+    eLightRoastPrecentage.value = "0 %";
+    cDarkRoastPrecentage.value = "0 %";
+    cMediumRoastPrecentage.value = "0 %";
+    cLightRoastPrecentage.value = "0 %";
     productDetails.clear();
     productDetailsAR.clear();
     addProductDetails(key: 'product', value: 'specialItalianRoast');

@@ -46,7 +46,7 @@ const Map<String, String> en = {
   'delivery': 'Delivery',
   'logOut': 'Log out',
   //========= Cart tab =========
-  'purchaseAmount': 'Purchase Amount',
+  'totalWOVat': 'Total without VAT',
   'vat15': 'VAT 15%',
   'totalAmount': 'Total Amount',
   'buyNow': 'BUY NOW',

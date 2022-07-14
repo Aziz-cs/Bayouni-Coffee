@@ -90,9 +90,10 @@ class FavAccessoryItem extends StatelessWidget {
                                       onPressed: () {
                                         FirebaseDatabase.instance
                                             .ref()
-                                            .child('Favorites')
+                                            .child('Users')
                                             .child(FirebaseAuth
                                                 .instance.currentUser!.uid)
+                                            .child('Favorites')
                                             .child('accessories')
                                             .child(accessoryProductID)
                                             .remove();
