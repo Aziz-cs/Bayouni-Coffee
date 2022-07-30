@@ -20,7 +20,6 @@ import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 import '../widgets/my_button.dart';
 import '../widgets/my_drop_menu.dart';
-import '../widgets/shopping_btns.dart';
 
 class EspressoPage extends StatelessWidget {
   CatalogProduct catalogProduct;
@@ -283,7 +282,12 @@ class EspressoPage extends StatelessWidget {
                         _commentController.clear();
                       },
                     ),
-                    const ShoppingBtns(),
+                    SizedBox(height: 10.h),
+                    MyButton(
+                      label: 'continueShopping'.tr,
+                      onPress: () => Navigator.pop(context),
+                      isFilled: false,
+                    ),
                   ],
                 ),
               ),

@@ -4,7 +4,6 @@ import 'package:bayouni_coffee/translations/translation.dart';
 import 'package:bayouni_coffee/utils/constants.dart';
 import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/view/widgets/quantity_row.dart';
-import 'package:bayouni_coffee/view/widgets/shopping_btns.dart';
 import 'package:bayouni_coffee/view/widgets/widgets_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -197,10 +196,15 @@ class SaudiCoffeePage extends StatelessWidget {
                         _commentController.clear();
                       },
                     ),
+                    SizedBox(height: 10.h),
+                    MyButton(
+                      label: 'continueShopping'.tr,
+                      onPress: () => Navigator.pop(context),
+                      isFilled: false,
+                    ),
                   ],
                 ),
               ),
-              const ShoppingBtns(),
               SizedBox(height: 50.h),
             ],
           ),

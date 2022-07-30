@@ -19,7 +19,6 @@ import '../widgets/add_notes.dart';
 import '../widgets/my_button.dart';
 import '../widgets/my_drop_menu.dart';
 import '../widgets/quantity_row.dart';
-import '../widgets/shopping_btns.dart';
 
 class TurkishCoffeePage extends StatelessWidget {
   final turkishController = Get.put(TurkishController());
@@ -126,8 +125,9 @@ class TurkishCoffeePage extends StatelessWidget {
                           removeProductDetails(key: 'plain');
                           addProductDetails(
                               key: 'turkishCoffee', value: 'brazillian');
+
                           addProductDetails(
-                            key: en['brazillian']!,
+                            key: en['plain']!,
                             value:
                                 TurkishController.brazillianKgPrice.toString() +
                                     ' ' +
@@ -137,7 +137,7 @@ class TurkishCoffeePage extends StatelessWidget {
                             isCustomized: true,
                           );
                           addProductDetails(
-                            key: ar['brazillian']!,
+                            key: ar['plain']!,
                             value:
                                 TurkishController.brazillianKgPrice.toString() +
                                     ' ' +
@@ -157,8 +157,8 @@ class TurkishCoffeePage extends StatelessWidget {
               Obx(
                 () => turkishController.turkishCoffeeType.value ==
                         TurkishCoffeeType.ethiopian
-                    ? _buildEthiopianChoices()
-                    : _buildBrazillianChoices(),
+                    ? _buildEthiopianChoices(context)
+                    : _buildBrazillianChoices(context),
               ),
             ],
           ),
@@ -168,7 +168,7 @@ class TurkishCoffeePage extends StatelessWidget {
     );
   }
 
-  Column _buildBrazillianChoices() {
+  Column _buildBrazillianChoices(BuildContext context) {
     return Column(
       children: [
         Padding(
@@ -180,7 +180,7 @@ class TurkishCoffeePage extends StatelessWidget {
                 () => RadioListTile<BrazillianCoffeeType>(
                   dense: true,
                   title: Text(
-                    'brazillian'.tr,
+                    'plain'.tr,
                     style: TextStyle(
                       fontSize: 15.sp,
                     ),
@@ -201,7 +201,7 @@ class TurkishCoffeePage extends StatelessWidget {
                     brazillianController.brazillianCoffeeType.value = value!;
                     removeProductDetails(key: 'withCardamom');
                     addProductDetails(
-                      key: en['brazillian']!,
+                      key: en['plain']!,
                       value: TurkishController.brazillianKgPrice.toString() +
                           ' ' +
                           en['sr']! +
@@ -210,7 +210,7 @@ class TurkishCoffeePage extends StatelessWidget {
                       isCustomized: true,
                     );
                     addProductDetails(
-                      key: ar['brazillian']!,
+                      key: ar['plain']!,
                       value: TurkishController.brazillianKgPrice.toString() +
                           ' ' +
                           ar['sr']! +
@@ -245,7 +245,7 @@ class TurkishCoffeePage extends StatelessWidget {
                   groupValue: brazillianController.brazillianCoffeeType.value,
                   onChanged: (BrazillianCoffeeType? value) {
                     brazillianController.brazillianCoffeeType.value = value!;
-                    removeProductDetails(key: 'brazillian');
+                    removeProductDetails(key: 'plain');
                     addProductDetails(
                       key: en['withCardamom']!,
                       value: TurkishController.brazillianCardamomKgPrice
@@ -407,7 +407,12 @@ class TurkishCoffeePage extends StatelessWidget {
                   _commentController.clear();
                 },
               ),
-              const ShoppingBtns(),
+              SizedBox(height: 10.h),
+              MyButton(
+                label: 'continueShopping'.tr,
+                onPress: () => Navigator.pop(context),
+                isFilled: false,
+              ),
             ],
           ),
         ),
@@ -431,7 +436,7 @@ class TurkishCoffeePage extends StatelessWidget {
     );
   }
 
-  Column _buildEthiopianChoices() {
+  Column _buildEthiopianChoices(BuildContext context) {
     return Column(
       children: [
         Padding(
@@ -671,7 +676,12 @@ class TurkishCoffeePage extends StatelessWidget {
                   _commentController.clear();
                 },
               ),
-              const ShoppingBtns(),
+              SizedBox(height: 10.h),
+              MyButton(
+                label: 'continueShopping'.tr,
+                onPress: () => Navigator.pop(context),
+                isFilled: false,
+              ),
             ],
           ),
         ),

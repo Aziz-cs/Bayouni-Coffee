@@ -18,7 +18,6 @@ import '../widgets/add_notes.dart';
 import '../widgets/fav_catalog_btn.dart';
 import '../widgets/floating_cart.dart';
 import '../widgets/my_button.dart';
-import '../widgets/shopping_btns.dart';
 
 class FlavoredCoffeePage extends StatelessWidget {
   final _commentController = TextEditingController();
@@ -297,7 +296,12 @@ class FlavoredCoffeePage extends StatelessWidget {
                         _commentController.clear();
                       },
                     ),
-                    const ShoppingBtns(),
+                    SizedBox(height: 10.h),
+                    MyButton(
+                      label: 'continueShopping'.tr,
+                      onPress: () => Navigator.pop(context),
+                      isFilled: false,
+                    ),
                   ],
                 ),
               ),

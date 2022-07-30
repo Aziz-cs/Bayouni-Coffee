@@ -28,8 +28,8 @@ class CartController extends GetxController {
     vatPrecentage.value = totalPurchasePrice.value * .15;
   }
 
-  String getTotalPriceWithVat() {
-    return (totalPurchasePrice.value + vatPrecentage.value).toStringAsFixed(2);
+  String getTotalPriceWithoutVat() {
+    return (totalPurchasePrice.value - vatPrecentage.value).toStringAsFixed(2);
   }
 
   void addProductToCart(CartProduct cartProduct) {
