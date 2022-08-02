@@ -29,6 +29,8 @@ const Map<String, String> en = {
   'registeration': 'Registeration',
   'fullName': 'Full name',
   'phoneNo': 'Phone number',
+  'cityName': 'City name',
+  'districtName': 'District name',
   'confirmPassword': 'Confirm password',
   'acceptPrivacy': 'I accept the privacy policy',
   'register': 'REGISTER',

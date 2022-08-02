@@ -29,6 +29,8 @@ const Map<String, String> ar = {
   'registeration': 'تسجيل عضوية جديدة',
   'fullName': 'الاسم بالكامل',
   'phoneNo': 'رقم الموبيل',
+  'cityName': 'المحافظة',
+  'districtName': 'الحي أو المنطقة',
   'confirmPassword': 'تأكيد كلمة السر',
   'acceptPrivacy': 'أوافق على سياسة الخصوصية',
   'register': 'تسجيل عضو جديد',

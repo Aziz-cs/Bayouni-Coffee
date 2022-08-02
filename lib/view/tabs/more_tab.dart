@@ -198,6 +198,124 @@ class MoreTab extends StatelessWidget {
                     ),
                   ),
                 ),
+                Obx(
+                  () => ListTile(
+                    onTap: () {
+                      final _formKey = GlobalKey<FormState>();
+                      var _cityNameController = TextEditingController();
+                      Get.defaultDialog(
+                          title: "Change City Name",
+                          content: Form(
+                            key: _formKey,
+                            child: MyTextField(
+                              controller: _cityNameController,
+                              textInputType: TextInputType.text,
+                              hintText: 'cityName'.tr,
+                              iconData: CupertinoIcons.location,
+                              validator: (input) {
+                                if (input!.isEmpty) {
+                                  return kErrorEmpty;
+                                }
+                              },
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                profileController.updateCityName(
+                                    _cityNameController.text.trim());
+                                showToast(
+                                    'City Name has been changed succeffully');
+                                Navigator.pop(context);
+                              },
+                              child: Text('CONFIRM',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  )),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text('CANCEL',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  )),
+                            ),
+                          ]);
+                    },
+                    title: Text('cityName'.tr),
+                    subtitle: Text(profileController.cityName.value.isEmpty ||
+                            profileController.cityName.value == 'null'
+                        ? 'Not specified'
+                        : profileController.cityName.value),
+                    leading: const Icon(CupertinoIcons.location),
+                    trailing: const Icon(
+                      CupertinoIcons.pen,
+                    ),
+                  ),
+                ),
+                const Divider(height: 0),
+                Obx(
+                  () => ListTile(
+                    onTap: () {
+                      final _formKey = GlobalKey<FormState>();
+                      var _districtNameController = TextEditingController();
+                      Get.defaultDialog(
+                          title: "Change Disrict Name",
+                          content: Form(
+                            key: _formKey,
+                            child: MyTextField(
+                              controller: _districtNameController,
+                              textInputType: TextInputType.text,
+                              hintText: 'districtName'.tr,
+                              iconData: CupertinoIcons.location,
+                              validator: (input) {
+                                if (input!.isEmpty) {
+                                  return kErrorEmpty;
+                                }
+                              },
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                profileController.updateDistrictName(
+                                    _districtNameController.text.trim());
+                                showToast(
+                                    'District Name has been changed succeffully');
+                                Navigator.pop(context);
+                              },
+                              child: Text('CONFIRM',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  )),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text('CANCEL',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  )),
+                            ),
+                          ]);
+                    },
+                    title: Text('districtName'.tr),
+                    subtitle: Text(
+                        profileController.districtName.value.isEmpty ||
+                                profileController.districtName.value == 'null'
+                            ? 'Not specified'
+                            : profileController.districtName.value),
+                    leading: const Icon(CupertinoIcons.location),
+                    trailing: const Icon(
+                      CupertinoIcons.pen,
+                    ),
+                  ),
+                ),
                 const Divider(height: 0),
                 _buildRowChoice(
                   label: "myOrders".tr,
@@ -249,6 +367,7 @@ class MoreTab extends StatelessWidget {
                       SharedPrefs.clearData();
                       await FirebaseAuth.instance.signOut();
                     }),
+                SizedBox(height: 50.h),
               ],
             ),
           ),

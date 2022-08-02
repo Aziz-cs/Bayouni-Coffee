@@ -83,6 +83,8 @@ class AuthController extends GetxController {
     required String password,
     required String name,
     required String phoneNo,
+    required String cityName,
+    required String districtName,
   }) async {
     isLoadingEmail.value = true;
     try {
@@ -92,7 +94,12 @@ class AuthController extends GetxController {
         password: password,
       )
           .then((value) {
-        DBHelper.saveUserToDB(name: name, phoneNo: phoneNo);
+        DBHelper.saveUserToDB(
+          name: name,
+          phoneNo: phoneNo,
+          cityName: cityName,
+          districtName: districtName,
+        );
         sharedPrefs.userName = name;
         sharedPrefs.phoneNo = phoneNo;
         isLoadingEmail.value = false;

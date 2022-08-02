@@ -2,6 +2,7 @@ import 'package:bayouni_coffee/controller/helper.dart';
 import 'package:bayouni_coffee/model/cart_product.dart';
 import 'package:bayouni_coffee/view/accessory_page.dart';
 import 'package:bayouni_coffee/view/checkout_page.dart';
+import 'package:bayouni_coffee/view/delivery_page.dart';
 import 'package:bayouni_coffee/view/widgets/my_button.dart';
 import 'package:bayouni_coffee/view/widgets/my_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -209,6 +210,11 @@ class TotalVATCart extends StatelessWidget {
                 //     'uid': FirebaseAuth.instance.currentUser!.uid,
                 //   },
                 // );
+                pushNewScreen(
+                  context,
+                  screen: DeliveryPage(),
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
               },
               //  => pushNewScreen(
               //   context,

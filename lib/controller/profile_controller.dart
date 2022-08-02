@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 class ProfileController extends GetxController {
   final userName = sharedPrefs.userName.obs;
   final phoneNo = sharedPrefs.phoneNo.obs;
+  final cityName = sharedPrefs.cityName.obs;
+  final districtName = sharedPrefs.districtName.obs;
   final ImagePicker _picker = ImagePicker();
   final imageURL = sharedPrefs.imageURL.obs;
   final isUploading = false.obs;
@@ -40,6 +42,8 @@ class ProfileController extends GetxController {
   void initUserDetails() {
     userName.value = sharedPrefs.userName;
     phoneNo.value = sharedPrefs.phoneNo;
+    cityName.value = sharedPrefs.cityName;
+    districtName.value = sharedPrefs.districtName;
     imageURL.value = sharedPrefs.imageURL;
   }
 
@@ -52,6 +56,18 @@ class ProfileController extends GetxController {
   void updatePhoneNo(String newPhoneNo) {
     sharedPrefs.phoneNo = newPhoneNo;
     phoneNo.value = sharedPrefs.phoneNo;
+    DBHelper.updatePhoneNo(sharedPrefs.phoneNo);
+  }
+
+  void updateCityName(String newCityName) {
+    sharedPrefs.cityName = newCityName;
+    cityName.value = sharedPrefs.cityName;
+    DBHelper.updatePhoneNo(sharedPrefs.phoneNo);
+  }
+
+  void updateDistrictName(String newDistrictName) {
+    sharedPrefs.districtName = newDistrictName;
+    districtName.value = sharedPrefs.districtName;
     DBHelper.updatePhoneNo(sharedPrefs.phoneNo);
   }
 }

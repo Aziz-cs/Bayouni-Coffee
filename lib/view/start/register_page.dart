@@ -17,6 +17,8 @@ class RegisterPage extends StatelessWidget {
 
   final _fullNameContoller = TextEditingController();
   final _phoneNoController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _districtController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confrimPasswordController = TextEditingController();
@@ -49,7 +51,7 @@ class RegisterPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 100.h),
+                      SizedBox(height: 20.h),
                       Image.asset(
                         'assets/images/bayouni_logo.png',
                         width: 70.w,
@@ -60,6 +62,19 @@ class RegisterPage extends StatelessWidget {
                             color: const Color(0xFF3A3C40),
                           )),
                       SizedBox(height: 16.h),
+                      MyTextField(
+                        controller: _emailController,
+                        hintText: 'email'.tr,
+                        iconData: Icons.mail_outline,
+                        validator: (input) {
+                          if (input!.isEmpty) {
+                            return kErrorEmpty;
+                          }
+                          if (!GetUtils.isEmail(input)) {
+                            return kErrorEmail;
+                          }
+                        },
+                      ),
                       MyTextField(
                         controller: _fullNameContoller,
                         hintText: 'fullName'.tr,
@@ -91,15 +106,28 @@ class RegisterPage extends StatelessWidget {
                         },
                       ),
                       MyTextField(
-                        controller: _emailController,
-                        hintText: 'email'.tr,
-                        iconData: Icons.mail_outline,
+                        controller: _cityController,
+                        hintText: 'cityName'.tr,
+                        iconData: CupertinoIcons.location,
                         validator: (input) {
                           if (input!.isEmpty) {
                             return kErrorEmpty;
                           }
-                          if (!GetUtils.isEmail(input)) {
-                            return kErrorEmail;
+                          if (input.length < 2) {
+                            return 'Too short';
+                          }
+                        },
+                      ),
+                      MyTextField(
+                        controller: _districtController,
+                        hintText: 'districtName'.tr,
+                        iconData: CupertinoIcons.location,
+                        validator: (input) {
+                          if (input!.isEmpty) {
+                            return kErrorEmpty;
+                          }
+                          if (input.length < 2) {
+                            return 'Too short';
                           }
                         },
                       ),
@@ -167,6 +195,9 @@ class RegisterPage extends StatelessWidget {
                                     password: _passwordController.text.trim(),
                                     name: _fullNameContoller.text.trim(),
                                     phoneNo: _phoneNoController.text.trim(),
+                                    cityName: _cityController.text.trim(),
+                                    districtName:
+                                        _districtController.text.trim(),
                                   );
                                 },
                               ),
@@ -182,6 +213,7 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(height: 40.h),
                     ],
                   ),
                 ),

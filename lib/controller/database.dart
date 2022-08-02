@@ -6,6 +6,8 @@ class DBHelper {
   static void saveUserToDB({
     String name = '',
     String phoneNo = '',
+    String cityName = '',
+    String districtName = '',
     String imageURL = '',
     bool isSocialAuth = false,
   }) {
@@ -24,6 +26,8 @@ class DBHelper {
                   'email': FirebaseAuth.instance.currentUser!.email,
                   'name': name,
                   'phoneNo': phoneNo,
+                  'cityName': cityName,
+                  'districtName': districtName,
                   'imageURL': imageURL,
                 },
         );
@@ -53,6 +57,25 @@ class DBHelper {
         .toString();
     print("sharedprefs.phone: ${sharedPrefs.phoneNo}");
 
+    sharedPrefs.cityName = (await FirebaseDatabase.instance
+            .ref()
+            .child('Users')
+            .child(FirebaseAuth.instance.currentUser!.uid)
+            .child('cityName')
+            .once())
+        .snapshot
+        .value
+        .toString();
+
+    sharedPrefs.districtName = (await FirebaseDatabase.instance
+            .ref()
+            .child('Users')
+            .child(FirebaseAuth.instance.currentUser!.uid)
+            .child('districtName')
+            .once())
+        .snapshot
+        .value
+        .toString();
     sharedPrefs.imageURL = (await FirebaseDatabase.instance
             .ref()
             .child('Users')
@@ -78,6 +101,22 @@ class DBHelper {
         .child('Users')
         .child(FirebaseAuth.instance.currentUser!.uid)
         .update({'phoneNo': phoneNo});
+  }
+
+  static void updateCityName(String cityName) {
+    FirebaseDatabase.instance
+        .ref()
+        .child('Users')
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .update({'cityName': cityName});
+  }
+
+  static void updateDistrictName(String districtName) {
+    FirebaseDatabase.instance
+        .ref()
+        .child('Users')
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .update({'districtName': districtName});
   }
 
   static Future<void> updateImageURL(String imageURL) async {
